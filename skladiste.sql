@@ -1,4 +1,4 @@
-use master;
+ï»¿use master;
 go
 drop database if exists skladisnoposlovanje;
 go
@@ -61,9 +61,9 @@ kolicina int
 insert into skladistari(ime,prezime) 
 values
 --1
-('Roman','ariæ'),
+('Roman','Å½ariÄ‡'),
 --2
-('Miroslav','Janiæ');
+('Miroslav','JaniÄ‡');
 
 insert into proizvodi(naziv,mjernajedinica) 
 values
@@ -74,47 +74,47 @@ values
 --3
 ('sapun','kom'),
 --4
-('šampon','lit'),
+('Å¡ampon','lit'),
 --5
 ('gedore','gar'),
 --6
-('deterğent','kg'),
+('deterÄ‘ent','kg'),
 --7
 ('pijesak','t');
 
 
 insert into osobe(prezime,ime,brojtelefona) 
 values
-('Boiæ','Petra',null),
-('Farkaš','Dominik',null),
-('Glavaš','Natalija',null),
-('Janiæ','Miroslav',null),
-('Janješiæ','Filip',null),
-('Joviæ','Nataša',null),
-('Bariæ','Luka',null),
+('BoÅ¾iÄ‡','Petra',null),
+('FarkaÅ¡','Dominik',null),
+('GlavaÅ¡','Natalija',null),
+('JaniÄ‡','Miroslav',null),
+('JanjeÅ¡iÄ‡','Filip',null),
+('JoviÃ¦Ä‡','NataÅ¡a',null),
+('BariÄ‡','Luka',null),
 ('Kelava','Antonio',null),
-('Kešinoviæ','Marijan',null),
+('KeÅ¡inoviÄ‡','Marijan',null),
 ('Leninger','Ivan',null),
 ('Macanga','Antonio',null),
-('Miloloa','Antonio',null),
-('Pavkoviæ','Matija',null),
+('MiloloÅ¾a','Antonio',null),
+('PavkoviÄ‡','Matija',null),
 ('Peterfaj','Karlo',null),
-('Pleèaš','Adriana',null),
-('Senèiæ','Ivan',null),
-('Šuler','Zvonimir',null),
-('Turèek','Mario',null),
+('PleÄ‡aÅ¡','Adriana',null),
+('SenÄiÄ‡','Ivan',null),
+('Å uler','Zvonimir',null),
+('TurÄek','Mario',null),
 ('Veseli','Domagoj',null),
-('Vukoviæ','Kristijan',null),
-('Vukušiæ','Ivan',null),
-('ariæ','Roman',null),
-('Pavloviæ','Ivan',null),
-('upaniæ','Andrea',null),
-('upaniæ','Tomislav',null),
+('VukoviÃ¦','Kristijan',null),
+('VukuÅ¡iÄ‡','Ivan',null),
+('Å½ariÄ‡','Roman',null),
+('PavloviÃ¦','Ivan',null),
+('Å½upaniÄ‡','Andrea',null),
+('Å½upaniÄ‡','Tomislav',null),
 ('Petak','Martina',null),
 ('Perak','Marko',null),
-('Mokriš','Bartol',null),
-('Julariæ','Ljubomir',null),
-('Èeliæ','Ivor',null);
+('MokriÅ¡','Bartol',null),
+('JulariÄ‡','Ljubomir',null),
+('ÄŒeliÄ‡','Ivor',null);
 
 
 insert into izdatnice(brojizdatnice,osoba,skladistar) 

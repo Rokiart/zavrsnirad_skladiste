@@ -126,8 +126,7 @@ values
 (2,2),(1,2),(3,2),(4,3),(7,4);
 
 select a.sifra,a.brojizdatnice,a.datum,b.ime,b.prezime,c.ime,c.prezime
-,e.naziv,d.kolicina,
-concat(e.naziv,e.sifraproizvoda , e.mjernajedinica) as proizvod
+,e.naziv,d.kolicina,e.naziv,e.mjernajedinica
 from izdatnice a inner join osobe b 
 on b.sifra=a. osoba
 left join skladistari c

@@ -1,2 +1,3 @@
 ﻿using Skladiste;
-new Skladiste.KonzolnaAplikacija.Program();
+new Skladiste.KonzolnaAplikacija.Izbornik();
+

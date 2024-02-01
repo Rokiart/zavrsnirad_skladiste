@@ -8,5 +8,9 @@ namespace Skladiste.KonzolnaAplikacija
 {
     internal class ObradaProizvoda
     {
+        internal void PrikaziIzbornik()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

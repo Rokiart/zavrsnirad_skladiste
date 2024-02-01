@@ -22,6 +22,12 @@ namespace Skladiste.KonzolnaAplikacija
             PozdravnaPoruka();
             PrikaziIzbornik();
         }
+        private void PozdravnaPoruka()
+        {
+            Console.WriteLine("*************************************");
+            Console.WriteLine("**** Skladište Console APP v 1.0 ****");
+            Console.WriteLine("*************************************");
+        }
 
         private void PrikaziIzbornik()
         {
@@ -59,11 +65,6 @@ namespace Skladiste.KonzolnaAplikacija
 
         }
 
-        private void PozdravnaPoruka()
-        {
-            Console.WriteLine("*************************************");
-            Console.WriteLine("**** Skladište Console APP v 1.0 ****");
-            Console.WriteLine("*************************************");
-        }
+      
     }
 }

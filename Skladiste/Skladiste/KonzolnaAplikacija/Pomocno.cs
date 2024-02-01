@@ -9,6 +9,8 @@ namespace Skladiste.KonzolnaAplikacija
 {
     internal class Pomocno
     {
+        internal static bool dev;
+
         public static int ucitajBrojRaspon(string poruka,string greska,
             int poc,int kraj)
         {
@@ -117,5 +119,9 @@ namespace Skladiste.KonzolnaAplikacija
             }
         }
 
+        internal static object ucitajDatum(string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

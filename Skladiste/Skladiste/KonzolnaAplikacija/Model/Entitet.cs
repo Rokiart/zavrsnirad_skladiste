@@ -8,6 +8,8 @@ namespace Skladiste.KonzolnaAplikacija.Model
 {
     internal abstract class Entitet
     {
-        public int Sihra{ get; set; }
+        public int Sifra{ get; set; }
+
+
     }
 }

@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace Skladiste.KonzolnaAplikacija.Model
 {
-    internal class Izdatnice : Entitet
+    internal class Izdatnica : Entitet
     {
-        public string BrojIzdatnice{ get; set; }
-        public DateOnly DatumIzdavanja{ get; set; }
+        public int BrojIzdatnice { get; set; }
+        
         public string Osoba{ get; set; }
         public string Skladistar{ get; set; }
-        public string Napomena{ get; set; }
+       
+   
+        public object DatumIzdatnice { get; internal set; }
+        public object DatumPocetka { get; internal set; }
 
+       
     }
 }

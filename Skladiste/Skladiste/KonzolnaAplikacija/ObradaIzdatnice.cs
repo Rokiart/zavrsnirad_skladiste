@@ -1,10 +1,11 @@
 ﻿using Skladiste.KonzolnaAplikacija.Model;
+using System.Collections.Generic;
 
 namespace Skladiste.KonzolnaAplikacija
 {
     internal class ObradaIzdatnice
     {
-        public List<Izdatnice> Izdatnices { get; }
+        public List<Izdatnica> Izdatnice { get; }
 
         private Izbornik Izbornik;
 
@@ -12,6 +13,12 @@ namespace Skladiste.KonzolnaAplikacija
         {
             this.Izbornik = izbornik;
         }
+
+        public ObradaIzdatnice()
+        {
+            Izdatnice = new List<Izdatnica>();
+        }
+
         public void PrikaziIzbornik()
         {
             Console.WriteLine("Izbornik za rad sa izdatnicama ");
@@ -21,7 +28,7 @@ namespace Skladiste.KonzolnaAplikacija
             Console.WriteLine("4. Brisanje izdatnice");
             Console.WriteLine("5. Povratak na glavni izbornik");
             switch(Pomocno.ucitajBrojRaspon("Odaberite stavku izbornika : ",
-                "Odabir mora biti 1-5"1, 5))
+                "Odabir mora biti 1-5",1, 5))
             {
                 case 1:
                     PrikaziIzdatnice();
@@ -46,28 +53,57 @@ namespace Skladiste.KonzolnaAplikacija
             }
         }
 
+        private void BrisanjeIzdatnice()
+        {
+           PrikaziIzdatnice();
+            int index = Pomocno.ucitajBrojRaspon("Odaberi redni broj izdatnice: ", "Nije dobar odabir", 1, Izdatnice.Count());
+            Izdatnice.RemoveAt(index - 1);
+        }
+
+        private void PromjenaIzdatnice()
+        {
+            PrikaziIzdatnice();
+            int index = Pomocno.ucitajBrojRaspon("Odaberi redni broj izdatnice : ", "Nije dobar odabir", 1, Izdatnice.Count());
+            var i = Izdatnice[index - 1];
+            i.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru izdatnice (" + i.Sifra + "): ",
+                "Unos mora biti pozitivni cijeli broj");
+            i.DatumIzdatnice = Pomocno.ucitajDatum("Unesi datum  u formatu dd.MM.yyyy.", "Greška");
+            i.Osoba = Pomocno.UcitajString("Unesite ");
+            i.Skladistar = PostaviSkladistara();
+
+        }
+
+
         private void UnosNoveIzdatnice()
         {
-            var i = new Izdatnice();
-            i.Sifra = Pomocno.ucitajCijeliBroj("Unesitešifru izdatnice : "),
-                "Unos mora biti pozitivan cijeli broj");
-            i.BrojIzdatnice = Pomocno.ucitajCijeliBroj("Unesite broj izdatnice : ")
-                "Unos obavezan");
-            i.DatumIzdavanja = Pomocno.UcitajDatum("Unesite datum");
-            i.Osobe = PostaviOsobe();
-            i.Skladistar = PosrtaviSkladistara();
+            var i = new Izdatnica
+            {
+                Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru izdatnice : ",
+                "Unos mora biti pozitivan cijeli broj"),
+                BrojIzdatnice = Pomocno.ucitajCijeliBroj("Unesite broj izdatnice : ",
+                "Unos obavezan"),
+                DatumPocetka = Pomocno.ucitajDatum("Unesi datum u formatu dd.MM.yyyy.", "Greška"),
+                Osoba = PostaviOsobe(),
+                Skladistar = PosrtaviSkladistara()
+            };
 
         }
 
         private List<Osoba> PostaviOsobe()
         {
-            List<Osoba> osobe = new list<Osoba>();
+            List<Osoba> osobe = new List<Osoba>();
             while(Pomocno.ucitajBool("Želite dodat Osobu ? (upište da bilo šta drugo je ne): "))
             {
                 osobe.Add(PostaviOsobe());
             }
             return osobe;
 
+        }
+        private Osoba PostaviOsobu()
+        {
+            Izbornik.ObradaOsobe.PregledOsobe();
+            int index = Pomocno.ucitajBrojRaspon("Odaber redni broj osobe", 1, Izbornik.ObradaOsobe.Osobe.Count());
+            return Izbornik.ObradaOsobe.Osobe[index - 1];
         }
 
         private void PrikaziIzdatnice()
@@ -83,11 +119,6 @@ namespace Skladiste.KonzolnaAplikacija
             Console.WriteLine("---------------------");
         }
 
-        private void PromjenaIzdatnice()
-        {
-            PrikaziIzdatnice();
-            int index = 
-
-        }
+       
     }
 }

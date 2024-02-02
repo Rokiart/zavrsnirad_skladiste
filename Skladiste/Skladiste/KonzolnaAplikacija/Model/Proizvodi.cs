@@ -10,7 +10,10 @@ namespace Skladiste.KonzolnaAplikacija.Model
     {
         public string Naziv{ get; set; }
         public  int SifraProizvoda{ get; set; }
-       
+        public string MjernaJedinica{ get; set; }
+        public int Kolicina{ get; set; }
+
+
 
 
     }

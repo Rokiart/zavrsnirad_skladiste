@@ -1,5 +1,5 @@
 ﻿using Skladiste.KonzolnaAplikacija.Model;
-using System.Collections.Generic;
+
 
 namespace Skladiste.KonzolnaAplikacija
 {

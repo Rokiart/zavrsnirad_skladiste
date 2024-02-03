@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Skladiste.KonzolnaAplikacija.Model
 {
-    internal class Proizvodi : Entitet
+    internal class Proizvod : Entitet
     {
         public string Naziv{ get; set; }
         public  int SifraProizvoda{ get; set; }

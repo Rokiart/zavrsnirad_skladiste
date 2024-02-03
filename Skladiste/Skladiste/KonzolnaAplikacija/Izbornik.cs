@@ -5,10 +5,12 @@ namespace Skladiste.KonzolnaAplikacija
 {
     internal class Izbornik
     {
-        public ObradaIzdatnice ObradaIzdatnice{ get; }
-        public ObradaOsobe ObradaOsobe{ get; }
-        public ObradaProizvoda ObradaProizvoda{ get; set; }
-        public ObradaSkladistara ObradaSkladistara{ get; set; }
+
+        public ObradaOsobe ObradaOsobe { get; }
+        public ObradaProizvoda ObradaProizvoda { get; }
+        public ObradaSkladistara ObradaSkladistara { get; }
+
+        private ObradaIzdatnice ObradaIzdatnice;
         public Izbornik()
         {
             Pomocno.dev = true;
@@ -35,8 +37,8 @@ namespace Skladiste.KonzolnaAplikacija
             Console.WriteLine("4. Skladistari ");
             Console.WriteLine("5. Izlaz iz programa ");
 
-            switch(Pomocno.ucitajBrojRaspon("Odaberite broj izbornika : ",
-                "Odabir mora biti 1 -5 ", 1, 5))
+            switch (Pomocno.ucitajBrojRaspon("Odaberite broj izbornika : ",
+                "Odabir mora biti 1 - 5 ", 1, 5))
             {
                 case 1:
                     ObradaIzdatnice.PrikaziIzbornik();
@@ -62,6 +64,6 @@ namespace Skladiste.KonzolnaAplikacija
 
         }
 
-      
+
     }
 }

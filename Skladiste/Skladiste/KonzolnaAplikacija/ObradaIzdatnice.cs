@@ -1,6 +1,5 @@
 ﻿using Skladiste.KonzolnaAplikacija.Model;
 
-
 namespace Skladiste.KonzolnaAplikacija
 {
     internal class ObradaIzdatnice
@@ -68,24 +67,59 @@ namespace Skladiste.KonzolnaAplikacija
             i.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru izdatnice (" + i.Sifra + "): ",
                 "Unos mora biti pozitivni cijeli broj");
             i.DatumIzdatnice = Pomocno.ucitajDatum("Unesi datum  u formatu dd.MM.yyyy.", "Greška");
-            i.Osoba = Pomocno.UcitajString("Unesite ");
-            i.Skladistar = PostaviSkladistara();
+            i.BrojIzdatnice = Pomocno.ucitajCijeliBroj("Unesite broj izdatnice (" + i.BrojIzdatnice + "): ",
+                "Unos obavezan");
+            Console.WriteLine("Trenutni broj izdatnice : {0}",i.Osoba.Ime );
+            i.Osoba = PostaviOsobu();
+            Console.WriteLine("Trenutne Osobe:");
+            Console.WriteLine("------------------");
+            Console.WriteLine("---- Osobe ----");
+            Console.WriteLine("------------------");
+            int b = 1;
+            foreach (Skladistar skladistar in i.Skladistari)
+
+            {
+                Console.WriteLine("{0}. {1}", b++, skladistar);
+            }
+            Console.WriteLine("------------------");
+            i.Skladistari = PostaviSkladistare();
 
         }
 
+        private List<Skladistar> PostaviSkladistare()
+        {
+            List<Skladistar> skladistars = new List<Skladistar>();
+            while (Pomocno.ucitajBool("Želite li dodati skladištare? (da ili bilo što drugo za ne): "))
+            {
+                skladistars.Add(PostaviSkladistara());
+            }
+
+            return skladistars;
+        }
+
+        private Skladistar PostaviSkladistara()
+        {
+            Izbornik.ObradaSkladistara.PregledSkladistara();
+            int index = Pomocno.ucitajBrojRaspon("Odaberi redni broj polaznika: ", "Nije dobar odabir", 1, Izbornik.ObradaSkladistara.Skladistari.Count());
+            return Izbornik.ObradaSkladistara.Skladistari[index - 1];
+        }
 
         private void UnosNoveIzdatnice()
         {
-            var i = new Izdatnica
-            {
-                Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru izdatnice : ",
-                "Unos mora biti pozitivan cijeli broj"),
-                BrojIzdatnice = Pomocno.ucitajCijeliBroj("Unesite broj izdatnice : ",
-                "Unos obavezan"),
-                DatumPocetka = Pomocno.ucitajDatum("Unesi datum u formatu dd.MM.yyyy.", "Greška"),
-                Osoba = PostaviOsobe(),
-                Skladistar = PosrtaviSkladistara()
-            };
+            var i = new Izdatnica();
+            i.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru izdatnice : ",
+            "Unos mora biti pozitivan cijeli broj");
+            i.DatumIzdatnice = Pomocno.ucitajDatum("Unesi datum u formatu dd.MM.yyyy.", "Greška");
+                i.BrojIzdatnice = Pomocno.ucitajCijeliBroj("Unesite broj izdatnice : ",
+                "Unos obavezan");
+
+            i.Osoba = PostaviOsobu();
+            i.Skladistari = PostaviSkladistare();
+            Izdatnice.Add(i);
+
+
+
+
 
         }
 

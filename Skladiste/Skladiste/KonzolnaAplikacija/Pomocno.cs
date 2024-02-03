@@ -1,46 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Skladiste.KonzolnaAplikacija
 {
     internal class Pomocno
     {
-        internal static bool dev;
-
-        public static int ucitajBrojRaspon(string poruka,string greska,
-            int poc,int kraj)
+        public static bool dev;
+        public static int ucitajBrojRaspon(string poruka, string greska,
+            int poc, int kraj)
         {
             int b;
             while (true)
             {
-
                 Console.Write(poruka);
                 try
                 {
-                        b = int.Parse(Console.ReadLine());
-                        if(b>=poc && b <= kraj)
-                        {
-                            return b;
-                        }
-                        Console.WriteLine(greska);
+                    b = int.Parse(Console.ReadLine());
+                    if (b >= poc && b <= kraj)
+                    {
+                        return b;
+                    }
+                    Console.WriteLine(greska);
                 }
-                    catch (Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(greska);
                 }
-                
             }
         }
-        internal static int ucitajCijeliBroj(string poruka,string greska)
+
+        internal static int ucitajCijeliBroj(string poruka, string greska)
         {
             int b;
             while (true)
             {
-                Console.WriteLine(poruka);
+                Console.Write(poruka);
                 try
                 {
                     b = int.Parse(Console.ReadLine());
@@ -79,31 +72,28 @@ namespace Skladiste.KonzolnaAplikacija
             }
         }
 
-
         internal static bool ucitajBool(string poruka)
         {
-            Console.WriteLine(poruka);
-            return Console.ReadLine().Trim().ToLower().Equals("da")?true : false;
+            Console.Write(poruka);
+            return Console.ReadLine().Trim().ToLower().Equals("da") ? true : false;
         }
-           
-        public static string UcitajString(string poruka)
+
+        internal static string UcitajString(string poruka, string greska)
         {
-            string s;
+            string s = "";
             while (true)
             {
-                Console.WriteLine(poruka);
+                Console.Write(poruka);
                 s = Console.ReadLine();
-                if(s.Trim().Length == 0)
+                if (s != null && s.Trim().Length > 0)
                 {
-                    Console.WriteLine("Obavezan unos");
-                    continue;
+                    return s;
                 }
-                return s;
-
+                Console.WriteLine(greska);
             }
-
         }
-        internal static DateTime UcitajDatum(string v1 , string v2)
+
+        internal static DateTime ucitajDatum(string v1, string v2)
         {
             while (true)
             {
@@ -111,17 +101,12 @@ namespace Skladiste.KonzolnaAplikacija
                 {
                     Console.WriteLine(v1);
                     return DateTime.Parse(Console.ReadLine());
-
-                }catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     Console.WriteLine(v2);
                 }
             }
-        }
-
-        internal static object ucitajDatum(string v1, string v2)
-        {
-            throw new NotImplementedException();
         }
     }
 }

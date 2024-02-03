@@ -4,11 +4,11 @@ namespace Skladiste.KonzolnaAplikacija
 {
     internal class ObradaProizvoda
     {
-        public List<Proizvodi> Proizvodi { get; }
+        public List<Proizvod> Proizvodi { get; }
 
         public ObradaProizvoda()
         {
-            Proizvodi = new List<Proizvodi>();
+            Proizvodi = new List<Proizvod>();
             if (Pomocno.dev)
             {
                 TestniPodaciProizvoda();
@@ -31,15 +31,19 @@ namespace Skladiste.KonzolnaAplikacija
                 case 1:
                     PregledProizvoda();
                     PrikaziIzbornik();
+                    break;
                 case 2:
                     UcitajProizvod();
                     PrikaziIzbornik();
+                    break;
                 case 3:
                     PromijeniProizvod();
                     PrikaziIzbornik();
+                    break;
                 case 4:
                     BrisanjeProizvoda();
                     PrikaziIzbornik();
+                    break;
                 case 5:
                     Console.WriteLine("Gotov rad s proizvodima");
                     break;
@@ -87,7 +91,7 @@ namespace Skladiste.KonzolnaAplikacija
             Console.WriteLine("---- Proizvodi ---");
             Console.WriteLine("------------------");
             int b = 1;
-            foreach (Proizvodi proizvod in Proizvodi)
+            foreach (Proizvod proizvod in Proizvodi)
             {
                 Console.WriteLine("{0}. {1}", b++, proizvod);
             }
@@ -95,25 +99,25 @@ namespace Skladiste.KonzolnaAplikacija
         }
         private void TestniPodaciProizvoda()
         {
-           Proizvodi.Add(new Proizvodi
-           {
-               Sifra = 1,
-               Naziv = "Lopata",
-               SifraProizvoda = 101,
-               MjernaJedinica = "kom",
-               Kolicina = 5 ,
+            Proizvodi.Add(new Proizvod
+            {
+                Sifra = 1,
+                Naziv = "Lopata",
+                SifraProizvoda = 101,
+                MjernaJedinica = "kom",
+                Kolicina = 5,
 
-           }   )
+            });
 
-             Proizvodi.Add(new Proizvodi
-             {
-                 Sifra = 2,
-                 Naziv = "Ašov",
-                 SifraProizvoda = 102,
-                 MjernaJedinica = "kom",
-                 Kolicina = 3,
+            Proizvodi.Add(new Proizvod
+            {
+                Sifra = 2,
+                Naziv = "Ašov",
+                SifraProizvoda = 102,
+                MjernaJedinica = "kom",
+                Kolicina = 3,
 
-             })
+            });
         }
 
     }

@@ -16,6 +16,7 @@ namespace Skladiste2.KonzolnaAplikacija
             Console.WriteLine("3. Promjena postojećeg proizvoda");
             Console.WriteLine("4. Brisanje proizvoda");
             Console.WriteLine("5. Povratak na glavni izbornik");
+            
         }
     }
 }

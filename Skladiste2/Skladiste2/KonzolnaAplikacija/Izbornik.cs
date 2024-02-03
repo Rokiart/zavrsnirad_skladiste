@@ -40,7 +40,7 @@ namespace Skladiste2.KonzolnaAplikacija
             Console.WriteLine("2. Proizvodi");
             Console.WriteLine("3. Skladištari");
             Console.WriteLine("4. Izdatnice");
-            Console.WriteLine("4. Izlaz iz programa");
+            Console.WriteLine("5. Izlaz iz programa");
 
             switch (Pomocno.ucitajBrojRaspona("Odaberite stavku izbornika: ",
                 "Odabir mora biti 1 - 5.", 1, 5))

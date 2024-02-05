@@ -66,7 +66,7 @@ namespace Skladiste2.KonzolnaAplikacija
         private void BrisanjeIzdatnice()
         {
             PrikazIzdatnica();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj grupe: ", "Nije dobar odabir", 1, izdatnice.Count());
+            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj izdatnice: ", "Nije dobar odabir", 1, izdatnice.Count());
             izdatnice.RemoveAt(index - 1);
         }
 
@@ -107,24 +107,46 @@ namespace Skladiste2.KonzolnaAplikacija
             i.Napomena = Pomocno.UcitajString("Unesi napomenu : ", "Greška");
             izdatnice.Add(i);
         }
-
-        private List<Osoba> PostaviOsobe()
+        public List<Osoba> PostaviOsobe()
         {
             List<Osoba> osobe = new List<Osoba>();
-            while (Pomocno.ucitajBool("Želite li dodati osobu? (da ili bilo što drugo za ne): "))
+            Console.WriteLine("1. Dodaj novu osobu");
+            Console.WriteLine("2. Odaberi postojeću osobu: ");
+            switch (Pomocno.ucitajBrojRaspona("Odaberi opciju: ", "Greška", 1, 2))
             {
-                osobe.Add(PostaviOsobu());
+                case 1:
+                    izbornik.ObradaOsobe.UcitajOsobu();
+                    break;
+                case 2:
+                    osobe.Add(PostaviOsobu());
+                    break;
             }
-
             return osobe;
         }
-
-        private Osoba PostaviOsobu()
+        public Osoba PostaviOsobu()
         {
-            izbornik.ObradaOsobe.PrikaziIzbornik();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj polaznika: ", "Nije dobar odabir", 1, izbornik.ObradaOsobe.Osobe.Count());
+            izbornik.ObradaOsobe.PregledOsoba();
+            int index = Pomocno.ucitajBrojRaspona("Odaberi osobu: ", "Nije dobar odabir", 1, izbornik.ObradaOsobe.Osobe.Count());
             return izbornik.ObradaOsobe.Osobe[index - 1];
         }
+
+        //private List<Osoba> PostaviOsobe()
+        //{
+        //    List<Osoba> osobe = new List<Osoba>();
+        //    while (Pomocno.ucitajBool("Želite li dodati osobu? (da ili bilo što drugo za ne): "))
+        //    {
+        //        osobe.Add(PostaviOsobu());
+        //    }
+
+        //    return osobe;
+        //}
+
+        //private Osoba PostaviOsobu()
+        //{
+        //    izbornik.ObradaOsobe.PrikaziIzbornik();
+        //    int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj polaznika: ", "Nije dobar odabir", 1, izbornik.ObradaOsobe.Osobe.Count());
+        //    return izbornik.ObradaOsobe.Osobe[index - 1];
+        //}
 
         private List<Skladistar> PostaviSkladistare()
         {

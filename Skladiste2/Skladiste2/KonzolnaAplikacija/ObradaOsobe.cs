@@ -76,14 +76,14 @@ namespace Skladiste2.KonzolnaAplikacija
             }
         }
 
-        private void BrisanjeOsobe()
+        public void BrisanjeOsobe()
         {
             PregledOsoba();
             int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj osobe: ", "Nije dobar odabir", 1, Osobe.Count());
             Osobe.RemoveAt(index - 1);
         }
 
-        private void PromjenaOsobe()
+        public void PromjenaOsobe()
         {
             PregledOsoba();
             int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj osobe",
@@ -97,7 +97,7 @@ namespace Skladiste2.KonzolnaAplikacija
             o.BrojTelefona = Pomocno.UcitajString("Unesi broj telefona osobe (" + o.BrojTelefona + ") : ", "broj telefona obavezno");
         }
 
-        private void UcitajOsobu()
+        public void UcitajOsobu()
         {
             var o = new Osoba();
             o.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru osobe : ",
@@ -109,7 +109,7 @@ namespace Skladiste2.KonzolnaAplikacija
             Osobe.Add(o);
         }
 
-        private void PregledOsoba()
+        public void PregledOsoba()
         {
             Console.WriteLine("---------------------");
             Console.WriteLine("-----   Osobe   -----");

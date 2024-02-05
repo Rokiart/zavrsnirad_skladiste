@@ -104,8 +104,8 @@ namespace Skladiste2.KonzolnaAplikacija
                 "Unos mora biti pozitivni cijeli broj");
             o.Ime = Pomocno.UcitajString("Unesi ime : ", "Obavezan unos");
             o.Prezime = Pomocno.UcitajString("Unesi prezime : ", "Obavezan unos");
-            o.Email = Pomocno.UcitajString("Unesi Email polaznika : ", "Obavezan unos");
-            o.BrojTelefona = Pomocno.UcitajString("Unesi BrojTelefona polaznika : ", "Obavezan unos");
+            o.Email = Pomocno.UcitajString("Unesi Email osobe : ", "Obavezan unos");
+            o.BrojTelefona = Pomocno.UcitajString("Unesi BrojTelefona osobe : ", "Obavezan unos");
             Osobe.Add(o);
         }
 

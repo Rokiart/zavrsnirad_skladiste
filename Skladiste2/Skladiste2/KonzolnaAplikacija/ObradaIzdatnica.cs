@@ -73,13 +73,13 @@ namespace Skladiste2.KonzolnaAplikacija
         private void PromjenaIzdatnice()
         {
             PrikazIzdatnica();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj grupe: ", "Nije dobar odabir", 1,izdatnice.Count());
+            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj izdatnice: ", "Nije dobar odabir", 1,izdatnice.Count());
             var p = izdatnice[index - 1];
-            p.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifra grupe (" + p.Sifra + "): ",
+            p.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru izdatnice (" + p.Sifra + "): ",
                 "Unos mora biti pozitivni cijeli broj");
-            p.BrojIzdatnice = Pomocno.UcitajString("Unesite naziv grupe (" + p.BrojIzdatnice + "): ",
+            p.BrojIzdatnice = Pomocno.UcitajString("Unesite broj izdatnice (" + p.BrojIzdatnice + "): ",
                 "Unos obavezan");
-            Console.WriteLine("Trenutni smjer: {0}", p.Osobe);
+            Console.WriteLine("Trenutni broj osobe: {0}", p.Osobe);
             p.Osobe = PostaviOsobe();
             Console.WriteLine("Trenutne    Osobe:");
             Console.WriteLine("------------------");

@@ -21,7 +21,7 @@ namespace Skladiste2.KonzolnaAplikacija
             ObradaOsobe = new ObradaOsobe();
             ObradaProizvoda = new ObradaProizvoda();
             ObradaSkladistara = new ObradaSkladistara();
-            ObradaIzdatnica = new ObradaIzdatnica();
+            ObradaIzdatnica = new ObradaIzdatnica(this);
             PozdravnaPoruka();
             PrikaziIzbornik();
         }

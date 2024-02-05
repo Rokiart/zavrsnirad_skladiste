@@ -15,7 +15,7 @@ namespace Skladiste2.KonzolnaAplikacija.Model
         public string Napomena{ get; set; }
         public override string ToString()
         {
-            return BrojIzdatnice ;
+            return  BrojIzdatnice + DatumIzdavanja ;
         }
     }
 }

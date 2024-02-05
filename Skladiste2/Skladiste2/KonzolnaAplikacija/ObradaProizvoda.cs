@@ -85,10 +85,10 @@ namespace Skladiste2.KonzolnaAplikacija
         private void IzmjenaProizvoda()
         {
             PregledProizvoda();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj osobe",
+            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj proizvoda",
                 "Nije dobar odabir", 1, Proizvodi.Count());
             var o = Proizvodi[index - 1];
-            o.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru osobe (" + o.Sifra + ") : ",
+            o.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru proizvoda (" + o.Sifra + ") : ",
                  "Unos mora biti pozitivni cijeli broj");
             o.Naziv = Pomocno.UcitajString("Unesi naziv proizvoda : (" + o.Naziv + ") : ", "unos obavezno");
             o.Sifraproizvoda = Pomocno.UcitajString("Unesi šifru proizvoda :  (" + o.Sifraproizvoda + ") : ", "unos obavezno");

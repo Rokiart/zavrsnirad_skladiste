@@ -108,7 +108,6 @@ namespace Skladiste2.KonzolnaAplikacija
             izdatnice.Add(i);
         }
 
-
         private List<Osoba> PostaviOsobe()
         {
             List<Osoba> osobe = new List<Osoba>();
@@ -141,7 +140,7 @@ namespace Skladiste2.KonzolnaAplikacija
         private Skladistar PostaviSkladistara()
         {
             izbornik.ObradaSkladistara.PrikaziIzbornik();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj skladistara: ", "Nije dobar odabir", 1, izbornik.ObradaSkladistara.SKladistari.Count());
+            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj polaznika: ", "Nije dobar odabir", 1, izbornik.ObradaSkladistara.SKladistari.Count());
             return izbornik.ObradaSkladistara.SKladistari[index - 1];
 
         }

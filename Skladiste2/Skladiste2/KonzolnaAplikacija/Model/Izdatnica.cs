@@ -13,5 +13,9 @@ namespace Skladiste2.KonzolnaAplikacija.Model
         public List<Osoba> Osobe{ get; set; }
         public List<Skladistar> Skladistari{ get; set; }
         public string Napomena{ get; set; }
+        public override string ToString()
+        {
+            return BrojIzdatnice ;
+        }
     }
 }

@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Skladiste2.KonzolnaAplikacija.Model
 {
-    internal class Skladistar : Entitet
+    internal class Skladistar : Osoba
     {
-        public string Ime{ get; set; }
-        public string Prezime{ get; set; }
-        public string BrojTelefona{ get; set; }
-        public string Email{ get; set; }
+     
 
         public override string ToString()
         {

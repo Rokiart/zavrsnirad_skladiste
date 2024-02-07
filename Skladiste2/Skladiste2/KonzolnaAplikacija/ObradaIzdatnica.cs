@@ -130,23 +130,7 @@ namespace Skladiste2.KonzolnaAplikacija
             return izbornik.ObradaOsobe.Osobe[index - 1];
         }
 
-        //private List<Osoba> PostaviOsobe()
-        //{
-        //    List<Osoba> osobe = new List<Osoba>();
-        //    while (Pomocno.ucitajBool("Želite li dodati osobu? (da ili bilo što drugo za ne): "))
-        //    {
-        //        osobe.Add(PostaviOsobu());
-        //    }
-
-        //    return osobe;
-        //}
-
-        //private Osoba PostaviOsobu()
-        //{
-        //    izbornik.ObradaOsobe.PrikaziIzbornik();
-        //    int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj polaznika: ", "Nije dobar odabir", 1, izbornik.ObradaOsobe.Osobe.Count());
-        //    return izbornik.ObradaOsobe.Osobe[index - 1];
-        //}
+      
 
         private List<Skladistar> PostaviSkladistare()
         {
@@ -162,7 +146,7 @@ namespace Skladiste2.KonzolnaAplikacija
         private Skladistar PostaviSkladistara()
         {
             izbornik.ObradaSkladistara.PrikaziIzbornik();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj polaznika: ", "Nije dobar odabir", 1, izbornik.ObradaSkladistara.SKladistari.Count());
+            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj skladistara: ", "Nije dobar odabir", 1, izbornik.ObradaSkladistara.SKladistari.Count());
             return izbornik.ObradaSkladistara.SKladistari[index - 1];
 
         }

@@ -14,7 +14,8 @@ create table proizvodi(
 sifra int not null primary key identity(1,1),
 naziv varchar(50) not null,
 sifraproizvoda int,
-mjernajedinica varchar(20) not null
+mjernajedinica varchar(20) not null,
+kolicina int 
 ); 
 
 create table skladistari(
@@ -36,7 +37,7 @@ brojtelefona varchar(20)
 create table izdatnice(
 
 sifra int not null primary key identity(1,1),
-brojizdatnice int not null,
+brojizdatnice varchar (50) not null,
 datum datetime,
 osoba int not null references osobe(sifra),
 skladistar int not null references skladistari(sifra),

@@ -11,22 +11,23 @@ namespace Skladiste2.KonzolnaAplikacija
 {
     internal class ObradaIzdatnica
     {
-        public List<Izdatnica> izdatnice { get; }
+        public List<Izdatnica> Izdatnice { get; }
 
-        private Izbornik izbornik;
+        private Izbornik Izbornik;
 
         public ObradaIzdatnica (Izbornik izbornik) : this()
         {
-            this.izbornik = izbornik;
+            this.Izbornik = izbornik;
         }
 
         public ObradaIzdatnica() 
         {
-            izdatnice = new List<Izdatnica>();
+            Izdatnice = new List<Izdatnica>();
         }
 
         public void PrikaziIzbornik()
         {
+            Console.WriteLine("**************************************************");
             Console.WriteLine("Izbornik za rad sa izdatnicama ");
             Console.WriteLine("1. Pregled postoječih izdatnica ");
             Console.WriteLine("2. Unos nove izdatnice ");
@@ -65,16 +66,18 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private void BrisanjeIzdatnice()
         {
+            Console.WriteLine("**************************************************");
             PrikazIzdatnica();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj izdatnice: ", "Nije dobar odabir", 1, izdatnice.Count());
-            izdatnice.RemoveAt(index - 1);
+            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj izdatnice: ", "Nije dobar odabir", 1, Izdatnice.Count());
+            Izdatnice.RemoveAt(index - 1);
         }
 
         private void PromjenaIzdatnice()
         {
+            Console.WriteLine("**************************************************");
             PrikazIzdatnica();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj izdatnice: ", "Nije dobar odabir", 1,izdatnice.Count());
-            var p = izdatnice[index - 1];
+            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj izdatnice: ", "Nije dobar odabir", 1,Izdatnice.Count());
+            var p = Izdatnice[index - 1];
             p.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru izdatnice (" + p.Sifra + "): ",
                 "Unos mora biti pozitivni cijeli broj");
             p.BrojIzdatnice = Pomocno.UcitajString("Unesite broj izdatnice (" + p.BrojIzdatnice + "): ",
@@ -96,6 +99,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private void UnosNoveIzdatnice()
         {
+            Console.WriteLine("**************************************************");
             var i = new Izdatnica();
             i.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifra izdatnice: ",
                 "Unos mora biti pozitivni cijeli broj");
@@ -105,17 +109,18 @@ namespace Skladiste2.KonzolnaAplikacija
             i.Osobe = PostaviOsobe();
             i.Skladistari = PostaviSkladistare();
             i.Napomena = Pomocno.UcitajString("Unesi napomenu : ", "Greška");
-            izdatnice.Add(i);
+            Izdatnice.Add(i);
         }
         public List<Osoba> PostaviOsobe()
         {
+            Console.WriteLine("**************************************************");
             List<Osoba> osobe = new List<Osoba>();
             Console.WriteLine("1. Dodaj novu osobu");
             Console.WriteLine("2. Odaberi postojeću osobu: ");
             switch (Pomocno.ucitajBrojRaspona("Odaberi opciju: ", "Greška", 1, 2))
             {
                 case 1:
-                    izbornik.ObradaOsobe.UcitajOsobu();
+                    Izbornik.ObradaOsobe.UcitajOsobu();
                     break;
                 case 2:
                     osobe.Add(PostaviOsobu());
@@ -125,15 +130,17 @@ namespace Skladiste2.KonzolnaAplikacija
         }
         public Osoba PostaviOsobu()
         {
-            izbornik.ObradaOsobe.PregledOsoba();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi osobu: ", "Nije dobar odabir", 1, izbornik.ObradaOsobe.Osobe.Count());
-            return izbornik.ObradaOsobe.Osobe[index - 1];
+            Console.WriteLine("**************************************************");
+            Izbornik.ObradaOsobe.PregledOsoba();
+            int index = Pomocno.ucitajBrojRaspona("Odaberi osobu: ", "Nije dobar odabir", 1, Izbornik.ObradaOsobe.Osobe.Count());
+            return Izbornik.ObradaOsobe.Osobe[index - 1];
         }
 
       
 
         private List<Skladistar> PostaviSkladistare()
         {
+            Console.WriteLine("**************************************************");
             List<Skladistar> skladistari = new List<Skladistar>();
             while (Pomocno.ucitajBool("Želite li dodati skladistare? (da ili bilo što drugo za ne): "))
             {
@@ -145,9 +152,10 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private Skladistar PostaviSkladistara()
         {
-            izbornik.ObradaSkladistara.PrikaziIzbornik();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj skladistara: ", "Nije dobar odabir", 1, izbornik.ObradaSkladistara.SKladistari.Count());
-            return izbornik.ObradaSkladistara.SKladistari[index - 1];
+            Console.WriteLine("**************************************************");
+            Izbornik.ObradaSkladistara.PrikaziIzbornik();
+            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj skladistara: ", "Nije dobar odabir", 1, Izbornik.ObradaSkladistara.SKladistari.Count());
+            return Izbornik.ObradaSkladistara.SKladistari[index - 1];
 
         }
 
@@ -159,7 +167,7 @@ namespace Skladiste2.KonzolnaAplikacija
             Console.WriteLine("--- Izdatnice ----");
             Console.WriteLine("------------------");
             int b = 1;
-            foreach (Izdatnica izdatnica in izdatnice)
+            foreach (Izdatnica izdatnica in Izdatnice)
             {
                 Console.WriteLine("{0}. {1}", b++, izdatnica.BrojIzdatnice);
             }

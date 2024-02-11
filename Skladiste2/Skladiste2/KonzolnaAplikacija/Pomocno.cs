@@ -112,5 +112,6 @@ namespace Skladiste2.KonzolnaAplikacija
                 }
             }
         }
+       
     }
 }

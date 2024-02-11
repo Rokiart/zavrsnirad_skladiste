@@ -11,9 +11,11 @@ namespace Skladiste2.KonzolnaAplikacija
     internal class ObradaOsobe
     {
         public List<Osoba> Osobe { get; }
+        
 
         public ObradaOsobe()
         {
+            
             Osobe = new List<Osoba>();
             if (Pomocno.dev)
             {
@@ -43,7 +45,9 @@ namespace Skladiste2.KonzolnaAplikacija
         }
 
         public void PrikaziIzbornik()
+            
         {
+            Console.WriteLine("**************************************************");
             Console.WriteLine(" Izbornik za rad s osobama ");
             Console.WriteLine("1. Pregled postojučih osoba ");
             Console.WriteLine("2. Unos nove osobe : ");
@@ -78,13 +82,16 @@ namespace Skladiste2.KonzolnaAplikacija
 
         public void BrisanjeOsobe()
         {
+            Console.WriteLine("**************************************************");
             PregledOsoba();
             int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj osobe: ", "Nije dobar odabir", 1, Osobe.Count());
             Osobe.RemoveAt(index - 1);
+
         }
 
         public void PromjenaOsobe()
         {
+            Console.WriteLine("**************************************************");
             PregledOsoba();
             int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj osobe",
                 "Nije dobar odabir", 1, Osobe.Count());
@@ -99,6 +106,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         public void UcitajOsobu()
         {
+            Console.WriteLine("**************************************************");
             var o = new Osoba();
             o.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru osobe : ",
                 "Unos mora biti pozitivni cijeli broj");
@@ -107,6 +115,7 @@ namespace Skladiste2.KonzolnaAplikacija
             o.Email = Pomocno.UcitajString("Unesi Email osobe : ", "Obavezan unos");
             o.BrojTelefona = Pomocno.UcitajString("Unesi BrojTelefona osobe : ", "Obavezan unos");
             Osobe.Add(o);
+           
         }
 
         public void PregledOsoba()

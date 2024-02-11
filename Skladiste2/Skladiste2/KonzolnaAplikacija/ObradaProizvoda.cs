@@ -42,6 +42,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         public void PrikaziIzbornik()
         {
+            Console.WriteLine("**************************************************");
             Console.WriteLine("Izbornik za rad s proizvodima");
             Console.WriteLine("1. Pregled postojećih proizvod");
             Console.WriteLine("2. Unos novog proizvoda");
@@ -77,6 +78,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private void ObrisiProizvod()
         {
+            Console.WriteLine("**************************************************");
             PregledProizvoda();
             int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj proizvoda : ", "Nije dobar odabir", 1, Proizvodi.Count());
             Proizvodi.RemoveAt(index - 1);
@@ -84,6 +86,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private void IzmjenaProizvoda()
         {
+            Console.WriteLine("**************************************************");
             PregledProizvoda();
             int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj proizvoda",
                 "Nije dobar odabir", 1, Proizvodi.Count());
@@ -98,6 +101,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private void UnosProizvoda()
         {
+            Console.WriteLine("**************************************************");
             var o = new Proizvod();
             o.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru proizvoda : ",
                 "Unos mora biti pozitivni cijeli broj");

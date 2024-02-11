@@ -30,6 +30,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         public void PrikaziIzbornik()
         {
+            Console.WriteLine("**************************************************");
             Console.WriteLine("Izbornik za rad s skladištarima");
             Console.WriteLine("1. Pregled postojučih skladištara : ");
             Console.WriteLine("2. Unos novog skladištara : ");
@@ -65,6 +66,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private void BrisanjeSkladistara()
         {
+            Console.WriteLine("**************************************************");
             PregledSkladistara();
             int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj skladištara : ", "Nije dobar odabir", 1, SKladistari.Count());
             SKladistari.RemoveAt(index - 1);
@@ -72,6 +74,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private void IzmjenaSkladištara()
         {
+            Console.WriteLine("**************************************************");
             PregledSkladistara();
             int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj skladištara : ", "Nije dobar odabir", 1, SKladistari.Count());
             var s = SKladistari[index - 1];
@@ -85,6 +88,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private void UnosNovogSkladistara()
         {
+            Console.WriteLine("**************************************************");
             var o = new Skladistar();
             o.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru skladištara : ",
                 "Unos mora biti pozitivni cijeli broj");

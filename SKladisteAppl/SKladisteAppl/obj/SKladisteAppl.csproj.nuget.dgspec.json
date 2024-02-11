@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\Skladiste2\\Skladiste2\\Skladiste2.csproj": {}
+    "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj": {}
   },
   "projects": {
-    "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\Skladiste2\\Skladiste2\\Skladiste2.csproj": {
+    "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\Skladiste2\\Skladiste2\\Skladiste2.csproj",
-        "projectName": "Skladiste2",
-        "projectPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\Skladiste2\\Skladiste2\\Skladiste2.csproj",
+        "projectUniqueName": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
+        "projectName": "SKladisteAppl",
+        "projectPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
         "packagesPath": "C:\\Users\\roman\\.nuget\\packages\\",
-        "outputPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\Skladiste2\\Skladiste2\\obj\\",
+        "outputPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\roman\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,16 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.14, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -51,6 +61,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

@@ -114,7 +114,7 @@ namespace Skladiste2.KonzolnaAplikacija
             o.Prezime = Pomocno.UcitajString("Unesi prezime : ", "Obavezan unos");
             o.Email = Pomocno.UcitajString("Unesi Email osobe : ", "Obavezan unos");
             o.BrojTelefona = Pomocno.UcitajString("Unesi BrojTelefona osobe : ", "Obavezan unos");
-            o.ProvjeriOib=Pomocno.UcitajString
+           
             Osobe.Add(o);
            
         }

@@ -12,3 +12,4 @@ E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\Skladiste2\Skladiste2\obj\Debu
 E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\Skladiste2\Skladiste2\obj\Debug\net7.0\Skladiste2.pdb
 E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\Skladiste2\Skladiste2\obj\Debug\net7.0\Skladiste2.genruntimeconfig.cache
 E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\Skladiste2\Skladiste2\obj\Debug\net7.0\ref\Skladiste2.dll
+E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\Skladiste2\Skladiste2\obj\Debug\net7.0\Skladiste2.sourcelink.json

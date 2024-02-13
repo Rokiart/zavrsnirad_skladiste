@@ -19,7 +19,7 @@ namespace Skladiste2.KonzolnaAplikacija
                 try
                 {
                     b = int.Parse(Console.ReadLine());
-                    if (b >= poc && b<= kraj)
+                    if (b >= poc && b <= kraj)
                     {
                         return b;
                     }
@@ -113,35 +113,6 @@ namespace Skladiste2.KonzolnaAplikacija
             }
         }
 
-        public bool ProvjeriOIB(string oib)
-        {
-            if (oib.Length != 11)
-            {
-                Console.WriteLine("**********************************");
-                Console.WriteLine("OIB mora imati 11 znamenki.");
-                return false;
-            }
 
-            long b;
-            if (!long.TryParse(oib, out b))
-            {
-                Console.WriteLine("**********************************");
-
-                Console.WriteLine("OIB mora sadržavati samo brojeve.");
-                return false;
-            }
-
-            int a = 10;
-            for (int i = 0; i < 10; i++)
-            {
-                a = a + int.Parse(oib.Substring(i, 1));
-                a = a % 10;
-                if (a == 0)
-                {
-                    a = 10;
-                }
-                a *= 2;
-                a = a % 11;
-            }
-        }
+    }
 }

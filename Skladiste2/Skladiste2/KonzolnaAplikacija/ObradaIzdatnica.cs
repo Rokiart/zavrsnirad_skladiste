@@ -15,12 +15,12 @@ namespace Skladiste2.KonzolnaAplikacija
 
         private Izbornik Izbornik;
 
-        public ObradaIzdatnica (Izbornik izbornik) : this()
+        public ObradaIzdatnica(Izbornik izbornik) : this()
         {
             this.Izbornik = izbornik;
         }
 
-        public ObradaIzdatnica() 
+        public ObradaIzdatnica()
         {
             Izdatnice = new List<Izdatnica>();
         }
@@ -34,7 +34,7 @@ namespace Skladiste2.KonzolnaAplikacija
             Console.WriteLine("3. Promjena postoječe izdatnice");
             Console.WriteLine("4. Brisanje izdatnice");
             Console.WriteLine("5. Povratak na glavni izbornik");
-            switch(Pomocno.ucitajBrojRaspona("Odaberite stavku iz izbornika izdatnice : ",
+            switch (Pomocno.ucitajBrojRaspona("Odaberite stavku iz izbornika izdatnice : ",
                 "Odabir mora biti 1-5", 1, 5))
             {
                 case 1:
@@ -76,7 +76,7 @@ namespace Skladiste2.KonzolnaAplikacija
         {
             Console.WriteLine("**************************************************");
             PrikazIzdatnica();
-            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj izdatnice: ", "Nije dobar odabir", 1,Izdatnice.Count());
+            int index = Pomocno.ucitajBrojRaspona("Odaberi redni broj izdatnice: ", "Nije dobar odabir", 1, Izdatnice.Count());
             var p = Izdatnice[index - 1];
             p.Sifra = Pomocno.ucitajCijeliBroj("Unesite šifru izdatnice (" + p.Sifra + "): ",
                 "Unos mora biti pozitivni cijeli broj");
@@ -136,7 +136,7 @@ namespace Skladiste2.KonzolnaAplikacija
             return Izbornik.ObradaOsobe.Osobe[index - 1];
         }
 
-      
+
 
         private List<Skladistar> PostaviSkladistare()
         {
@@ -159,7 +159,7 @@ namespace Skladiste2.KonzolnaAplikacija
 
         }
 
-       
+
 
         private void PrikazIzdatnica()
         {

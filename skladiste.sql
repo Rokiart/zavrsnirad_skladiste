@@ -23,6 +23,7 @@ create table skladistari(
 sifra int not null primary key identity(1,1),
 ime varchar(50) not null,
 prezime varchar(50) not null,
+email varchar(50),
 brojtelefona varchar(20)
 );
 
@@ -31,6 +32,7 @@ create table osobe(
 sifra int not null primary key identity(1,1),
 ime varchar(50) not null,
 prezime varchar(50) not null,
+email varchar(50),
 brojtelefona varchar(20)
 );
 

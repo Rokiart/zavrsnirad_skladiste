@@ -1,12 +1,34 @@
-﻿namespace SKladisteAppl.Models
+﻿
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SKladisteAppl.Models
 {
-    public class Osoba
+
+    /// <summary>
+    /// Ovo mi je POCO koji je mapiran na bazu
+    /// </summary>
+    public class Osoba:Entitet
     {
-        public int Sifra { get; set; }
-        public string Ime{ get; set; }
-        public string Prezime{ get; set; }
-        public string Email{ get; set; }
-        public string BrojTelefona{ get; set; }
+        /// <summary>
+        /// Ime u bazi
+        /// </summary>
+        [Required(ErrorMessage = "Ime obavezno")]
+        public string? Ime{ get; set; }
+        /// <summary>
+        /// Prezime u bazi
+        /// </summary>
+        [Required(ErrorMessage = "Prezime obavezno")]
+        public string? Prezime{ get; set; }
+        /// <summary>
+        /// Email u bazi
+        /// </summary>
+        public string? Email{ get; set; }
+        /// <summary>
+        /// Broj Telefona u bazi
+        /// </summary>
+        public string? BrojTelefona{ get; set; }
        
 
     }

@@ -1,11 +1,26 @@
-﻿namespace SKladisteAppl.Models
+﻿
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SKladisteAppl.Models
 {
-    public class Proizvod
+    public class Proizvod : Entitet
     {
-        public int Sifra { get; set; }
-        public string Naziv { get; set; }
-        public string Sifraproizvoda { get; set; }
-        public string MjernaJedinica { get; set; }
-        public int Kolicina { get; set; }
+        /// <summary>
+        /// Naziv u bazi
+        /// </summary>
+        [Required(ErrorMessage = "Naziv obavezno")]
+        public string? Naziv { get; set; }
+        /// <summary>
+        /// Naziv u bazi
+        /// </summary>
+        [Required(ErrorMessage = "Šifra proizvoda obavezno")]
+        public string? Sifraproizvoda { get; set; }
+        /// <summary>
+        /// Naziv u bazi
+        /// </summary>
+        [Required(ErrorMessage = "mjerna jedinica obavezno")]
+        public string? MjernaJedinica { get; set; }
+        
     }
 }

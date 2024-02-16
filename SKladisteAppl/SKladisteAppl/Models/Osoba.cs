@@ -29,7 +29,12 @@ namespace SKladisteAppl.Models
         /// Broj Telefona u bazi
         /// </summary>
         public string? BrojTelefona{ get; set; }
-       
+
+        public override string ToString()
+        {
+            return Ime + " " + Prezime;
+        }
+
 
     }
 }

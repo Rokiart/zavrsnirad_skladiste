@@ -18,9 +18,22 @@ namespace SKladisteAppl.Data
             }
 
             /// <summary>
-            /// Smjerovi u bazi
+            /// Osobe u bazi
             /// </summary>
             public DbSet<Osoba> Osobe{ get; set; }
+           
+            /// <summary>
+            /// Proizvodi u bazi
+            /// </summary>
+
+            public DbSet<Proizvod> Proizvodi{ get; set; }
+            
+            /// <summary>
+            /// Skladištari u bazi
+            /// </summary>
+            public DbSet<Skladistar> Skladistari{ get; set; }
+
+
         }
 
     

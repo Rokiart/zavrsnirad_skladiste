@@ -1,43 +1,41 @@
 ﻿using SKladisteAppl.Data;
-using SKladisteAppl.Models;
 using Microsoft.AspNetCore.Mvc;
+using SKladisteAppl.Models;
 using Microsoft.Data.SqlClient;
-
 
 namespace SKladisteAppl.Controllers
 {
-
     /// <summary>
-    /// Namjenjeno za CRUD operacije nad entitetom osoba u bazi
+    /// Namjenjeno za CRUD operacije nad entitetom proizvod u bazi
     /// </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class OsobaController : ControllerBase
+    public class ProizvodController : ControllerBase
     {
         /// <summary>
         /// Kontest za rad s bazom koji će biti postavljen s pomoću Dependecy Injection-om
         /// </summary>
         private readonly SkladisteContext _context;
         /// <summary>
-        /// Konstruktor klase koja prima Sklasiste kontext
+        /// Konstruktor klase koja prima Skladiste kontext
         /// pomoću DI principa
         /// </summary>
         /// <param name="context"></param>
-        public OsobaController(SkladisteContext context)
+        public ProizvodController(SkladisteContext context)
         {
             _context = context;
         }
 
         /// <summary>
-        /// Dohvaća sve osobe iz baze
+        /// Dohvaća sve proizvode iz baze
         /// </summary>
         /// <remarks>
         /// Primjer upita
         /// 
-        ///    GET api/v1/Osoba
+        ///    GET api/v1/Proizvod
         ///    
         /// </remarks>
-        /// <returns>Osobe u bazi</returns>
+        /// <returns>Proizvodi u bazi</returns>
         /// <response code="200">Sve OK, ako nema podataka content-length: 0 </response>
         /// <response code="400">Zahtjev nije valjan</response>
         /// <response code="503">Baza na koju se spajam nije dostupna</response>
@@ -51,43 +49,12 @@ namespace SKladisteAppl.Controllers
             }
             try
             {
-                var Osobe = _context.Osobe.ToList();
-                if (Osobe == null || Osobe.Count == 0)
+                var proizvodi = _context.Proizvodi.ToList();
+                if (proizvodi == null || proizvodi.Count == 0)
                 {
                     return new EmptyResult();
                 }
-                return new JsonResult(Osobe);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable,
-                    ex.Message);
-            }
-        }
-        /// <summary>
-        /// Dodaje novu osobu u bazu
-        /// </summary>
-        /// <remarks>
-        ///     POST api/v1/Osoba
-        ///     {naziv: "Primjer naziva"}
-        /// </remarks>
-        /// <param name="osoba">Osoba za unijeti u JSON formatu</param>
-        /// <response code="201">Kreirano</response>
-        /// <response code="400">Zahtjev nije valjan (BadRequest)</response> 
-        /// <response code="503">Baza nedostupna iz razno raznih razloga</response> 
-        /// <returns>Osoba s šifrom koju je dala baza</returns>
-        [HttpPost]
-        public IActionResult Post(Osoba osoba)
-        {
-            if (!ModelState.IsValid || osoba == null)
-            {
-                return BadRequest();
-            }
-            try
-            {
-                _context.Osobe.Add(osoba);
-                _context.SaveChanges();
-                return StatusCode(StatusCodes.Status201Created, osoba);
+                return new JsonResult(proizvodi);
             }
             catch (Exception ex)
             {
@@ -97,35 +64,66 @@ namespace SKladisteAppl.Controllers
         }
 
         /// <summary>
-        /// Mijenja podatke postojećeg imena u bazi
+        /// Dodaje novi proizvod u bazu
+        /// </summary>
+        /// <remarks>
+        ///     POST api/v1/Proizvod
+        ///     {naziv: "Primjer proizvoda"}
+        /// </remarks>
+        /// <param name="proizvod">Proizvod za unijeti u JSON formatu</param>
+        /// <response code="201">Kreirano</response>
+        /// <response code="400">Zahtjev nije valjan (BadRequest)</response> 
+        /// <response code="503">Baza nedostupna iz razno raznih razloga</response> 
+        /// <returns>Smjer s šifrom koju je dala baza</returns>
+        [HttpPost]
+        public IActionResult Post(Proizvod proizvod)
+        {
+            if (!ModelState.IsValid || proizvod == null)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _context.Proizvodi.Add(proizvod);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status201Created, proizvod);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Mijenja podatke postojećeg proizvoda u bazi
         /// </summary>
         /// <remarks>
         /// Primjer upita:
         ///
-        ///    PUT api/v1/osoba/1
+        ///    PUT api/v1/proizvod/1
         ///
         /// {
         ///  "sifra": 0,
-        ///  "ime": "Novo ime",
-        ///  "prezime": "Novo prezime,
-        ///  "Email": "Novi Email,
-        ///  "Broj telefona":"Novi broj telefona,
-      
+        ///  "naziv": "Novi naziv",
+        ///  "sifra proizvoda": "Nova sifra,
+        ///  "mjerna jedinica": "Nova mjerna jedinica,
+        /// 
         /// }
         ///
         /// </remarks>
-        /// <param name="sifra">Šifra osobe koji se mijenja</param>  
-        /// <param name="smjer">Osoba za unijeti u JSON formatu</param>  
-        /// <returns>Svi poslani podaci od osoba koji su spremljeni u bazi</returns>
+        /// <param name="sifra">Šifra proizvoda koji se mijenja</param>  
+        /// <param name="proizvod">Proizvod za unijeti u JSON formatu</param>  
+        /// <returns>Svi poslani podaci od proizvoda koji su spremljeni u bazi</returns>
         /// <response code="200">Sve je u redu</response>
-        /// <response code="204">Nema u bazi osobe kojeu želimo promijeniti</response>
+        /// <response code="204">Nema u bazi proizvoda kojeg želimo promijeniti</response>
         /// <response code="415">Nismo poslali JSON</response> 
         /// <response code="503">Baza nedostupna</response> 
         [HttpPut]
         [Route("{sifra:int}")]
-        public IActionResult Put(int sifra, Osoba osoba)
+        public IActionResult Put(int sifra, Proizvod proizvod)
         {
-            if (sifra <= 0 || !ModelState.IsValid || osoba == null)
+            if (sifra <= 0 || !ModelState.IsValid || proizvod == null)
             {
                 return BadRequest();
             }
@@ -135,9 +133,9 @@ namespace SKladisteAppl.Controllers
             {
 
 
-                var osobaIzBaze = _context.Osobe.Find(sifra);
+                var proizvodIzBaze = _context.Proizvodi.Find(sifra);
 
-                if (osobaIzBaze == null)
+                if (proizvodIzBaze == null)
                 {
                     return StatusCode(StatusCodes.Status204NoContent, sifra);
                 }
@@ -145,16 +143,15 @@ namespace SKladisteAppl.Controllers
 
                 // inače ovo rade mapperi
                 // za sada ručno
-                osobaIzBaze.Ime = osoba.Ime;
-                osobaIzBaze.Prezime = osoba.Prezime;
-                osobaIzBaze.Email = osoba.Email;
-                osobaIzBaze.BrojTelefona = osoba.BrojTelefona;
+                proizvodIzBaze.Naziv = proizvod.Naziv;
+                proizvodIzBaze.Sifraproizvoda = proizvod.Sifraproizvoda;
+                proizvodIzBaze.MjernaJedinica= proizvod.MjernaJedinica;
                
 
-                _context.Osobe.Update(osobaIzBaze);
+                _context.Proizvodi.Update(proizvodIzBaze);
                 _context.SaveChanges();
 
-                return StatusCode(StatusCodes.Status200OK, osobaIzBaze);
+                return StatusCode(StatusCodes.Status200OK, proizvodIzBaze);
             }
             catch (Exception ex)
             {
@@ -165,18 +162,18 @@ namespace SKladisteAppl.Controllers
         }
 
         /// <summary>
-        /// Briše osobu iz baze
+        /// Briše proizvod iz baze
         /// </summary>
         /// <remarks>
         /// Primjer upita:
         ///
-        ///    DELETE api/v1/smjer/1
+        ///    DELETE api/v1/Proizvod/1
         ///    
         /// </remarks>
-        /// <param name="sifra">Šifra osobe koji se briše</param>  
+        /// <param name="sifra">Šifra proizvoda koji se briše</param>  
         /// <returns>Odgovor da li je obrisano ili ne</returns>
         /// <response code="200">Sve je u redu, obrisano je u bazi</response>
-        /// <response code="204">Nema u bazi osobe kojeu želimo obrisati</response>
+        /// <response code="204">Nema u bazi smjera kojeg želimo obrisati</response>
         /// <response code="503">Problem s bazom</response> 
         [HttpDelete]
         [Route("{sifra:int}")]
@@ -190,14 +187,14 @@ namespace SKladisteAppl.Controllers
 
             try
             {
-                var osobaIzbaze = _context.Osobe.Find(sifra);
+                var proizvodIzBaze = _context.Proizvodi.Find(sifra);
 
-                if (osobaIzbaze == null)
+                if (proizvodIzBaze == null)
                 {
                     return StatusCode(StatusCodes.Status204NoContent, sifra);
                 }
 
-                _context.Osobe.Remove(osobaIzbaze);
+                _context.Proizvodi.Remove(proizvodIzBaze);
                 _context.SaveChanges();
 
                 return new JsonResult("{\"poruka\": \"Obrisano\"}"); // ovo nije baš najbolja praksa ali da znake kako i to može
@@ -210,7 +207,5 @@ namespace SKladisteAppl.Controllers
             }
 
         }
-
     }
-    
 }

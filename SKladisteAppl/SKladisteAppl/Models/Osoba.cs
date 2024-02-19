@@ -30,10 +30,7 @@ namespace SKladisteAppl.Models
         /// </summary>
         public string? BrojTelefona{ get; set; }
 
-        public override string ToString()
-        {
-            return Ime + " " + Prezime;
-        }
+      
 
 
     }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SKladisteAppl")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c14115ecd976dc309a6da0a4879d0214cfa9ecea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d1f2e5c39a93d826aaf8b92a2147cbad717b51e")]
 [assembly: System.Reflection.AssemblyProductAttribute("SKladisteAppl")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SKladisteAppl")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

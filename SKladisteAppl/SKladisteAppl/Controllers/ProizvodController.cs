@@ -106,9 +106,8 @@ namespace SKladisteAppl.Controllers
         /// {
         ///  "sifra": 0,
         ///  "naziv": "Novi naziv",
-        ///  "sifra proizvoda": "Nova sifra,
-        ///  "mjerna jedinica": "Nova mjerna jedinica,
-        /// 
+        ///  "sifra proizvoda": "Nova Šifra proizvpoda",
+        ///  "mjerna jedinica": "Nova mjerna jedinica"
         /// }
         ///
         /// </remarks>
@@ -119,6 +118,8 @@ namespace SKladisteAppl.Controllers
         /// <response code="204">Nema u bazi proizvoda kojeg želimo promijeniti</response>
         /// <response code="415">Nismo poslali JSON</response> 
         /// <response code="503">Baza nedostupna</response> 
+
+
         [HttpPut]
         [Route("{sifra:int}")]
         public IActionResult Put(int sifra, Proizvod proizvod)
@@ -145,8 +146,8 @@ namespace SKladisteAppl.Controllers
                 // za sada ručno
                 proizvodIzBaze.Naziv = proizvod.Naziv;
                 proizvodIzBaze.Sifraproizvoda = proizvod.Sifraproizvoda;
-                proizvodIzBaze.MjernaJedinica= proizvod.MjernaJedinica;
-               
+                proizvodIzBaze.Mjernajedinica = proizvod.Mjernajedinica;
+
 
                 _context.Proizvodi.Update(proizvodIzBaze);
                 _context.SaveChanges();

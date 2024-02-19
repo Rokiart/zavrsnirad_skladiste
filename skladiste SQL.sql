@@ -68,22 +68,22 @@ values
 --2
 ('Miroslav','Janić');
 
-insert into proizvodi(naziv,mjernajedinica) 
+insert into proizvodi(naziv,sifraproizvoda,mjernajedinica) 
 values
 --1
-('lopata','kom'),
+('lopata',100,'kom'),
 --2
-('metla','kom'),
+('metla',101,'kom'),
 --3
-('sapun','kom'),
+('sapun',102,'kom'),
 --4
-('šampon','lit'),
+('šampon',103,'lit'),
 --5
-('gedore','gar'),
+('gedore',104,'gar'),
 --6
-('deterđent','kg'),
+('deterđent',105,'kg'),
 --7
-('pijesak','t');
+('pijesak',106,'t');
 
 
 insert into osobe(prezime,ime,brojtelefona) 

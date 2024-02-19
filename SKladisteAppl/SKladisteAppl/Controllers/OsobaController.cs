@@ -19,7 +19,7 @@ namespace SKladisteAppl.Controllers
         /// </summary>
         private readonly SkladisteContext _context;
         /// <summary>
-        /// Konstruktor klase koja prima Sklasiste kontext
+        /// Konstruktor klase koja prima Skladiste kontext
         /// pomoću DI principa
         /// </summary>
         /// <param name="context"></param>
@@ -97,7 +97,7 @@ namespace SKladisteAppl.Controllers
         }
 
         /// <summary>
-        /// Mijenja podatke postojećeg imena u bazi
+        /// Mijenja podatke postojeće osobe u bazi
         /// </summary>
         /// <remarks>
         /// Primjer upita:
@@ -107,15 +107,14 @@ namespace SKladisteAppl.Controllers
         /// {
         ///  "sifra": 0,
         ///  "ime": "Novo ime",
-        ///  "prezime": "Novo prezime,
-        ///  "Email": "Novi Email,
-        ///  "Broj telefona":"Novi broj telefona,
-      
+        ///  "prezime": "Novo prezime",
+        ///  "Email": "Novi Email",
+        ///  "Broj telefona":"Novi broj telefona"
         /// }
         ///
         /// </remarks>
         /// <param name="sifra">Šifra osobe koji se mijenja</param>  
-        /// <param name="smjer">Osoba za unijeti u JSON formatu</param>  
+        /// <param name="osoba">Osoba za unijeti u JSON formatu</param>  
         /// <returns>Svi poslani podaci od osoba koji su spremljeni u bazi</returns>
         /// <response code="200">Sve je u redu</response>
         /// <response code="204">Nema u bazi osobe kojeu želimo promijeniti</response>
@@ -149,7 +148,7 @@ namespace SKladisteAppl.Controllers
                 osobaIzBaze.Prezime = osoba.Prezime;
                 osobaIzBaze.Email = osoba.Email;
                 osobaIzBaze.BrojTelefona = osoba.BrojTelefona;
-               
+
 
                 _context.Osobe.Update(osobaIzBaze);
                 _context.SaveChanges();
@@ -173,7 +172,7 @@ namespace SKladisteAppl.Controllers
         ///    DELETE api/v1/smjer/1
         ///    
         /// </remarks>
-        /// <param name="sifra">Šifra osobe koji se briše</param>  
+        /// <param name="sifra">Šifra osobe koja se briše</param>  
         /// <returns>Odgovor da li je obrisano ili ne</returns>
         /// <response code="200">Sve je u redu, obrisano je u bazi</response>
         /// <response code="204">Nema u bazi osobe kojeu želimo obrisati</response>
@@ -212,5 +211,5 @@ namespace SKladisteAppl.Controllers
         }
 
     }
-    
+
 }

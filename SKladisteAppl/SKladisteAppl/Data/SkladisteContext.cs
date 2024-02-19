@@ -4,9 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SKladisteAppl.Data
 {
-    
-        public class SkladisteContext : DbContext
-        {
+    /// <summary>
+    /// Ovo mi je datoteka gdje ću navoditi datasetove i načine spajanja u bazi
+    /// </summary>
+
+    public class SkladisteContext : DbContext
+    {
             /// <summary>
             /// Kostruktor
             /// </summary>
@@ -34,7 +37,7 @@ namespace SKladisteAppl.Data
             public DbSet<Skladistar> Skladistari{ get; set; }
 
 
-        }
+    }
 
     
 }

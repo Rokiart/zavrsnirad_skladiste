@@ -30,11 +30,17 @@ namespace SKladisteAppl.Data
             /// </summary>
 
             public DbSet<Proizvod> Proizvodi{ get; set; }
-            
+
             /// <summary>
-            /// Skladištari u bazi
+            /// Skladistari u bazi
             /// </summary>
+
             public DbSet<Skladistar> Skladistari{ get; set; }
+
+            /// <summary>
+            /// Izdatnice u bazi
+            /// </summary>
+            public DbSet<Izdatnica> Izdatnice{ get; set; }
 
 
     }

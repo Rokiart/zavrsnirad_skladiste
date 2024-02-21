@@ -20,13 +20,13 @@ namespace SKladisteAppl.Models
         /// datum izdatnice u bazi
         /// </summary>
         public DateTime? Datum { get; set; }
-        ///// <summary>
-        ///// Vanjski kljuc za osobu
-        ///// </summary>
+        /// <summary>
+        /// Vanjski kljuc za osobu
+        /// </summary>
         //public ICollection<Osoba> Osobe { get; set; }
-        ///// <summary>
-        ///// Vanjski kljuc za skladistara
-        ///// </summary>
+        /// <summary>
+        /// Vanjski kljuc za skladistara
+        /// </summary>
         //public ICollection<Skladistar> Skladistari { get; set; }
         /// <summary>
         /// Napomena max 250 karaktera u bazi

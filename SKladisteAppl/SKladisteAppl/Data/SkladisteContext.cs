@@ -42,6 +42,16 @@ namespace SKladisteAppl.Data
             /// </summary>
             public DbSet<Izdatnica> Izdatnice{ get; set; }
 
+            /// <summary>
+            /// IzdatniceProizvodi u bazi
+            /// </summary>
+            public DbSet<IzdatnicaProizvodi> IzdatniceProizvodi{ get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
 
     }
 

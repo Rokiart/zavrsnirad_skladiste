@@ -7,7 +7,7 @@ using Microsoft.Data.SqlClient;
 namespace SKladisteAppl.Controllers
 {
     /// <summary>
-    /// Namjenjeno za CRUD operacije nad entitetom osoba u bazi
+    /// Namjenjeno za CRUD operacije nad entitetom izdatnice u bazi
     /// </summary>
     [ApiController]
     [Route("api/v1/[controller]")]

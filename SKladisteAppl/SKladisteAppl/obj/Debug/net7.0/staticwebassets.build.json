@@ -1,11 +1,39 @@
 {
   "Version": 1,
-  "Hash": "ZwTHoerj6rZjsi9aH3fk2IU5sjLHUEHyYvSNNSMzDGY=",
+  "Hash": "dGphAsI2NCWkXCaAhypDKWBAnWLyRgg5s66O7TLy+C0=",
   "Source": "SKladisteAppl",
   "BasePath": "_content/SKladisteAppl",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "SKladisteAppl\\wwwroot",
+      "Source": "SKladisteAppl",
+      "ContentRoot": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\",
+      "BasePath": "_content/SKladisteAppl",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\index.html",
+      "SourceId": "SKladisteAppl",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\",
+      "BasePath": "_content/SKladisteAppl",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ]
 }

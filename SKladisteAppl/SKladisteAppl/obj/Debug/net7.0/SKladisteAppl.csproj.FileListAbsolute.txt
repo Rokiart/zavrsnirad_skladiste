@@ -72,3 +72,4 @@ E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\SKladisteAppl\SKladisteAppl\bi
 E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\SKladisteAppl\SKladisteAppl\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\SKladisteAppl\SKladisteAppl\bin\Debug\net7.0\SKladisteAppl.xml
 E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\SKladisteAppl\SKladisteAppl\obj\Debug\net7.0\SKladisteAppl.xml
+E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\SKladisteAppl\SKladisteAppl\bin\Debug\net7.0\SKladisteAppl.staticwebassets.runtime.json

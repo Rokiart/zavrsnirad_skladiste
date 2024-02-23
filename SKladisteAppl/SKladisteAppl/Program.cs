@@ -37,6 +37,16 @@ builder.Services.AddSwaggerGen(sgo =>
     sgo.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
 
 });
+// Svi se od svuda na sve moguæe naèine mogu spojitina naš API
+// Èitati https://code-maze.com/aspnetcore-webapi-best-practices/
+builder.Services.AddCors(opcije =>
+{
+    opcije.AddPolicy("CorsPolicy",
+        builder =>
+            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+    );
+
+});
 
 
 // dodavanje baze podataka
@@ -48,8 +58,8 @@ builder.Services.AddDbContext<SkladisteContext>(o =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     // moguænost generiranja poziva rute u CMD i Powershell
     app.UseSwaggerUI(opcije =>
@@ -57,12 +67,17 @@ if (app.Environment.IsDevelopment())
         opcije.ConfigObject.
         AdditionalItems.Add("requestSnippetsEnabled", true);
     });
-}
+//}
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseCors("CorsPolicy");
+
+app.UseDefaultFiles();
+app.UseDeveloperExceptionPage();
+app.MapFallbackToFile("index.html");
 
 app.Run();

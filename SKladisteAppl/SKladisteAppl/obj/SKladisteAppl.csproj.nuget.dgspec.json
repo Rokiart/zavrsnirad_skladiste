@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj": {}
+    "C:\\Users\\roman\\Documents\\GitHub\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj": {}
   },
   "projects": {
-    "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj": {
+    "C:\\Users\\roman\\Documents\\GitHub\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
+        "projectUniqueName": "C:\\Users\\roman\\Documents\\GitHub\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
         "projectName": "SKladisteAppl",
-        "projectPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
+        "projectPath": "C:\\Users\\roman\\Documents\\GitHub\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
         "packagesPath": "C:\\Users\\roman\\.nuget\\packages\\",
-        "outputPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\obj\\",
+        "outputPath": "C:\\Users\\roman\\Documents\\GitHub\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\roman\\AppData\\Roaming\\NuGet\\NuGet.Config",

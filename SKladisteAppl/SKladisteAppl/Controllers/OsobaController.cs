@@ -169,7 +169,7 @@ namespace SKladisteAppl.Controllers
         /// <remarks>
         /// Primjer upita:
         ///
-        ///    DELETE api/v1/smjer/1
+        ///    DELETE api/v1/osoba/1
         ///    
         /// </remarks>
         /// <param name="sifra">Šifra osobe koja se briše</param>  

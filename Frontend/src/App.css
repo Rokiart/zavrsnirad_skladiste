@@ -1,0 +1,17 @@
+.desno{
+    text-align: right;
+}
+
+.ljevo{
+    text-align: left;
+}
+
+.sredina{
+    text-align: center;
+}
+
+.gumb{ 
+    width: 100%;
+    margin-bottom: 10px;
+}
+

@@ -9,9 +9,9 @@ export default function Pocetna(){
     return(
 
       <>
-      <Container>   
-        Dobrodošli na aplikaciju Skladiste
-      </Container>
+        <Container>   
+          Dobrodošli na aplikaciju Skladište
+        </Container>
       
       
       </>

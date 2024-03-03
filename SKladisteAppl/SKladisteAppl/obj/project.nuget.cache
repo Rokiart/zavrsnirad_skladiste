@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YD40gGJ+ovBWbav4vUEa7nGlvUwtNCWmPwUhygRwFyrTCeRhg8iMrwzhVG81ctQdlPps5JuB2uL7fUvGE+g9hg==",
+  "dgSpecHash": "5NXBQaBYtjan1WSPmqF/MFw3vEw30/VgMnwt93PE8bPfFngL/dfHa0IgPbCyCTVSztHdlFTH6dlKUzW7NgSyQw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\roman\\Documents\\GitHub\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
+  "projectFilePath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\roman\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\roman\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

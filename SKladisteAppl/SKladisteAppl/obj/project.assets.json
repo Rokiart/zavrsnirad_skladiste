@@ -3149,11 +3149,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\roman\\Documents\\GitHub\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
+      "projectUniqueName": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
       "projectName": "SKladisteAppl",
-      "projectPath": "C:\\Users\\roman\\Documents\\GitHub\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
+      "projectPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
       "packagesPath": "C:\\Users\\roman\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\roman\\Documents\\GitHub\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\obj\\",
+      "outputPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\roman\\AppData\\Roaming\\NuGet\\NuGet.Config",

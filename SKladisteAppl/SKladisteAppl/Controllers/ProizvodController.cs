@@ -63,6 +63,32 @@ namespace SKladisteAppl.Controllers
             }
         }
 
+
+        [HttpGet]
+        [Route("{sifra:int}")]
+        public IActionResult GetBySifra(int sifra)
+        {
+            // kontrola ukoliko upit nije valjan
+            if (!ModelState.IsValid || sifra <= 0)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var proizvod = _context.Proizvodi.Find(sifra);
+                if (proizvod == null)
+                {
+                    return new EmptyResult();
+                }
+                return new JsonResult(proizvod);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
+            }
+        }
+
         /// <summary>
         /// Dodaje novi proizvod u bazu
         /// </summary>

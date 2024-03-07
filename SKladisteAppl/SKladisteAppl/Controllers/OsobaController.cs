@@ -64,6 +64,32 @@ namespace SKladisteAppl.Controllers
                     ex.Message);
             }
         }
+
+
+        [HttpGet]
+        [Route("{sifra:int}")]
+        public IActionResult GetBySifra(int sifra)
+        {
+            // kontrola ukoliko upit nije valjan
+            if (!ModelState.IsValid || sifra <= 0)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var osoba = _context.Osobe.Find(sifra);
+                if (osoba == null)
+                {
+                    return new EmptyResult();
+                }
+                return new JsonResult(osoba);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
+            }
+        }
         /// <summary>
         /// Dodaje novu osobu u bazu
         /// </summary>

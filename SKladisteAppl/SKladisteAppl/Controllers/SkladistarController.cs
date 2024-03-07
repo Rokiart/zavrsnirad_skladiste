@@ -68,6 +68,32 @@ namespace SKladisteAppl.Controllers
                     ex.Message);
             }
         }
+
+
+        [HttpGet]
+        [Route("{sifra:int}")]
+        public IActionResult GetBySifra(int sifra)
+        {
+            // kontrola ukoliko upit nije valjan
+            if (!ModelState.IsValid || sifra <= 0)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var skladistar = _context.Skladistari.Find(sifra);
+                if (skladistar == null)
+                {
+                    return new EmptyResult();
+                }
+                return new JsonResult(skladistar);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
+            }
+        }
         /// <summary>
         /// Dodaje novog skladištara u bazu
         /// </summary>

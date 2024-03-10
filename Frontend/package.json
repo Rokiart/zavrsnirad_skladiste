@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,12 +12,12 @@
   "dependencies": {
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
-    "format": "^0.2.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
-    "react-number": "^0.0.1-alpha4",
-    "react-router-dom": "^6.22.1"
+    "react-icons": "^5.0.1",
+    "react-number-format": "^5.3.3",
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

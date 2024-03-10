@@ -1,28 +1,15 @@
-import { Route, Routes } from "react-router-dom";
-import Pocetna from "./pages/Pocetna";
-import { RoutesNames } from "./Constants";
-import NavBar from "./Components/NavBar";
-import Osobe from "./pages/Osobe/Osobe";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '.App.css';
-import OsobeDodaj from "./pages/Osobe/OsobeDodaj";
+import { useState } from 'react'
+
 
 
 
 function App() {
-  
+
 
   return (
     <>
-      <NavBar />
-       <Routes>  
-        <>
-          <Route path={RoutesNames.HOME} element={<Pocetna />} />
-          <Route path={RoutesNames.OSOBE_PREGLED} element={<Osobe />} />
-          <Route path={RoutesNames.OSOBE_NOVE} element={<OsobeDodaj />} />
-        </>   
-      </Routes>
-   </>
+      haj
+    </>
   )
 }
 

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gr/R88sNCtyLiZK407mUuvI9QchzyVqCCEAcgUvwDtE=",
+  "Hash": "StdtxaB3rVOEkscbCWjvwkaEX6GLXfTFPLuLKEdFBFM=",
   "Source": "SKladisteAppl",
   "BasePath": "_content/SKladisteAppl",
   "Mode": "Default",
@@ -15,82 +15,5 @@
       "Pattern": "**"
     }
   ],
-  "Assets": [
-    {
-      "Identity": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\assets\\index-CfQNoCfp.js",
-      "SourceId": "SKladisteAppl",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\",
-      "BasePath": "_content/SKladisteAppl",
-      "RelativePath": "assets/index-CfQNoCfp.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\index-CfQNoCfp.js"
-    },
-    {
-      "Identity": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\assets\\index-DUEfxN0n.css",
-      "SourceId": "SKladisteAppl",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\",
-      "BasePath": "_content/SKladisteAppl",
-      "RelativePath": "assets/index-DUEfxN0n.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\index-DUEfxN0n.css"
-    },
-    {
-      "Identity": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\favicon.ico",
-      "SourceId": "SKladisteAppl",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\",
-      "BasePath": "_content/SKladisteAppl",
-      "RelativePath": "favicon.ico",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\favicon.ico"
-    },
-    {
-      "Identity": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\index.html",
-      "SourceId": "SKladisteAppl",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\wwwroot\\",
-      "BasePath": "_content/SKladisteAppl",
-      "RelativePath": "index.html",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\index.html"
-    }
-  ]
+  "Assets": []
 }

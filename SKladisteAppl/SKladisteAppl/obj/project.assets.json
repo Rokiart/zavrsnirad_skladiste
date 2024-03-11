@@ -3149,9 +3149,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
-      "projectName": "SKladisteAppl",
-      "projectPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAppl.csproj",
+      "projectUniqueName": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAPI.csproj",
+      "projectName": "SKladisteAPI",
+      "projectPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\SKladisteAPI.csproj",
       "packagesPath": "C:\\Users\\roman\\.nuget\\packages\\",
       "outputPath": "E:\\1 EDUNOVA MATERIJALI\\gith\\zavrsnirad_skladiste\\SKladisteAppl\\SKladisteAppl\\obj\\",
       "projectStyle": "PackageReference",

@@ -77,12 +77,7 @@ namespace SKladisteAppl.Controllers
         /// <returns>Sifre u bazi</returns>
         /// <response code="200">Sve OK, ako nema podataka content-length: 0 </response>
         /// <response code="400">Zahtjev nije valjan</response>
-        /// <response code="503">Baza na koju se spajam nije dostupna</response>
-
-       
-
-      
-
+        /// <response code="503">Baza na koju se spajam nije dostupna</response
 
         [HttpGet]
         [Route("{sifra:int}")]

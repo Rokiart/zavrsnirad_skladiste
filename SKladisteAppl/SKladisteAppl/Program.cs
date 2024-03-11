@@ -37,6 +37,7 @@ builder.Services.AddSwaggerGen(sgo =>
     sgo.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
 
 });
+
 // Svi se od svuda na sve moguæe naèine mogu spojitina naš API
 // Èitati https://code-maze.com/aspnetcore-webapi-best-practices/
 builder.Services.AddCors(opcije =>

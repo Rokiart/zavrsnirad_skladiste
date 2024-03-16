@@ -2,6 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>https</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\Users\roman\Documents\GitHub\zavrsnirad_skladiste\Skladiste\SKladisteAppl\SKladisteAppl\Properties\PublishProfiles\romanzaric-001-site1 - FTP.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>E:\1 EDUNOVA MATERIJALI\gith\zavrsnirad_skladiste\SKladisteAppl\SKladisteAppl\Properties\PublishProfiles\romanzaric-001-site1 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

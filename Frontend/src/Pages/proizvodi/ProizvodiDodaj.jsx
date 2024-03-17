@@ -1,7 +1,8 @@
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import ProizvodService from '../../services/ProizvodService';
 import { RoutesNames } from '../../constants';
+import ProizvodService from '../../services/ProizvodService';
+
 
 
 
@@ -9,12 +10,13 @@ export default function ProizvodiDodaj() {
   const navigate = useNavigate();
 
 
-  async function dodajProizvod(Proizvod) {
-    const odgovor = await ProizvodService.dodaj(Proizvod);
+  async function dodajProizvod(proizvod) {
+    const odgovor = await ProizvodService.dodaj(proizvod);
     if (odgovor.ok) {
       navigate(RoutesNames.PROIZVODI_PREGLED);
     } else {
-      alert(odgovor.poruka.errors);
+      console.log(odgovor);
+          alert(odgovor.poruka);
     }
   }
 
@@ -26,8 +28,8 @@ export default function ProizvodiDodaj() {
 
     dodajProizvod({
       naziv: podaci.get('naziv'),
-      sifraProizvoda: podaci.get('Šifra proizvoda'),
-      mjernaJedinica: podaci.get('Mjerna jedinica')
+      sifraProizvoda: podaci.get('sifraproizvoda'),
+      mjernaJedinica: podaci.get('mjernajedinica')
       
     });
   }
@@ -46,24 +48,25 @@ export default function ProizvodiDodaj() {
           />
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='sifraProizvoda'>
+        <Form.Group className='mb-3' controlId='sifraproizvoda'>
           <Form.Label>Sifra Proizvoda</Form.Label>
           <Form.Control
             type='text'
-            name='sifraProizvoda'
-            placeholder='Šifra Proizvoda'
+            name='sifraproizvoda'
+            placeholder='sifraproizvoda'
             maxLength={255}
             required
           />
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='mjernaJedinica'>
+        <Form.Group className='mb-3' controlId='mjernajedinica'>
           <Form.Label>Mjerna Jedinica</Form.Label>
           <Form.Control
             type='text'
-            name='mjernaJedinica'
-            placeholder='Mjerna jedinica'
+            name='mjernajedinica'
+            placeholder='mjernajedinica'
             maxLength={11}
+            required
           />
         </Form.Group>
 

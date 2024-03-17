@@ -35,18 +35,22 @@ function NavBar() {
               >
                 Proizvodi
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">
+              <NavDropdown.Item 
+              onClick={()=>navigate(RoutesNames.SKLADISTARI_PREGLED)}
+              >
                 Skladistari
                 </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
+              <NavDropdown.Item
+               onClick={()=>navigate(RoutesNames.IZDATNICE_PREGLED)}
+               >
                Izdatnice
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-        <Nav.Link target="_blank" href="https://romanzaric-001-site1.itempurl.com/api/v1">
+        <Nav.Link target="_blank" href="https://romanzaric-001-site1.itempurl.com/swagger/index.html">
           API dokumentacija</Nav.Link>
         </Navbar.Collapse>
       </Container>

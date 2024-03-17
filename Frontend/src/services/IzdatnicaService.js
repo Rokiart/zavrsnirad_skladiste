@@ -1,7 +1,7 @@
 import { App } from '../constants'
 import { httpService } from "./httpService";
 
-const naziv = 'Osoba';
+const naziv = 'Izdatnica';
 
 async function get(){
     return await httpService.get('/' + naziv)

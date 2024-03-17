@@ -2,65 +2,60 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import OsobaService from "../../services/OsobaService";
+import SkladistarService from "../../services/SkladistarService";
 import { RoutesNames } from "../../constants";
 
 
-export default function OsobePromjeni(){
 
-    const navigate =useNavigate();
+export default function SkladistaraPromjeni(){
+
+    const [skladistar, setSkladistar] = useState({});
+
     const routeParams = useParams();
-    const [osoba,setOsoba] = useState({});
+    const navigate = useNavigate();
 
-    async function dohvatiOsobu(){
-        await OsobaService.getBySifra(routeParams.sifra)
-        .then((res)=>{
-            setOsoba(res.data)
+    async function dohvatiSkladistara(){
+        await SkladistarService
+        .getBySifra(routeParams.sifra)
+        .then((response) => {
+          console.log(response);
+          setSkladistar(response.data);
         })
-        .catch((e)=>{
-            alert(e.poruka);
-        });
+        .catch((err) => alert(err.poruka));
     }
 
     useEffect(()=>{
         
-        dohvatiOsobu();
+        dohvatiSkladistara();
     },[]);
 
-    async function promjeniOsobu(osoba){
-        const odgovor = await OsobaService.promjeniOsobu(routeParams.sifra,osoba);
+    async function promjeniSkladistar(skladistar){
+        const odgovor = await SkladistarService.promjeni(routeParams.sifra,skladistar);
         if(odgovor.ok){
-          navigate(RoutesNames.OSOBE_PREGLED);
+          navigate(RoutesNames.SKLADISTARI_PREGLED);
         }else{
           console.log(odgovor);
           alert(odgovor.poruka);
         }
     }
 
-    async function handleSubmit(e){
+    function handleSubmit(e){
         e.preventDefault();
-        const podaci = new FormData(e.target);
+        
 
-        const osoba = 
+        const podaci = new FormData(e.target);
+        
+        const skladistar =
         {
             ime: podaci.get('ime'),
-            prezime: parseInt(podaci.get('prezime')),
-            brojTelefona: parseFloat(podaci.get('brojTelefona')),
+            prezime: skladistar.get('prezime'),
+            brojTelefona: podaci.get('broj telefona'),
             email: podaci.get('email')
             
-          };
+        };
 
-          try {
-            const odgovor = await OsobaService.promjeniOsobu(routeParams.sifra, novaOsoba);
-            if(odgovor.ok){
-                navigate(RoutesNames.OSOBE_PREGLED);
-            } else {
-                console.log(odgovor);
-                alert(odgovor.poruka);
-            }
-        } catch (error) {
-            alert(error);
-        }
+        promjeniSkladistar(skladistar) ; 
+         
     }
 
 
@@ -74,7 +69,7 @@ export default function OsobePromjeni(){
                     <Form.Label>Ime</Form.Label>
                     <Form.Control 
                         type="text"
-                        defaultValue={osoba.ime}
+                        defaultValue={skladistar.ime}
                         name="ime"
                     />
                 </Form.Group>
@@ -83,25 +78,25 @@ export default function OsobePromjeni(){
                     <Form.Label>Prezime</Form.Label>
                     <Form.Control 
                         type="text"
-                        defaultValue={osoba.prezime}
+                        defaultValue={skladistar.prezime}
                         name="prezime"
                     />
                 </Form.Group>
 
                 <Form.Group controlId="brojTelefona">
-                    <Form.Label>Cijena</Form.Label>
+                    <Form.Label>Broj Telefona</Form.Label>
                     <Form.Control 
                         type="text"
-                        defaultValue={osoba.brojTelefona}
+                        defaultValue={skladistar.brojTelefona}
                         name="brojTelefona"
                     />
                 </Form.Group>
 
                 <Form.Group controlId="email">
-                    <Form.Label>Upisnina</Form.Label>
+                    <Form.Label>Email</Form.Label>
                     <Form.Control 
                         type="text"
-                        defaultValue={osoba.email}
+                        defaultValue={skladistar.email}
                         name="email"
                     />
                 </Form.Group>
@@ -111,14 +106,15 @@ export default function OsobePromjeni(){
                     <Col>
                         <Link 
                         className="btn btn-danger"
-                        to={RoutesNames.OSOBE_PREGLED}>Odustani</Link>
+                        to={RoutesNames.SKLADISTARI_PREGLED}>Odustani</Link>
                     </Col>
                     <Col>
                         <Button
                             variant="primary"
+                          
                             type="submit"
                         >
-                            Promjeni osobu
+                            Promjeni skladistara
                         </Button>
                     </Col>
                 </Row>

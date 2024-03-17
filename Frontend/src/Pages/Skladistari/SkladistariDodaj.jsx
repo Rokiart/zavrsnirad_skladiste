@@ -1,53 +1,42 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate,  } from "react-router-dom";
 import { RoutesNames } from "../../constants";
-import OsobaService from "../../services/OsobaService";
-import { useState } from "react";
+import SkladistarService from "../../services/SkladistarService";
 
 
 
 
 
-export default function OsobeDodaj() {
+export default function SkladistareDodaj() {
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
 
-    async function dodajOsobu(osoba){
-        const odgovor = await OsobaService.dodaj(osoba);
+    async function dodajSkladistara(skladistar){
+        const odgovor = await SkladistarService.dodaj(skladistar);
         if(odgovor.ok){
-          navigate(RoutesNames.OSOBE_PREGLED);
+          navigate(RoutesNames.SKLADISTARI_PREGLED);
         }else{
           console.log(odgovor);
-          alert(odgovor.poruka.errors);
+          alert(odgovor.poruka);
         }
     }
 
     function handleSubmit(e){
         e.preventDefault();
         const podaci = new FormData(e.target);
-        const form = e.target;
+       
 
-        if (!form.checkValidity()) {
-          setErrors({
-              ime: form['ime'].validationMessage,
-              prezime: form['prezime'].validationMessage,
-              brojTelefona: form['Broj Telefona'].validationMessage,
-              email: form['email'].validationMessage
+        dodajSkladistara({
+            ime: podaci.get('ime'),
+            prezime: podaci.get('prezime'),
+            brojTelefona: podaci.get('Broj Telefona'),
+            email: podaci.get('email')
+            
           });
-          return;
-      }
 
-      setErrors({}); // Resetiranje prikaza grešaka
-      
+          
+           
 
-        dodajOsobu({
-          ime: podaci.get('ime'),
-          prezime: podaci.get('prezime'),
-          brojTelefona: podaci.get('Broj Telefona'),
-          email: podaci.get('email')
 
-        });
-         
     }
 
     return(
@@ -95,15 +84,15 @@ export default function OsobeDodaj() {
           />
         </Form.Group>
     
-        <Row>
+        <Row className="akcije">
           <Col>
-            <Link className='btn btn-danger gumb' to={RoutesNames.OSOBE_PREGLED}>
+            <Link className='btn btn-danger' to={RoutesNames.SKLADISTARI_PREGLED}>
               Odustani
             </Link>
           </Col>
           <Col>
-            <Button variant='primary' className='gumb' type='submit'>
-              Dodaj Osobu
+            <Button variant='primary'  type='submit'>
+              Dodaj SKladištara
             </Button>
           </Col>
         </Row>

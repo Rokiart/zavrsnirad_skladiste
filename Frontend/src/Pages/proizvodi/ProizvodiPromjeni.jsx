@@ -60,7 +60,7 @@ export default function ProizvodiPromjeni() {
           <Form.Control
             type='text'
             name='naziv'
-            defaultValue={proizvod.naziiv}
+            defaultValue={proizvod.naziv}
             maxLength={255}
             required
           />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button,Container, Table } from "react-bootstrap";
-import OsobaService from "../../services/OsobaService";
+import SkladistarService from "../../services/SkladistarService";
 import { ImManWoman } from "react-icons/im";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -9,16 +9,15 @@ import { RoutesNames } from "../../constants";
 
 
 
-export default function Osobe() {
+export default function Skladistari() {
 
-    const [osobe,setOsobe] = useState();
-    let navigate = useNavigate();
-    
+    const [Skladistari,setSkladistari] = useState();
+    const navigate = useNavigate();
 
-    async function dohvatiOsobe(){
-        await OsobaService.get()
+    async function dohvatiSkladistare(){
+        await SkladistarService.get()
         .then((res)=>{
-            setOsobe(res.data);
+            setSkladistari(res.data);
         })
         .catch((e)=>{
             alert(e);
@@ -26,24 +25,23 @@ export default function Osobe() {
     }
 
     useEffect(()=>{
-        dohvatiOsobe();
+        dohvatiSkladistare();
     },[]);
 
-    async function ObrisiOsobu(sifra){
-        const odgovor = await OsobaService.obrisi(sifra);
+    async function ObrisiSkladistara(sifra){
+        const odgovor = await SkladistarService.obrisi(sifra);
         if (odgovor.ok){
             
-            dohvatiOsobe();
-        }
-        else {
-        alert(odgovor.poruka);
+            dohvatiSkladistare();
+        } else {
+            alert(odgovor.poruka);
         }
         
     }
 
     return(
         <Container>
-             <Link to={RoutesNames.OSOBE_NOVI} className="btn btn-success gumb">
+             <Link to={RoutesNames.SKLADISTARI_NOVI} className="btn btn-success gumb">
                 <ImManWoman
                 size={25}
                 /> Dodaj
@@ -59,16 +57,16 @@ export default function Osobe() {
                   </tr>
                </thead>
                <tbody>
-                    {osobe && osobe.map((osoba,index)=>(
+                    {Skladistari && Skladistari.map((skladistar,index)=>(
                         <tr key={index}>
-                            <td>{osoba.ime}</td>
-                            <td>{osoba.prezime}</td>
-                            <td>{osoba.brojtelefona}</td>
-                            <td>{osoba.email}</td>
+                            <td>{skladistar.ime}</td>
+                            <td>{skladistar.prezime}</td>
+                            <td>{skladistar.brojtelefona}</td>
+                            <td>{skladistar.email}</td>
                             <td className="sredina">
                                 <Button 
                                 variant="primary"
-                                onClick={()=>{navigate(`/osobe/${osoba.sifra}`)}}>
+                                onClick={()=>{navigate(`/skladistari/${skladistar.sifra}`)}}>
                                     <FaRegEdit
                                     size={25}
                                     />
@@ -77,7 +75,7 @@ export default function Osobe() {
                                     &nbsp;&nbsp;&nbsp;
                                 <Button
                                     variant="danger"
-                                    onClick={()=>ObrisiOsobu(osoba.sifra)}
+                                    onClick={()=>ObrisiSkladistara(skladistar.sifra)}
                                 >
                                     <FaRegTrashAlt 
                                     size={25}

@@ -4,13 +4,14 @@ import ProizvodService from "../../services/ProizvodService";
 import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { RoutesNames } from "../../constants";
 import { useNavigate } from "react-router-dom";
+import { RoutesNames } from "../../constants";
+
 
 
 export default function Proizvodi(){
     const [Proizvodi,setProizvodi] = useState();
-    let navigate = useNavigate(); 
+    const navigate = useNavigate(); 
 
     async function dohvatiProizvode(){
         await ProizvodService.get()
@@ -56,15 +57,15 @@ export default function Proizvodi(){
                     </tr>
                 </thead>
                 <tbody>
-                    {Proizvodi && Proizvodi.map((proizvod,index)=>(
+                    {Proizvodi && Proizvodi.map((Proizvod,index)=>(
                         <tr key={index}>
-                            <td>{proizvod.naziv}</td>
-                            <td>{proizvod.sifraProizvoda}</td>
-                            <td>{proizvod.mjernaJedinica}</td>
+                            <td>{Proizvod.naziv}</td>
+                            <td>{Proizvod.sifraproizvoda}</td>
+                            <td>{Proizvod.mjernajedinica}</td>
                             <td className="sredina">
                                     <Button
                                         variant='primary'
-                                        onClick={()=>{navigate(`/proizvodi/${proizvod.sifra}`)}}
+                                        onClick={()=>{navigate(`/proizvodi/${Proizvod.sifra}`)}}
                                     >
                                         <FaEdit 
                                     size={25}
@@ -75,7 +76,7 @@ export default function Proizvodi(){
                                     &nbsp;&nbsp;&nbsp;
                                     <Button
                                         variant='danger'
-                                        onClick={() => obrisiProizvod(proizvod.sifra)}
+                                        onClick={() => obrisiProizvod(Proizvod.sifra)}
                                     >
                                         <FaTrash
                                         size={25}/>

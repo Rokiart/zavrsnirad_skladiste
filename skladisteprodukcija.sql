@@ -1,12 +1,12 @@
 SELECT name, collation_name FROM sys.databases;
 GO
 -- Doma primjeniti na ime svoje baze 3 puta
-ALTER DATABASE db_aa599c_romanzaric SET SINGLE_USER WITH
+ALTER DATABASE db_aa599c_romanprodukcija SET SINGLE_USER WITH
 ROLLBACK IMMEDIATE;
 GO
-ALTER DATABASE db_aa599c_romanzaric COLLATE Croatian_CI_AS;
+ALTER DATABASE db_aa599c_romanprodukcija COLLATE Croatian_CI_AS;
 GO
-ALTER DATABASE db_aa599c_romanzaric SET MULTI_USER;
+ALTER DATABASE db_aa599c_romanprodukcija SET MULTI_USER;
 GO
 SELECT name, collation_name FROM sys.databases;
 GO

@@ -31,8 +31,6 @@ public class IzdatnicaMapper
                          entitet.Datum,
                          entitet.Osoba == null ? "" : (entitet.Osoba.Ime + " " + entitet.Osoba.Prezime).Trim(),
                          entitet.Skladistar == null ? "" : (entitet.Skladistar.Ime + " " + entitet.Skladistar.Prezime).Trim(),
-                         entitet.Proizvod,
-
                          entitet.Napomena));
             })
         );

@@ -65,6 +65,7 @@ var app = builder.Build();
     // moguænost generiranja poziva rute u CMD i Powershell
     app.UseSwaggerUI(opcije =>
     {
+        opcije.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
         opcije.ConfigObject.
         AdditionalItems.Add("requestSnippetsEnabled", true);
     });

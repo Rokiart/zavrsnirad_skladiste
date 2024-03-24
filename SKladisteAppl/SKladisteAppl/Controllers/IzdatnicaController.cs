@@ -316,5 +316,114 @@ namespace SKladisteAppl.Controllers
                     ex.Message);
             }
         }
+
+       
+
+        [HttpPost]
+        [Route("{sifra:int}/dodaj/{proizvodSifra:int}")]
+        public IActionResult DodajProizvod(int sifra, int proizvodSifra)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (sifra <= 0 || proizvodSifra <= 0)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+
+                var izdatnica = _context.Izdatnice
+                    .Include(g => g.Proizvodi)
+                    .FirstOrDefault(g => g.Sifra == sifra);
+
+                if (izdatnica == null)
+                {
+                    return BadRequest();
+                }
+
+                var proizvod = _context.Proizvodi.Find(proizvodSifra);
+
+                if (proizvod == null)
+                {
+                    return BadRequest();
+                }
+
+                izdatnica.Proizvodi.Add(proizvod);
+
+                _context.Izdatnice.Update(izdatnica);
+                _context.SaveChanges();
+
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                       StatusCodes.Status503ServiceUnavailable,
+                       ex.Message);
+
+            }
+
+        }
+
+
+
+        [HttpDelete]
+        [Route("{sifra:int}/obrisi/{proizvodSifra:int}")]
+        public IActionResult ObrisiIzdatnicu(int sifra, int proizvodSifra)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (sifra <= 0 || proizvodSifra <= 0)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+
+                var izdatnica = _context.Izdatnice
+                    .Include(g => g.Proizvodi)
+                    .FirstOrDefault(g => g.Sifra == sifra);
+
+                if (izdatnica == null)
+                {
+                    return BadRequest();
+                }
+
+                var proizvod = _context.Proizvodi.Find(proizvodSifra);
+
+                if (proizvod == null)
+                {
+                    return BadRequest();
+                }
+
+
+                izdatnica.Proizvodi.Remove(proizvod);
+
+                _context.Izdatnice.Update(izdatnica);
+                _context.SaveChanges();
+
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                       StatusCodes.Status503ServiceUnavailable,
+                       ex.Message);
+
+            }
+
+
+        }
     }
 }

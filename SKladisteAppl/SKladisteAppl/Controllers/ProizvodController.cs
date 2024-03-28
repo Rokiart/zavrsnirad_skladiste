@@ -246,5 +246,41 @@ namespace SKladisteAppl.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Route("trazi/{uvjet}")]
+        public IActionResult TraziProizvod(string uvjet)
+        {
+            // ovdje će ići dohvaćanje u bazi
+
+            if (uvjet == null || uvjet.Length < 3)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // ivan se PROBLEM riješiti višestruke uvjete
+            uvjet = uvjet.ToLower();
+            try
+            {
+                IEnumerable<Proizvod> query = _context.Proizvodi;
+                var niz = uvjet.Split(" ");
+
+                foreach (var s in uvjet.Split(" "))
+                {
+                    query = query.Where(p => p.Naziv.ToLower().Contains(s) );
+                }
+
+
+                var proizvodi = query.ToList();
+
+                return new JsonResult(proizvodi.MapProizvodReadList()); //200
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, e.Message); //204
+            }
+        }
+
     }
 }

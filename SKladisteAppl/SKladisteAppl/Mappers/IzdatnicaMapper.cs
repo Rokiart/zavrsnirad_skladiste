@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using SKladisteAppl.Models;
 
 namespace SKladisteAppl.Mappers;
@@ -9,10 +10,7 @@ namespace SKladisteAppl.Mappers;
 public class IzdatnicaMapper
 {
 
-    /// <summary>
-    /// Klasa Mapper za mapiranje entiteta naziv
-    /// </summary>
-    public static string? naziv { get; private set; }
+   
 
     /// <summary>
     /// Inicijalizira i konfigurira AutoMapper za mapiranje entiteta Izdatnica na IzdatnicaDTORead
@@ -29,9 +27,11 @@ public class IzdatnicaMapper
                          entitet.Sifra,
                          entitet.BrojIzdatnice,
                          entitet.Datum,
+                         
                          entitet.Osoba == null ? "" : (entitet.Osoba.Ime + " " + entitet.Osoba.Prezime).Trim(),
                          entitet.Skladistar == null ? "" : (entitet.Skladistar.Ime + " " + entitet.Skladistar.Prezime).Trim(),
-                         entitet.Napomena));
+                         entitet.Napomena,
+                         GetProizvodi(entitet)));
             })
         );
     }
@@ -39,6 +39,16 @@ public class IzdatnicaMapper
     /// Metoda za inicijalizaciju mapiranja iz DTO za čitanje u entitet Izdatnica.
     /// </summary>
     /// <returns>Mapper za mapiranje IzdatnicaDTORead u Izdatnica</returns>
+
+    private static string GetProizvodi(Izdatnica izdatnica)
+    {
+        var proizvodi = "";
+        foreach(var i in izdatnica.Proizvodi)
+        {
+            proizvodi += i.Naziv + ",";
+        }
+        return proizvodi;
+    }
 
     public static Mapper InicijalizirajInsertUpdateToDTO()
     {

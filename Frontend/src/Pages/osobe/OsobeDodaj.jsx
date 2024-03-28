@@ -2,15 +2,11 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate,  } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 import OsobaService from "../../services/OsobaService";
-import { useState } from "react";
-
-
-
 
 
 export default function OsobeDodaj() {
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
+    
 
     async function dodajOsobu(osoba){
         const odgovor = await OsobaService.dodaj(osoba);
@@ -25,29 +21,16 @@ export default function OsobeDodaj() {
     function handleSubmit(e){
         e.preventDefault();
         const podaci = new FormData(e.target);
-        const form = e.target;
+       
 
-        if (!form.checkValidity()) {
-          setErrors({
-              ime: form['ime'].validationMessage,
-              prezime: form['prezime'].validationMessage,
-              brojTelefona: form['Broj Telefona'].validationMessage,
-              email: form['email'].validationMessage
-          });
-          return;
-      }
-
-      setErrors({}); // Resetiranje prikaza grešaka
-      
-
-        dodajOsobu({
+        const osoba ={
           ime: podaci.get('ime'),
           prezime: podaci.get('prezime'),
-          brojTelefona: podaci.get('Broj Telefona'),
+          brojtelefona: podaci.get('brojtelefona'),
           email: podaci.get('email')
-
-        });
-         
+        }
+            
+         dodajOsobu(osoba); 
     }
 
     return(
@@ -59,7 +42,7 @@ export default function OsobeDodaj() {
             type='text'
             name='ime'
             placeholder='Ime'
-            maxLength={255}
+            maxLength={50}
             required
           />
         </Form.Group>
@@ -69,33 +52,37 @@ export default function OsobeDodaj() {
           <Form.Control
             type='text'
             name='prezime'
-            placeholder='Prezime'
-            maxLength={255}
+            placeholder='prezime'
+            maxLength={50}
             required
           />
+
+           
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='Broj telefona'>
+        <Form.Group className='mb-3' controlId='brojtelefona'>
           <Form.Label>brojTelefona</Form.Label>
           <Form.Control
             type='text'
-            name='Broj Telefona'
-            placeholder='Broj Telefona'
+            name='brojtelefona'
+            placeholder='brojtelefona'
             maxLength={20}
+            
           />
-        </Form.Group>
+          </Form.Group>
 
-        <Form.Group className='mb-3' controlId='email'>
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type='text'
-            name='email'
-            placeholder='Email'
-            maxLength={100}
-          />
+           <Form.Group className='mb-3' controlId='email'>
+           <Form.Label>Email</Form.Label>
+           <Form.Control
+           type='text'
+           name='email'
+           placeholder='email'
+           maxLength={50}
+   
+        />
         </Form.Group>
     
-        <Row>
+        <Row className="akcije">
           <Col>
             <Link className='btn btn-danger gumb' to={RoutesNames.OSOBE_PREGLED}>
               Odustani

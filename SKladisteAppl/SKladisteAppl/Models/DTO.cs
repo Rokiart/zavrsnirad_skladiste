@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace SKladisteAppl.Models
@@ -9,12 +10,16 @@ namespace SKladisteAppl.Models
     /// Predstavlja podatke o osobi za čitanje.
     /// </summary>
     public record OsobaDTORead(int sifra, string ime, string prezime,
-        string brojtelefona, string email);
+        string? brojtelefona, string? email);
 
     /// <summary>
     /// Predstavlja podatke o osobi za unos i ažuriranje.
     /// </summary>
-    public record OsobaDTOInsertUpdate(string ime, string prezime,
+    public record OsobaDTOInsertUpdate(
+        [Required(ErrorMessage = "Naziv obavezno")]
+        string ime,
+        [Required(ErrorMessage = "Naziv obavezno")]
+        string prezime,
         string brojtelefona, string email);
 
     /// <summary>
@@ -45,8 +50,7 @@ namespace SKladisteAppl.Models
     /// Predstavlja podatke o izdatnici za čitanje.
     /// </summary>
     public record IzdatnicaDTORead(int sifra, string? brojIzdatnice,
-        DateTime? datum, string? osobaImePrezime, string? skladistarImePrezime,
-        string napomena);
+        DateTime? datum, string? osobaImePrezime, string? skladistarImePrezime, string napomena, string? proizvodiPopis);
 
     /// <summary>
     /// Predstavlja podatke o izdatnici za unos i ažuriranje.

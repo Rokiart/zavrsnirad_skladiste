@@ -61,7 +61,7 @@ export default function ProizvodiPromjeni() {
             type='text'
             name='naziv'
             defaultValue={proizvod.naziv}
-            maxLength={255}
+            maxLength={50}
             required
           />
         </Form.Group>
@@ -72,7 +72,7 @@ export default function ProizvodiPromjeni() {
             type='text'
             name='sifraProizvoda'
             defaultValue={proizvod.sifraProizvoda}
-            maxLength={255}
+            maxLength={50}
           
           />
         </Form.Group>
@@ -83,7 +83,7 @@ export default function ProizvodiPromjeni() {
             type='text'
             name='mjernaJedinica'
             defaultValue={proizvod.mjernaJedinica}
-            maxLength={11}
+            maxLength={20}
           />
         </Form.Group>
 
@@ -95,7 +95,7 @@ export default function ProizvodiPromjeni() {
           </Col>
           <Col>
             <Button variant='primary' className='gumb' type='submit'>
-              Promjeni predavača
+              Promjeni podatke proizvoda
             </Button>
           </Col>
         </Row>

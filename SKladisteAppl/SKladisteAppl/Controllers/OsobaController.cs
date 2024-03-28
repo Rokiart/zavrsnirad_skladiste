@@ -245,6 +245,41 @@ namespace SKladisteAppl.Controllers
             }
 
         }
+        [HttpGet]
+        [Route("trazi/{uvjet}")]
+        public IActionResult TraziOsoba(string uvjet)
+        {
+            // ovdje će ići dohvaćanje u bazi
+
+            if (uvjet == null || uvjet.Length < 3)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // ivan se PROBLEM riješiti višestruke uvjete
+            uvjet = uvjet.ToLower();
+            try
+            {
+                IEnumerable<Osoba> query = _context.Osobe;
+                var niz = uvjet.Split(" ");
+
+                foreach (var s in uvjet.Split(" "))
+                {
+                    query = query.Where(p => p.Ime.ToLower().Contains(s) || p.Prezime.ToLower().Contains(s));
+                }
+
+
+                var osobe = query.ToList();
+
+                return new JsonResult(osobe.MapOsobaReadList()); //200
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, e.Message); //204
+            }
+        }
+
 
     }
 

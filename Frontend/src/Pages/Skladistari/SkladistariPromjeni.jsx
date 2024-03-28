@@ -34,7 +34,7 @@ export default function SkladistaraPromjeni(){
         if(odgovor.ok){
           navigate(RoutesNames.SKLADISTARI_PREGLED);
         }else{
-          console.log(odgovor);
+          
           alert(odgovor.poruka);
         }
     }
@@ -45,16 +45,12 @@ export default function SkladistaraPromjeni(){
 
         const podaci = new FormData(e.target);
         
-        const skladistar =
-        {
-            ime: podaci.get('ime'),
-            prezime: skladistar.get('prezime'),
-            brojTelefona: podaci.get('broj telefona'),
-            email: podaci.get('email')
-            
-        };
-
-        promjeniSkladistar(skladistar) ; 
+       promjeniSkladistar({
+        ime: podaci.get('ime'),
+        prezime: podaci.get('prezime'),
+        brojTelefona: podaci.get('brojtelefona'),
+        email: podaci.get('email')
+       }); 
          
     }
 
@@ -71,6 +67,8 @@ export default function SkladistaraPromjeni(){
                         type="text"
                         defaultValue={skladistar.ime}
                         name="ime"
+                        maxLength={50}
+                        required
                     />
                 </Form.Group>
 
@@ -80,29 +78,34 @@ export default function SkladistaraPromjeni(){
                         type="text"
                         defaultValue={skladistar.prezime}
                         name="prezime"
+                        maxLength={50}
+                        required
                     />
                 </Form.Group>
 
-                <Form.Group controlId="brojTelefona">
+                <Form.Group controlId="brojtelefona">
                     <Form.Label>Broj Telefona</Form.Label>
                     <Form.Control 
                         type="text"
-                        defaultValue={skladistar.brojTelefona}
-                        name="brojTelefona"
+                        defaultValue={skladistar.brojtelefona}
+                        maxLength={50}
+                        name="brojtelefona"
                     />
                 </Form.Group>
 
-                <Form.Group controlId="email">
+                <Form.Group controlId='email'>
                     <Form.Label>Email</Form.Label>
-                    <Form.Control 
-                        type="text"
+                    <Form.Control
+                        type='text'
+                        name='email'
                         defaultValue={skladistar.email}
-                        name="email"
+                        maxLength={50}
                     />
-                </Form.Group>
 
+                 </Form.Group>
+        
                 
-                <Row className="akcije">
+                <Row >
                     <Col>
                         <Link 
                         className="btn btn-danger"
@@ -114,7 +117,7 @@ export default function SkladistaraPromjeni(){
                           
                             type="submit"
                         >
-                            Promjeni skladistara
+                            Promjeni podatke skladistara
                         </Button>
                     </Col>
                 </Row>

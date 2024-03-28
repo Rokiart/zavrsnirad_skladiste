@@ -23,6 +23,6 @@
         /// <summary>
         /// Izdatnice koje sadrže ovaj proizvod.
         /// </summary>
-        public ICollection<Izdatnica>? Izdatnice { get; set; } = new List<Izdatnica>();
+        public ICollection<Izdatnica>? Izdatnice { get; } = new List<Izdatnica>();
     }
 }

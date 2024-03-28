@@ -42,8 +42,8 @@ export default function ProizvodiDodaj() {
           <Form.Control
             type='text'
             name='naziv'
-            placeholder='Naziv'
-            maxLength={255}
+            placeholder='Naziv proizvoda'
+            maxLength={50}
             required
           />
         </Form.Group>
@@ -54,7 +54,7 @@ export default function ProizvodiDodaj() {
             type='text'
             name='sifraproizvoda'
             placeholder='sifraproizvoda'
-            maxLength={255}
+            maxLength={50}
             required
           />
         </Form.Group>
@@ -65,7 +65,7 @@ export default function ProizvodiDodaj() {
             type='text'
             name='mjernajedinica'
             placeholder='mjernajedinica'
-            maxLength={11}
+            maxLength={20}
             required
           />
         </Form.Group>

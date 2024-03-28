@@ -3,7 +3,7 @@ export const RoutesNames = {
     
     OSOBE_PREGLED: '/Osobe',
     OSOBE_NOVI: '/Osobe/dodaj',
-    OSOBE_PROMJENI: '/Osobe/sifra',
+    OSOBE_PROMJENI: '/Osobe/:sifra',
 
     PROIZVODI_PREGLED: '/proizvodi',
     PROIZVODI_NOVI: '/proizvodi/dodaj',

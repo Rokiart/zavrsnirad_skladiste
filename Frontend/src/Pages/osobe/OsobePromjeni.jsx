@@ -6,20 +6,26 @@ import OsobaService from "../../services/OsobaService";
 import { RoutesNames } from "../../constants";
 
 
+
+
 export default function OsobePromjeni(){
 
-    const navigate =useNavigate();
-    const routeParams = useParams();
     const [osoba,setOsoba] = useState({});
+    const routeParams = useParams();
+    const navigate =useNavigate();
+    
+    
 
     async function dohvatiOsobu(){
-        await OsobaService.getBySifra(routeParams.sifra)
-        .then((res)=>{
-            setOsoba(res.data)
-        })
-        .catch((e)=>{
-            alert(e.poruka);
-        });
+        await OsobaService
+        .getBySifra(routeParams.sifra)
+        .then((response)=>{
+            console.log(response);
+            setOsoba(response.data);
+          })
+          .catch((err)=>{ alert(e.poruka);
+            
+          });
     }
 
     useEffect(()=>{
@@ -28,97 +34,92 @@ export default function OsobePromjeni(){
     },[]);
 
     async function promjeniOsobu(osoba){
-        const odgovor = await OsobaService.promjeniOsobu(routeParams.sifra,osoba);
+        const odgovor = await OsobaService.promjeni(routeParams.sifra,osoba);
         if(odgovor.ok){
           navigate(RoutesNames.OSOBE_PREGLED);
         }else{
-          console.log(odgovor);
+          
           alert(odgovor.poruka);
         }
     }
 
-    async function handleSubmit(e){
+    function handleSubmit(e){
         e.preventDefault();
         const podaci = new FormData(e.target);
-
-        const osoba = 
-        {
-            ime: podaci.get('ime'),
-            prezime: parseInt(podaci.get('prezime')),
-            brojTelefona: parseFloat(podaci.get('brojTelefona')),
-            email: podaci.get('email')
             
-          };
-
-          try {
-            const odgovor = await OsobaService.promjeniOsobu(routeParams.sifra, novaOsoba);
-            if(odgovor.ok){
-                navigate(RoutesNames.OSOBE_PREGLED);
-            } else {
-                console.log(odgovor);
-                alert(odgovor.poruka);
-            }
-        } catch (error) {
-            alert(error);
-        }
+            promjeniOsobu({
+                ime: podaci.get('ime'),
+                prezime: podaci.get('prezime'),
+                brojtelefona: podaci.get('brojtelefona'),
+                email: podaci.get('email')
+            });
+              
+            
     }
 
 
     return (
 
-        <Container>
+        <Container >
            
            <Form onSubmit={handleSubmit}>
 
-                <Form.Group controlId="ime">
+                <Form.Group  controlId="ime">
                     <Form.Label>Ime</Form.Label>
                     <Form.Control 
                         type="text"
                         defaultValue={osoba.ime}
                         name="ime"
+                        maxLength={50}
+                        required
                     />
                 </Form.Group>
 
-                <Form.Group controlId="prezime">
+                <Form.Group  controlId="prezime">
                     <Form.Label>Prezime</Form.Label>
                     <Form.Control 
                         type="text"
                         defaultValue={osoba.prezime}
                         name="prezime"
+                        maxLength={50}
+                        required
                     />
                 </Form.Group>
 
-                <Form.Group controlId="brojTelefona">
-                    <Form.Label>Cijena</Form.Label>
+                <Form.Group controlId="brojtelefona">
+                    <Form.Label>Broj Telefona</Form.Label>
                     <Form.Control 
                         type="text"
-                        defaultValue={osoba.brojTelefona}
-                        name="brojTelefona"
+                        defaultValue={osoba.brojtelefona}
+                        name="brojtelefona"
+                        maxLength={50}
                     />
                 </Form.Group>
 
                 <Form.Group controlId="email">
-                    <Form.Label>Upisnina</Form.Label>
+                    <Form.Label>Email</Form.Label>
                     <Form.Control 
                         type="text"
                         defaultValue={osoba.email}
                         name="email"
+                        maxLength={20}
                     />
                 </Form.Group>
 
                 
-                <Row className="akcije">
+                <Row >
                     <Col>
                         <Link 
-                        className="btn btn-danger"
+                        className="btn btn-danger gumb"
                         to={RoutesNames.OSOBE_PREGLED}>Odustani</Link>
                     </Col>
                     <Col>
                         <Button
                             variant="primary"
+                            className='gumb'
                             type="submit"
                         >
-                            Promjeni osobu
+                            Promjeni podatke od osobe
                         </Button>
                     </Col>
                 </Row>

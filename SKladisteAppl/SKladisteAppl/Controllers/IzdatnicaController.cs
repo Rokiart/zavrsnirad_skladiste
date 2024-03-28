@@ -149,7 +149,7 @@ namespace SKladisteAppl.Controllers
 
             entitet.Osoba = osoba;
             entitet.Skladistar = skladistar;
-
+            entitet.Proizvodi = new List<Proizvod>();
 
             try
             {
@@ -201,7 +201,6 @@ namespace SKladisteAppl.Controllers
 
             try
             {
-
 
                 var entitet = _context.Izdatnice.Include(i => i.Osoba).Include(i => i.Skladistar)
                     .Include(i => i.Proizvodi).FirstOrDefault(x => x.Sifra == sifra);

@@ -4,45 +4,65 @@ import { ImManWoman } from "react-icons/im";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import IzdatnicaService from "../../services/IzdatnicaService";
-import { RoutesNames } from "../../constants";
+import moment from "moment";
 
+import IzdatnicaService from "../../services/IzdatnicaService";
+import { dohvatiPorukeAlert } from "../../services/httpService";
+import ProizvodService from "../../services/ProizvodService";
+import { RoutesNames } from "../../constants";
 
 
 
 export default function Izdatnice() {
 
     const [Izdatnice,setIzdatnice] = useState();
-    const navigate = useNavigate();
+    let navigate = useNavigate(); 
+
+
+
 
     async function dohvatiIzdatnice(){
-        await IzdatnicaService.get()
-        .then((res)=>{
-
-          
-        })
-        .catch((e)=>{
-            alert(e);
-        });
+        const odgovor =await IzdatnicaService.get();
+        if(!odgovor.ok){
+            alert(dohvatiPorukeAlert(odgovor.podaci));
+            return;
+        }
+        setIzdatnice(odgovor.podaci);
+        setSifraIzdatnica(odgovor.podaci[0].sifra);
     }
 
-    useEffect(()=>{
-        dohvatiIzdatnice();
-    },[]);
+  
 
     async function ObrisiIzdatnicu(sifra){
       
         const odgovor = await IzdatnicaService.obrisi(sifra);
+        alert(dohvatiPorukeAlert(odgovor.podaci));
         if (odgovor.ok){
            
             dohvatiIzdatnice();
+            dohvatiProizvodi();
+        }
         
+    }
 
-    } else {
-        alert(odgovor.poruka);
+  
+   
+
+    useEffect(()=>{
+        dohvatiIzdatnice();
+    
+
+    },[]);
+
+   
+   function formatirajDatum(datum){
+    let mdp = moment.utc(datum);
+    if(mdp.hour()==0 && mdp.minutes()==0){
+        return mdp.format('DD. MM. YYYY.');
     }
-        
-    }
+    return mdp.format('DD. MM. YYYY. HH:mm');
+    
+  }
 
     return(
         <Container>
@@ -56,8 +76,9 @@ export default function Izdatnice() {
                   <tr>
                      <th>BrojIzdatnice</th>
                      <th>Datum</th>
-                     {/* <th>Osoba</th>
-                     <th>Skladistar</th> */}
+                     <th>Proizvod</th>
+                     <th>Osoba</th>
+                     <th>Skladistar</th> 
                      <th>Napomena</th>
                      <th>Akcija</th>
                   </tr>
@@ -65,10 +86,20 @@ export default function Izdatnice() {
                <tbody>
                     {Izdatnice && Izdatnice.map((izdatnica,index)=>(
                         <tr key={index}>
-                            <td>{izdatnica.brojizdatnice}</td>
-                            <td>{izdatnica.datum}</td>
-                            {/* <td>{izdatnica.osoba}</td>
-                            <td>{izdatnica.skladistar}</td> */}
+                            <td>{izdatnica.brojIzdatnice}</td>
+                            <td>  <p>
+                                {izdatnica.datum==null 
+                                ? 'Nije definirano'
+                                :   
+                                formatirajDatum(izdatnica.datum)
+                                }
+                                </p>
+                             
+                               
+                              </td>
+                              <td>{izdatnica.proizvodiPopis}</td>
+                            <td>{izdatnica.osobaImePrezime}</td>
+                            <td>{izdatnica.skladistarImePrezime}</td> 
                             <td>{izdatnica.napomena}</td>
                             <td className="sredina">
                                 <Button 

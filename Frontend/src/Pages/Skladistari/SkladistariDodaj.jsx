@@ -31,12 +31,7 @@ export default function SkladistareDodaj() {
             brojTelefona: podaci.get('Broj Telefona'),
             email: podaci.get('email')
             
-          });
-
-          
-           
-
-
+          });         
     }
 
     return(
@@ -48,7 +43,7 @@ export default function SkladistareDodaj() {
             type='text'
             name='ime'
             placeholder='Ime'
-            maxLength={255}
+            maxLength={50}
             required
           />
         </Form.Group>
@@ -59,8 +54,7 @@ export default function SkladistareDodaj() {
             type='text'
             name='prezime'
             placeholder='Prezime'
-            maxLength={255}
-            required
+            maxLength={50}
           />
         </Form.Group>
 
@@ -80,18 +74,18 @@ export default function SkladistareDodaj() {
             type='text'
             name='email'
             placeholder='Email'
-            maxLength={100}
+            maxLength={50}
           />
         </Form.Group>
     
         <Row className="akcije">
           <Col>
-            <Link className='btn btn-danger' to={RoutesNames.SKLADISTARI_PREGLED}>
+            <Link className='btn btn-danger gumb' to={RoutesNames.SKLADISTARI_PREGLED}>
               Odustani
             </Link>
           </Col>
           <Col>
-            <Button variant='primary'  type='submit'>
+            <Button variant='primary' className='gumb' type='submit'>
               Dodaj SKladištara
             </Button>
           </Col>

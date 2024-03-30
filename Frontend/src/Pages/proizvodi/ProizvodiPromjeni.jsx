@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ProizvodService from '../../services/ProizvodService';
 import { RoutesNames } from '../../constants';
+import { dohvatiPorukeAlert } from '../../services/httpService';
 
 
 export default function ProizvodiPromjeni() {
@@ -14,13 +15,13 @@ export default function ProizvodiPromjeni() {
 
   async function dohvatiProizvod() {
 
-    await ProizvodService
+    const odgovor = await ProizvodService
       .getBySifra(routeParams.sifra)
-      .then((response) => {
-        console.log(response);
-        setProizvod(response.data);
-      })
-      .catch((err) => alert(err.poruka));
+      if(!odgovor.ok){
+        alert(dohvatiPorukeAlert(odgovor.podaci));
+        return;
+      }
+      setProizvod(odgovor.podaci);
 
   }
 
@@ -33,10 +34,9 @@ export default function ProizvodiPromjeni() {
 
     if (odgovor.ok) {
       navigate(RoutesNames.PROIZVODI_PREGLED);
-    } else {
-      alert(odgovor.poruka);
-
+      return;
     }
+    alert(dohvatiPorukeAlert(odgovor.podaci));
   }
 
   function handleSubmit(e) {

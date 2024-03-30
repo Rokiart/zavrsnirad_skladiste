@@ -20,6 +20,7 @@ export default function IzdatnicePromjeni(){
     const navigate =useNavigate();
     const routeParams = useParams();
     const [izdatnica,setIzdatnica] = useState({});
+    const [sifraIzdatnica, setSifraIzdatnica] = useState(0);
 
     const [Osobe, setOsobe] = useState([]);
     const [sifraOsoba, setSifraOsoba] = useState(0);
@@ -41,6 +42,8 @@ export default function IzdatnicePromjeni(){
           alert(dohvatiPorukeAlert(odgovor.podaci));
           return;
         }
+        setIzdatnice(odgovor.podaci);
+        setSifraIzdatnica(odgovor.podaci[0].sifra);
       }
 
     async function dohvatiProizvodi() {
@@ -50,6 +53,7 @@ export default function IzdatnicePromjeni(){
             return;
         }
         setProizvodi(odgovor.podaci);
+        setSifraProizvod(odgovor.podaci[0].sifra);
       }
 
 
@@ -179,19 +183,18 @@ export default function IzdatnicePromjeni(){
               
           }
     
-          function dodajRucnoPolaznika(){
+          function dodajRucnoProizvod(){
             let niz = searchName.split(' ');
             if(niz.length<2){
-              alert('Obavezno ime i prezime');
+              alert('Obavezno naziv');
               return;
             }
         
-            dodajRucnoPolaznik({
-              ime: niz[0],
-              prezime: niz[1],
-              oib: '',
-              email: '',
-              brojugovora: ''
+            dodajRucnoProizvod({
+              naziv: niz[0],
+              sifraProizvoda: niz[1],
+              mjernaJedinica: niz[2]
+             
             });
         
             
@@ -233,15 +236,15 @@ export default function IzdatnicePromjeni(){
                 </Form.Group>
 
 
-                {/* <Form.Group className='mb-3' controlId="proizvod">
+                <Form.Group className='mb-3' controlId="dodajRucnoProizvod">
                     <Form.Label>Proizvod</Form.Label>
                     <Form.Control 
                         type="text"
-                        defaultValue={izdatnica.proizvod}
+                        defaultValue={izdatnica.dodajRucnoProizvod}
                         name="proizvod"
                         required
                     />
-                </Form.Group> */}
+                </Form.Group>
 
                 
 

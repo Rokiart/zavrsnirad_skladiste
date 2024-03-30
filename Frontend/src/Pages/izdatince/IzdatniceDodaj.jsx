@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -8,6 +8,7 @@ import SkladistarService from '../../services/SkladistarService';
 import OsobaService from '../../services/OsobaService';
 import ProizvodService from '../../services/ProizvodService';
 import { RoutesNames } from '../../constants';
+import { dohvatiPorukeAlert } from "../../services/httpService";
 
 
 
@@ -24,9 +25,8 @@ export default function IzdatniceDodaj() {
   const [proizvodi , setProizvodi] =useState([]);
   const [pronadeniProizvodi, setPronadeniProizvodi] = useState([]);
 
-  const [searchName, setSearchName] = useState('');
 
-  const typeaheadRef = useRef(null);
+ 
 
   
   async function dohvatiOsobe(){
@@ -57,6 +57,15 @@ export default function IzdatniceDodaj() {
   }
   setProizvodi(odgovor.podaci);
   setProizvodSifra(odgovor.podaci[0].sifra);
+}
+
+async function dodaj(e) {
+  const odgovor = await Service.dodaj(e);
+  if (odgovor.ok) {
+    navigate(RoutesNames.IZDATNICE_PREGLED);
+  } else {
+    alert(odgovor.poruka.podaci);
+  }
 }
 
   async function ucitaj(){

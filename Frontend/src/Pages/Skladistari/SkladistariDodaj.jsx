@@ -2,7 +2,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate,  } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 import SkladistarService from "../../services/SkladistarService";
-
+import { dohvatiPorukeAlert } from "../../services/httpService";
 
 
 
@@ -14,11 +14,10 @@ export default function SkladistareDodaj() {
         const odgovor = await SkladistarService.dodaj(skladistar);
         if(odgovor.ok){
           navigate(RoutesNames.SKLADISTARI_PREGLED);
-        }else{
-          console.log(odgovor);
-          alert(odgovor.poruka);
+          return
         }
-    }
+        alert(dohvatiPorukeAlert(odgovor.podaci));
+      }
 
     function handleSubmit(e){
         e.preventDefault();

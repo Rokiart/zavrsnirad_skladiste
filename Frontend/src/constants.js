@@ -20,5 +20,6 @@ export const RoutesNames = {
 };
 
 export const App = {
-    DEV: true
+    URL: 'https://romanzaric-001-site1.itempurl.com',
+    DEV: false
 };

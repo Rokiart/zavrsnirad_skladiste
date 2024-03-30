@@ -6,6 +6,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
+import { dohvatiPorukeAlert } from "../../services/httpService";
 
 
 
@@ -14,30 +15,30 @@ export default function Proizvodi(){
     const navigate = useNavigate(); 
 
     async function dohvatiProizvode(){
-        await ProizvodService.get()
-        .then((res)=>{
-            setProizvodi(res.data);
-        })
-        .catch((e)=>{
-            alert(e);
-        });
+        const odgovor = await ProizvodService.get();
+        if(!odgovor.ok){
+            alert(dohvatiPorukeAlert(odgovor.podaci));
+            return;
+        }
+        setProizvodi(odgovor.podaci);
     }
 
-    useEffect(()=>{
-       dohvatiProizvode();
-    },[]);
-
+   
 
 
     async function obrisiProizvod(sifra) {
         const odgovor = await ProizvodService.obrisi(sifra);
-    
+        alert(dohvatiPorukeAlert(odgovor.podaci));
         if (odgovor.ok) {
             dohvatiProizvode();
-        } else {
-          alert(odgovor.poruka);
+      
         }
       }
+
+      useEffect(()=>{
+        dohvatiProizvode();
+     },[]);
+ 
 
     return (
 

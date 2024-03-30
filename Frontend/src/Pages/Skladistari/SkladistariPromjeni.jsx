@@ -4,7 +4,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SkladistarService from "../../services/SkladistarService";
 import { RoutesNames } from "../../constants";
-
+import { dohvatiPorukeAlert } from '../../services/httpService';
 
 
 export default function SkladistaraPromjeni(){
@@ -15,13 +15,22 @@ export default function SkladistaraPromjeni(){
     const navigate = useNavigate();
 
     async function dohvatiSkladistara(){
-        await SkladistarService
+        const odgovor = await SkladistarService
         .getBySifra(routeParams.sifra)
-        .then((response) => {
-          console.log(response);
-          setSkladistar(response.data);
-        })
-        .catch((err) => alert(err.poruka));
+        if(!odgovor.ok){
+            alert(dohvatiPorukeAlert(odgovor.podaci));
+            return;
+          }
+          setSkladistar(odgovor.podaci);
+    }
+
+    async function promjeniSkladistar(skladistar){
+        const odgovor = await SkladistarService.promjeni(routeParams.sifra,skladistar);
+        if(odgovor.ok){
+          navigate(RoutesNames.SKLADISTARI_PREGLED);
+          return
+        }
+        alert(dohvatiPorukeAlert(odgovor.podaci));
     }
 
     useEffect(()=>{
@@ -29,15 +38,7 @@ export default function SkladistaraPromjeni(){
         dohvatiSkladistara();
     },[]);
 
-    async function promjeniSkladistar(skladistar){
-        const odgovor = await SkladistarService.promjeni(routeParams.sifra,skladistar);
-        if(odgovor.ok){
-          navigate(RoutesNames.SKLADISTARI_PREGLED);
-        }else{
-          
-          alert(odgovor.poruka);
-        }
-    }
+  
 
     function handleSubmit(e){
         e.preventDefault();

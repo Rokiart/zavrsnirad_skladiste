@@ -4,6 +4,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import OsobaService from "../../services/OsobaService";
 import { RoutesNames } from "../../constants";
+import { dohvatiPorukeAlert } from '../../services/httpService';
 
 
 
@@ -17,15 +18,22 @@ export default function OsobePromjeni(){
     
 
     async function dohvatiOsobu(){
-        await OsobaService
+        const odgovor = await OsobaService
         .getBySifra(routeParams.sifra)
-        .then((response)=>{
-            console.log(response);
-            setOsoba(response.data);
-          })
-          .catch((err)=>{ alert(e.poruka);
-            
-          });
+        if(!odgovor.ok){
+            alert(dohvatiPorukeAlert(odgovor.podaci));
+            return;
+          }
+          setOsoba(odgovor.podaci);
+    }
+
+    async function promjeniOsobu(osoba){
+        const odgovor = await OsobaService.promjeni(routeParams.sifra,osoba);
+        if(odgovor.ok){
+          navigate(RoutesNames.OSOBE_PREGLED);
+          return;
+        }
+        alert(dohvatiPorukeAlert(odgovor.podaci));
     }
 
     useEffect(()=>{
@@ -33,15 +41,7 @@ export default function OsobePromjeni(){
         dohvatiOsobu();
     },[]);
 
-    async function promjeniOsobu(osoba){
-        const odgovor = await OsobaService.promjeni(routeParams.sifra,osoba);
-        if(odgovor.ok){
-          navigate(RoutesNames.OSOBE_PREGLED);
-        }else{
-          
-          alert(odgovor.poruka);
-        }
-    }
+   
 
     function handleSubmit(e){
         e.preventDefault();

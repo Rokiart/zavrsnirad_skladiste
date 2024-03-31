@@ -22,12 +22,6 @@ export default function IzdatniceDodaj() {
   const [skladistari, setSkladistari] = useState([]);
   const [skladistarSifra, setSkladistarSifra] = useState(0);
 
-  const [proizvodi , setProizvodi] =useState([]);
-  const [pronadeniProizvodi, setPronadeniProizvodi] = useState([]);
-
-
- 
-
   
   async function dohvatiOsobe(){
     const odgovor = await OsobaService.get();
@@ -49,51 +43,42 @@ export default function IzdatniceDodaj() {
   setSkladistarSifra(odgovor.podaci[0].sifra);
 }
 
-  async function dohvatiProizvode(){
-    const odgovor =await ProizvodService.get();
-    if(!odgovor.ok){
-      alert(dohvatiPorukeAlert(odgovor.podaci));
-      return;
-  }
-  setProizvodi(odgovor.podaci);
-  setProizvodSifra(odgovor.podaci[0].sifra);
+async function ucitaj(){
+  await dohvatiOsobe();
+  await dohvatiSkladistare();
 }
+
+useEffect(()=>{
+  ucitaj();
+},[]);
+
 
 async function dodaj(e) {
   const odgovor = await Service.dodaj(e);
-  if (odgovor.ok) {
+  if(odgovor.ok){
     navigate(RoutesNames.IZDATNICE_PREGLED);
-  } else {
-    alert(odgovor.poruka.podaci);
+    return
   }
+  alert(dohvatiPorukeAlert(odgovor.podaci));
+  
 }
 
-  async function ucitaj(){
-    await dohvatiOsobe();
-    await dohvatiSkladistare();
-    await dohvatiProizvode();
-  }
+//   async function dohvatiProizvode(){
+//     const odgovor =await ProizvodService.getProizvodi();
+//     if(!odgovor.ok){
+//       alert(dohvatiPorukeAlert(odgovor.podaci));
+//       return;
+//   }
+//   setProizvodi(odgovor.podaci);
+//   setProizvodSifra(odgovor.podaci[0].sifra);
+// }
 
-  useEffect(()=>{
-    ucitaj();
-  },[]);
-
-  async function dodaj(e) {
-    const odgovor = await Service.dodaj(e);
-    if (odgovor.ok) {
-      navigate(RoutesNames.IZDATNICE_PREGLED);
-    } else {
-      alert(odgovor.poruka.podaci);
-    }
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     const podaci = new FormData(e.target);
-
     
-
     if(podaci.get('datum')=='' && podaci.get('vrijeme')!=''){
       alert('Ako postavljate vrijeme morate i datum');
       return;
@@ -104,11 +89,12 @@ async function dodaj(e) {
     }else{
       datum = podaci.get('datum') + 'T' + podaci.get('vrijeme') + ':00.000Z';
     }
+    
 
       dodaj({
         brojIzdatnice: podaci.get('brojizdatnice'),
         datum: datum,
-        proizvodSifra: parseInt(proizvodSifra),
+        // proizvodSifra: parseInt(proizvodSifra),
         osobaSifra: parseInt(osobaSifra),
         skladistarSifra: parseInt(skladistarSifra),
         napomena: podaci.get('napomena')
@@ -146,7 +132,7 @@ async function dodaj(e) {
           />
          </Form.Group>
 
-         <Form.Group className='mb-3' controlId='proizvod'>
+         {/* <Form.Group className='mb-3' controlId='proizvod'>
           <Form.Label>Proizvod</Form.Label>
             <Form.Select
               onChange={(e)=>{setProizvodSifra(e.target.value)}}
@@ -157,7 +143,7 @@ async function dodaj(e) {
                    </option>
               ))}
              </Form.Select>
-          </Form.Group>
+          </Form.Group> */}
 
          <Form.Group className='mb-3' controlId='osoba'>
           <Form.Label>Osoba</Form.Label>

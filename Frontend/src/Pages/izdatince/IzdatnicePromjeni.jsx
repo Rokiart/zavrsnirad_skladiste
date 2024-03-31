@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Row ,Table } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { RoutesNames } from "../../constants";
-import IzdatnicaService from "../../services/IzdatnicaService";
+
 import { FaTrash } from 'react-icons/fa';
 import moment from 'moment';
 
@@ -19,17 +19,16 @@ export default function IzdatnicePromjeni(){
 
     const navigate =useNavigate();
     const routeParams = useParams();
-    const [izdatnica,setIzdatnica] = useState({});
-    const [sifraIzdatnica, setSifraIzdatnica] = useState(0);
-
-    const [Osobe, setOsobe] = useState([]);
+    const [izdatnica, setIzdatnica] = useState([]);
+ 
+    const [osobe, setOsobe] = useState([]);
     const [sifraOsoba, setSifraOsoba] = useState(0);
 
     const [skladistari, setSkladistari] = useState([]);
     const [sifraSkladistar, setSifraSkladistar] = useState(0);
 
     const [proizvodi, setProizvodi] = useState([]);
-    const [sifraProizvod, setSifraProizvod] = useState(0);
+    const [pronadeniProizvodi, setPronadeniProizvodi] = useState(0);
 
     const [searchName, setSearchName] = useState('');
 
@@ -42,8 +41,11 @@ export default function IzdatnicePromjeni(){
           alert(dohvatiPorukeAlert(odgovor.podaci));
           return;
         }
-        setIzdatnice(odgovor.podaci);
-        setSifraIzdatnica(odgovor.podaci[0].sifra);
+        setIzdatnica(izdatnica);
+        setSifraOsoba(izdatnica.OsobaSifra);
+        if(izdatnica.skladistarSifra!=null){
+          setSifraSkladistar(izdatnica.skladistarSifra);
+        }       
       }
 
     async function dohvatiProizvodi() {
@@ -68,7 +70,7 @@ export default function IzdatnicePromjeni(){
           
       }
 
-      async function dohvatiSkladistari() {
+      async function dohvatiSkladistare() {
         const odgovor =  await SkladistarService.get();
         if(!odgovor.ok){
           alert(dohvatiPorukeAlert(odgovor.podaci));
@@ -88,13 +90,13 @@ export default function IzdatnicePromjeni(){
         setSearchName(uvjet);
       }
 
-      async function traziOsoba(uvjet) {
-        const odgovor =  await OsobaService.traziOsoba(uvjet);
+      async function traziProizvod(uvjet) {
+        const odgovor =  await ProizvodService.traziProizvod(uvjet);
         if(!odgovor.ok){
           alert(dohvatiPorukeAlert(odgovor.podaci));
           return;
         }
-        setPronadeniOsobe(odgovor.podaci);
+        setPronadeniProizvodi(odgovor.podaci);
         setSearchName(uvjet);
       }
 
@@ -112,7 +114,7 @@ export default function IzdatnicePromjeni(){
       async function promjeni(e) {
         const odgovor = await Service.promjeni(routeParams.sifra, e);
         if(odgovor.ok){
-          navigate(RoutesNames.IZDATNICE_PROMJENI_PREGLED);
+          navigate(RoutesNames.IZDATNICE_PREGLED);
           return;
         }
         alert(dohvatiPorukeAlert(odgovor.podaci));
@@ -125,8 +127,8 @@ export default function IzdatnicePromjeni(){
           return;
         }
         alert(dohvatiPorukeAlert(odgovor.podaci));
-     
-        async function dodajProizvode(e) {
+      }
+        async function dodajProizvod(e) {
             //console.log(e[0]);
             const odgovor = await Service.dodajProizvod(routeParams.sifra, e[0].sifra);
             if(odgovor.ok){
@@ -134,8 +136,8 @@ export default function IzdatnicePromjeni(){
               return;
             }
             alert(dohvatiPorukeAlert(odgovor.podaci));
-          }
-      }
+        }
+      
     
 
 
@@ -204,7 +206,8 @@ export default function IzdatnicePromjeni(){
         <Container className='mt-4'>
            
            <Form onSubmit={handleSubmit}>
-
+           <Row>
+                 <Col key='1' sm={12} lg={6} md={6}> 
                 <Form.Group  className='mb-3' controlId="brojIzdatnice">
                     <Form.Label>Broj Izdatnice</Form.Label>
                     <Form.Control 
@@ -215,7 +218,8 @@ export default function IzdatnicePromjeni(){
                        
                     />
                 </Form.Group>
-
+                <Row>
+                     <Col key='1' sm={12} lg={6} md={6}>   
                 <Form.Group className='mb-3' controlId="datum">
                     <Form.Label>Datum</Form.Label>
                     <Form.Control 
@@ -225,48 +229,57 @@ export default function IzdatnicePromjeni(){
                         
                     />
                 </Form.Group>
+                </Col>
+                   <Col key='2' sm={12} lg={6} md={6}>
 
                 <Form.Group className='mb-3' controlId='vrijeme'>
                     <Form.Label>Vrijeme</Form.Label>
                     <Form.Control
                          type='time'
                          name='vrijeme'
+                         defaultValue={izdatnica.vrijeme}
                          
                     />
                 </Form.Group>
+                </Col>
+                   </Row>
 
 
-                <Form.Group className='mb-3' controlId="dodajRucnoProizvod">
-                    <Form.Label>Proizvod</Form.Label>
-                    <Form.Control 
-                        type="text"
-                        defaultValue={izdatnica.dodajRucnoProizvod}
-                        name="proizvod"
-                        required
-                    />
-                </Form.Group>
-
+              
                 
+                <Form.Group className='mb-3' controlId='osoba'>
+          <Form.Label>Osoba</Form.Label>
+          <Form.Select
+             value={sifraOsoba}
+             onChange={(e) => {
+               setSifraOsoba(e.target.value);
+             }}
+          >
+            {osobe &&
+              osobe.map((osoba, index) => (
+                <option key={index} value={osoba.sifra}>
+                  {osoba.ime} {osoba.prezime}
+                </option>
+              ))}
+          </Form.Select>
+        </Form.Group>
 
-                <Form.Group className='mb-3' controlId="osoba">
-                    <Form.Label>Osoba</Form.Label>
-                    <Form.Control 
-                        type="text"
-                        defaultValue={izdatnica.osoba}
-                        name="osoba"
-                        
-                    />
-                </Form.Group>
-
-                <Form.Group className='mb-3' controlId="skladistar">
-                    <Form.Label>Skladistar</Form.Label>
-                    <Form.Control 
-                        type="text"
-                        defaultValue={izdatnica.skladistar}
-                        name="skladistar"
-                       
-                    />
-                </Form.Group>
+        <Form.Group className='mb-3' controlId='skladistar'>
+          <Form.Label>Skladistar</Form.Label>
+          <Form.Select
+            value={sifraSkladistar}
+            onChange={(e) => {
+              setSifraSkladistar(e.target.value);
+            }}
+          >
+            {skladistari &&
+              skladistari.map((skladistar, index) => (
+                <option key={index} value={skladistar.sifra}>
+                  {skladistar.ime} {skladistar.prezime}
+                </option>
+              ))}
+          </Form.Select>
+        </Form.Group>
 
                 <Form.Group className='mb-3' controlId="napomena">
                     <Form.Label>Napomena</Form.Label>
@@ -295,7 +308,81 @@ export default function IzdatnicePromjeni(){
                         </Button>
                     </Col>
                 </Row>
+                </Col>
+          <Col key='2' sm={12} lg={6} md={6}>
+          <Form.Group className='mb-3' controlId='uvjet'>
+                <Row>
+                <Form.Label>Traži proizvod</Form.Label>
+                <Col key='1' sm={12} lg={10} md={10}>
                 
+              <AsyncTypeahead
+                className='autocomplete'
+                id='uvjet'
+                emptyLabel='Nema rezultata'
+                searchText='Tražim...'
+                labelKey={(proizvod) => `${proizvod.naziv} `}
+                minLength={3}
+                options={pronadeniProizvodi}
+                onSearch={traziProizvod}
+                placeholder='dio naziva proizvoda'
+                renderMenuItemChildren={(proizvod) => (
+                  <>
+                    <span>
+                      {proizvod.naziv}
+                    </span>
+                  </>
+                )}
+                onChange={dodajProizvod}
+                ref={typeaheadRef}
+              />
+                  </Col>
+                  <Col key='2' sm={12} lg={2} md={2}>
+                  <Button
+                          onClick={dodajRucnoProizvod}
+                        >
+                         Dodaj
+                        </Button>
+                  </Col>
+                </Row>
+              
+
+            </Form.Group>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Proizvodi na izdatnici</th>
+                  <th>Akcija</th>
+                </tr>
+              </thead>
+              <tbody>
+                {proizvodi &&
+                  proizvodi.map((proizvod, index) => (
+                    <tr key={index}>
+                      <td>
+                        {proizvod.naziv} 
+                        
+                      </td>
+                      <td>
+                        <Button
+                          variant='danger'
+                          onClick={() =>
+                            obrisiProizvod(routeParams.sifra, proizvod.sifra)
+                          }
+                        >
+                          <FaTrash />
+                        </Button>
+                             &nbsp;
+                        <Button
+                
+                        onClick={()=>{navigate(`/proizvodi/${proizvod.sifra}`)}}
+                       >Detalji</Button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </Table>
+          </Col>
+          </Row>
            </Form>
 
         </Container>

@@ -1,10 +1,12 @@
 
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Container, Form } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import SkladistarService from "../../services/SkladistarService";
 import { RoutesNames } from "../../constants";
-import { dohvatiPorukeAlert } from '../../services/httpService';
+import useError from "../../hooks/useError";
+import InputText from "../../Components/InputText";
+import Akcije from "../../Components/Akcije";
 
 
 export default function SkladistaraPromjeni(){
@@ -13,12 +15,13 @@ export default function SkladistaraPromjeni(){
 
     const routeParams = useParams();
     const navigate = useNavigate();
+    const { prikaziError } = useError();
 
     async function dohvatiSkladistara(){
         const odgovor = await SkladistarService
         .getBySifra(routeParams.sifra)
         if(!odgovor.ok){
-            alert(dohvatiPorukeAlert(odgovor.podaci));
+            prikaziError(odgovor.podaci);
             return;
           }
           setSkladistar(odgovor.podaci);
@@ -30,7 +33,7 @@ export default function SkladistaraPromjeni(){
           navigate(RoutesNames.SKLADISTARI_PREGLED);
           return
         }
-        alert(dohvatiPorukeAlert(odgovor.podaci));
+        prikaziError(odgovor.podaci);
     }
 
     useEffect(()=>{
@@ -57,76 +60,15 @@ export default function SkladistaraPromjeni(){
 
 
     return (
-
         <Container>
-           
-           <Form onSubmit={handleSubmit}>
-
-                <Form.Group controlId="ime">
-                    <Form.Label>Ime</Form.Label>
-                    <Form.Control 
-                        type="text"
-                        defaultValue={skladistar.ime}
-                        name="ime"
-                        maxLength={50}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="prezime">
-                    <Form.Label>Prezime</Form.Label>
-                    <Form.Control 
-                        type="text"
-                        defaultValue={skladistar.prezime}
-                        name="prezime"
-                        maxLength={50}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="brojtelefona">
-                    <Form.Label>Broj Telefona</Form.Label>
-                    <Form.Control 
-                        type="text"
-                        defaultValue={skladistar.brojtelefona}
-                        maxLength={50}
-                        name="brojtelefona"
-                    />
-                </Form.Group>
-
-                <Form.Group controlId='email'>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        type='text'
-                        name='email'
-                        defaultValue={skladistar.email}
-                        maxLength={50}
-                    />
-
-                 </Form.Group>
-        
-                
-                <Row >
-                    <Col>
-                        <Link 
-                        className="btn btn-danger"
-                        to={RoutesNames.SKLADISTARI_PREGLED}>Odustani</Link>
-                    </Col>
-                    <Col>
-                        <Button
-                            variant="primary"
-                          
-                            type="submit"
-                        >
-                            Promjeni podatke skladistara
-                        </Button>
-                    </Col>
-                </Row>
-                
-           </Form>
-
+          <Form onSubmit={handleSubmit}>
+            <InputText atribut='ime' vrijednost={skladistar.ime} />
+            <InputText atribut='prezime' vrijednost={skladistar.prezime} />
+            <InputText atribut='brojTelefona' vrijednost={skladistar.brojTelefona} />
+            <InputText atribut='email' vrijednost={skladistar.email} />
+           <Akcije odustani={RoutesNames.SKLADISTARI_PREGLED} akcija='Promjeni skladistara' />
+          </Form>
         </Container>
-
-    );
-
-}
+      );
+    }
+    

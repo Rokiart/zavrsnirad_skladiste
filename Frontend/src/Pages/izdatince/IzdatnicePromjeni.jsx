@@ -5,14 +5,14 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { RoutesNames } from "../../constants";
 
 import { FaTrash } from 'react-icons/fa';
-import moment from 'moment';
 
 
+import useError from '../../hooks/useError';
 import Service from '../../services/IzdatnicaService';
 import SkladistarService from '../../services/SkladistarService';
 import OsobaService from '../../services/OsobaService';
 import ProizvodService from '../../services/ProizvodService';
-import { dohvatiPorukeAlert } from '../../services/httpService';
+
 
 
 export default function IzdatnicePromjeni(){
@@ -33,12 +33,13 @@ export default function IzdatnicePromjeni(){
     const [searchName, setSearchName] = useState('');
 
     const typeaheadRef = useRef(null);
+    const { prikaziError } = useError();
 
 
     async function dohvatiIzdatnica() {
         const odgovor = await Service.getBySifra(routeParams.sifra);
         if(!odgovor.ok){
-          alert(dohvatiPorukeAlert(odgovor.podaci));
+          prikaziError(odgovor.podaci);
           return;
         }
         setIzdatnica(izdatnica);
@@ -51,18 +52,18 @@ export default function IzdatnicePromjeni(){
     async function dohvatiProizvodi() {
         const odgovor = await Service.getProizvodi(routeParams.sifra);
         if(!odgovor.ok){
-            alert(dohvatiPorukeAlert(odgovor.podaci));
+          prikaziError(odgovor.podaci);
             return;
         }
         setProizvodi(odgovor.podaci);
-        setSifraProizvod(odgovor.podaci[0].sifra);
+        
       }
 
 
       async function dohvatiOsobe() {
         const odgovor =  await OsobaService.getOsobe();
         if(!odgovor.ok){
-            alert(dohvatiPorukeAlert(odgovor.podaci));
+          prikaziError(odgovor.podaci);
             return;
         }
         setOsobe(odgovor.podaci);
@@ -73,7 +74,7 @@ export default function IzdatnicePromjeni(){
       async function dohvatiSkladistare() {
         const odgovor =  await SkladistarService.get();
         if(!odgovor.ok){
-          alert(dohvatiPorukeAlert(odgovor.podaci));
+          prikaziError(odgovor.podaci);
           return;
         }
         setSkladistari(odgovor.podaci);
@@ -83,22 +84,14 @@ export default function IzdatnicePromjeni(){
       async function traziProizvod(uvjet) {
         const odgovor =  await ProizvodService.traziProizvod(uvjet);
         if(!odgovor.ok){
-          alert(dohvatiPorukeAlert(odgovor.podaci));
+          prikaziError(odgovor.podaci);
           return;
         }
         setPronadeniProizvodi(odgovor.podaci);
         setSearchName(uvjet);
       }
 
-      async function traziProizvod(uvjet) {
-        const odgovor =  await ProizvodService.traziProizvod(uvjet);
-        if(!odgovor.ok){
-          alert(dohvatiPorukeAlert(odgovor.podaci));
-          return;
-        }
-        setPronadeniProizvodi(odgovor.podaci);
-        setSearchName(uvjet);
-      }
+
 
       async function dohvatiInicijalnePodatke() {
         await dohvatiOsobe();
@@ -117,16 +110,16 @@ export default function IzdatnicePromjeni(){
           navigate(RoutesNames.IZDATNICE_PREGLED);
           return;
         }
-        alert(dohvatiPorukeAlert(odgovor.podaci));
+        prikaziError(odgovor.podaci);
       }
     
-      async function obrisiProizvod(grupa, proizvod) {
-        const odgovor = await Service.obrisiProizvod(grupa, proizvod);
+      async function obrisiProizvod(izdatnica, proizvod) {
+        const odgovor = await Service.obrisiProizvod(izdatnica, proizvod);
         if(odgovor.ok){
           await dohvatiProizvodi();
           return;
         }
-        alert(dohvatiPorukeAlert(odgovor.podaci));
+        prikaziError(odgovor.podaci);
       }
         async function dodajProizvod(e) {
             //console.log(e[0]);
@@ -135,7 +128,7 @@ export default function IzdatnicePromjeni(){
               await dohvatiProizvodi();
               return;
             }
-            alert(dohvatiPorukeAlert(odgovor.podaci));
+            prikaziError(odgovor.podaci);
         }
       
     
@@ -178,24 +171,24 @@ export default function IzdatnicePromjeni(){
                 await dohvatiProizvodi();
                 return;
               }
-              alert(dohvatiPorukeAlert(odgovor2.podaci));
+              prikaziError(odgovor.podaci);
               return;
             }
-            alert(dohvatiPorukeAlert(odgovor.podaci));
+            prikaziError(odgovor.podaci);
               
           }
     
           function dodajRucnoProizvod(){
             let niz = searchName.split(' ');
             if(niz.length<2){
-              alert('Obavezno naziv');
+              prikaziError([{svojstvo:'',poruka:'Obavezan naziv'}]);
               return;
             }
         
             dodajRucnoProizvod({
               naziv: niz[0],
-              sifraProizvoda: niz[1],
-              mjernaJedinica: niz[2]
+              sifraProizvoda: '',
+              mjernaJedinica: '',
              
             });
         
@@ -207,45 +200,30 @@ export default function IzdatnicePromjeni(){
            
            <Form onSubmit={handleSubmit}>
            <Row>
-                 <Col key='1' sm={12} lg={6} md={6}> 
-                <Form.Group  className='mb-3' controlId="brojIzdatnice">
-                    <Form.Label>Broj Izdatnice</Form.Label>
-                    <Form.Control 
-                        type="text"
-                        defaultValue={izdatnica.brojIzdatnice}
-                        name="brojIzdatnice"
-                        maxLength={50}
-                       
-                    />
+          <Col key='1' sm={12} lg={6} md={6}>
+            <InputText atribut='brojIzdatnice' vrijednost={izdatnica.brojIzdatnice} />
+            <Row>
+              <Col key='1' sm={12} lg={6} md={6}>
+                <Form.Group className='mb-3' controlId='datum'>
+                  <Form.Label>Datum</Form.Label>
+                  <Form.Control
+                    type='date'
+                    name='datum'
+                    defaultValue={grupa.datum}
+                  />
                 </Form.Group>
-                <Row>
-                     <Col key='1' sm={12} lg={6} md={6}>   
-                <Form.Group className='mb-3' controlId="datum">
-                    <Form.Label>Datum</Form.Label>
-                    <Form.Control 
-                        type="text"
-                        defaultValue={izdatnica.datum}
-                        name="datum"
-                        
-                    />
-                </Form.Group>
-                </Col>
-                   <Col key='2' sm={12} lg={6} md={6}>
-
+              </Col>
+              <Col key='2' sm={12} lg={6} md={6}>
                 <Form.Group className='mb-3' controlId='vrijeme'>
-                    <Form.Label>Vrijeme</Form.Label>
-                    <Form.Control
-                         type='time'
-                         name='vrijeme'
-                         defaultValue={izdatnica.vrijeme}
-                         
-                    />
+                  <Form.Label>Vrijeme</Form.Label>
+                  <Form.Control
+                    type='time'
+                    name='vrijeme'
+                    defaultValue={grupa.vrijeme}
+                  />
                 </Form.Group>
-                </Col>
-                   </Row>
-
-
-              
+              </Col>
+            </Row>      
                 
                 <Form.Group className='mb-3' controlId='osoba'>
           <Form.Label>Osoba</Form.Label>

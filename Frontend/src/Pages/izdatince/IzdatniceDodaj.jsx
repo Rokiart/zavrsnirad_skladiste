@@ -1,20 +1,21 @@
-import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import useError from '../../hooks/useError';
 
 
 import Service from '../../services/IzdatnicaService';
 import SkladistarService from '../../services/SkladistarService';
 import OsobaService from '../../services/OsobaService';
-import ProizvodService from '../../services/ProizvodService';
+
 import { RoutesNames } from '../../constants';
-import { dohvatiPorukeAlert } from "../../services/httpService";
+
 
 
 
 export default function IzdatniceDodaj() {
   const navigate = useNavigate();
-  
+   
 
   const [osobe , setOsobe] =useState([]);
   const [osobaSifra, setOsobaSifra] =useState(0);
@@ -22,11 +23,12 @@ export default function IzdatniceDodaj() {
   const [skladistari, setSkladistari] = useState([]);
   const [skladistarSifra, setSkladistarSifra] = useState(0);
 
+  const { prikaziError } = useError();
   
   async function dohvatiOsobe(){
     const odgovor = await OsobaService.get();
     if(!odgovor.ok){
-      alert(dohvatiPorukeAlert(odgovor.podaci));
+      prikaziError(odgovor.podaci);
       return;
   }
   setOsobe(odgovor.podaci);
@@ -36,7 +38,7 @@ export default function IzdatniceDodaj() {
   async function dohvatiSkladistare(){
     const odgovor = await SkladistarService.get();
     if(!odgovor.ok){
-      alert(dohvatiPorukeAlert(odgovor.podaci));
+      prikaziError(odgovor.podaci);
       return;
   }
   setSkladistari(odgovor.podaci);
@@ -59,7 +61,7 @@ async function dodaj(e) {
     navigate(RoutesNames.IZDATNICE_PREGLED);
     return
   }
-  alert(dohvatiPorukeAlert(odgovor.podaci));
+  prikaziError(odgovor.podaci);
   
 }
 

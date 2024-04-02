@@ -16,3 +16,10 @@
 .akcije{
     margin-top: 1.5rem;
 }
+.labelaAtributa:first-letter {
+    text-transform: uppercase;
+}
+
+.form-check-label:first-letter {
+    text-transform: uppercase;
+}

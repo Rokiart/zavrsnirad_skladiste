@@ -24,13 +24,19 @@ import Izdatnice from './Pages/izdatince/Izdatnice'
 import IzdatniceDodaj from './Pages/izdatince/IzdatniceDodaj'
 import IzdatnicePromjeni from './Pages/izdatince/IzdatnicePromjeni'
 
+
+import useError from "./hooks/useError"
+import ErrorModal from './Components/ErrorModal'
+
 function App() {
 
   
+  const { errors, prikaziErrorModal, sakrijError } = useError();
   return (
     <>
-     <NavBar />
-     <Routes>
+      <ErrorModal show={prikaziErrorModal} errors={errors} onHide={sakrijError} />
+      <NavBar />
+      <Routes>  
       <>
         <Route path={RoutesNames.HOME} element={<Pocetna/>} />
         

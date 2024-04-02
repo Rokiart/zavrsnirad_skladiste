@@ -1,14 +1,16 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate,  } from "react-router-dom";
+import { Container, Form } from "react-bootstrap";
+import { useNavigate  } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 import SkladistarService from "../../services/SkladistarService";
-import { dohvatiPorukeAlert } from "../../services/httpService";
-
+import useError from "../../hooks/useError";
+import InputText from "../../Components/InputText";
+import Akcije from "../../Components/Akcije";
 
 
 
 export default function SkladistareDodaj() {
     const navigate = useNavigate();
+    const { prikaziError } = useError();
 
     async function dodajSkladistara(skladistar){
         const odgovor = await SkladistarService.dodaj(skladistar);
@@ -16,7 +18,7 @@ export default function SkladistareDodaj() {
           navigate(RoutesNames.SKLADISTARI_PREGLED);
           return
         }
-        alert(dohvatiPorukeAlert(odgovor.podaci));
+        prikaziError(odgovor.podaci);
       }
 
     function handleSubmit(e){
@@ -33,66 +35,16 @@ export default function SkladistareDodaj() {
           });         
     }
 
-    return(
-        <Container className="nt-4">
-            <Form onSubmit={handleSubmit}>
-        <Form.Group className='mb-3' controlId='ime'>
-          <Form.Label>Ime</Form.Label>
-          <Form.Control
-            type='text'
-            name='ime'
-            placeholder='Ime'
-            maxLength={50}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className='mb-3' controlId='prezime'>
-          <Form.Label>Prezime</Form.Label>
-          <Form.Control
-            type='text'
-            name='prezime'
-            placeholder='Prezime'
-            maxLength={50}
-          />
-        </Form.Group>
-
-        <Form.Group className='mb-3' controlId='Broj telefona'>
-          <Form.Label>brojTelefona</Form.Label>
-          <Form.Control
-            type='text'
-            name='Broj Telefona'
-            placeholder='Broj Telefona'
-            maxLength={20}
-          />
-        </Form.Group>
-
-        <Form.Group className='mb-3' controlId='email'>
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type='text'
-            name='email'
-            placeholder='Email'
-            maxLength={50}
-          />
-        </Form.Group>
-    
-        <Row className="akcije">
-          <Col>
-            <Link className='btn btn-danger gumb' to={RoutesNames.SKLADISTARI_PREGLED}>
-              Odustani
-            </Link>
-          </Col>
-          <Col>
-            <Button variant='primary' className='gumb' type='submit'>
-              Dodaj SKladištara
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-        </Container>
-      
+    return (
+      <Container>
+        <Form onSubmit={handleSubmit}>
+          <InputText atribut='ime' vrijednost='' />
+          <InputText atribut='prezime' vrijednost='' />
+          <InputText atribut='brojTelefona' vrijednost='' />
+          <InputText atribut='email' vrijednost='' />
+         <Akcije odustani={RoutesNames.SKLADISTARI_PREGLED} akcija='Dodaj predavača' />       
+        </Form>
+      </Container>
     );
-
-
-}
+  }
+  

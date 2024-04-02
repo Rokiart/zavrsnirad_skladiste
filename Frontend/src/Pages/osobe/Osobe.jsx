@@ -6,7 +6,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
-import { dohvatiPorukeAlert } from "../../services/httpService";
+import useError from "../../hooks/useError";
 
 
 
@@ -14,20 +14,21 @@ export default function Osobe() {
 
     const [osobe,setOsobe] = useState();
     let navigate = useNavigate();
+    const { prikaziError } = useError();
     
 
     async function dohvatiOsobe(){
-        const odgovor = await OsobaService.get();
+        const odgovor = await OsobaService.get('Osoba');
         if(!odgovor.ok){
-            alert(dohvatiPorukeAlert(odgovor.podaci));
+            prikaziError(odgovor.podaci);
             return;
         }
         setOsobe(odgovor.podaci);
     }
 
     async function ObrisiOsobu(sifra){
-        const odgovor = await OsobaService.obrisi(sifra);
-        alert(dohvatiPorukeAlert(odgovor.podaci));
+        const odgovor = await OsobaService.obrisi('Osoba',sifra);
+        prikaziError(odgovor.podaci);
         if (odgovor.ok){
             
             dohvatiOsobe();

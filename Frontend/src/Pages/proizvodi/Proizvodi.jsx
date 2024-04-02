@@ -6,18 +6,18 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
-import { dohvatiPorukeAlert } from "../../services/httpService";
-
+import useError from "../../hooks/useError";
 
 
 export default function Proizvodi(){
     const [Proizvodi,setProizvodi] = useState();
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const { prikaziError } = useError(); 
 
     async function dohvatiProizvode(){
-        const odgovor = await ProizvodService.get();
+        const odgovor = await ProizvodService.get('Proizvod');
         if(!odgovor.ok){
-            alert(dohvatiPorukeAlert(odgovor.podaci));
+            prikaziError(odgovor.podaci);
             return;
         }
         setProizvodi(odgovor.podaci);
@@ -27,8 +27,8 @@ export default function Proizvodi(){
 
 
     async function obrisiProizvod(sifra) {
-        const odgovor = await ProizvodService.obrisi(sifra);
-        alert(dohvatiPorukeAlert(odgovor.podaci));
+        const odgovor = await ProizvodService.obrisi('Proizvod',sifra);
+        prikaziError(odgovor.podaci);
         if (odgovor.ok) {
             dohvatiProizvode();
       

@@ -6,27 +6,27 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
-import { dohvatiPorukeAlert } from "../../services/httpService";
-
+import useError from "../../hooks/useError";
 
 
 export default function Skladistari() {
 
     const [Skladistari,setSkladistari] = useState();
     const navigate = useNavigate();
+    const { prikaziError } = useError();
 
     async function dohvatiSkladistare(){
-        const odgovor = await SkladistarService.get()
+        const odgovor = await SkladistarService.get('Skladistar')
         if(!odgovor.ok){
-            alert(dohvatiPorukeAlert(odgovor.podaci));
+            prikaziError(odgovor.podaci);
             return;
         }
         setSkladistari(odgovor.podaci);
     }
 
     async function ObrisiSkladistara(sifra){
-        const odgovor = await SkladistarService.obrisi(sifra);
-        alert(dohvatiPorukeAlert(odgovor.podaci));
+        const odgovor = await SkladistarService.obrisi('Skladistar',sifra);
+        prikaziError(odgovor.podaci);
         if (odgovor.ok){
             dohvatiSkladistare();
         }

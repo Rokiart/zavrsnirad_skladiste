@@ -7,9 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 
 import IzdatnicaService from "../../services/IzdatnicaService";
-import { dohvatiPorukeAlert } from "../../services/httpService";
-import ProizvodService from "../../services/ProizvodService";
+
 import { RoutesNames } from "../../constants";
+import useError from "../../hooks/useError";
 
 
 
@@ -17,38 +17,33 @@ export default function Izdatnice() {
 
     const [Izdatnice,setIzdatnice] = useState();
     let navigate = useNavigate(); 
-
-
-
+     
+     const { prikaziError } = useError();
 
     async function dohvatiIzdatnice(){
-        const odgovor =await IzdatnicaService.get();
+        const odgovor =await IzdatnicaService.get('Izdatnica');
         if(!odgovor.ok){
-            alert(dohvatiPorukeAlert(odgovor.podaci));
+            prikaziError(odgovor.podaci);
             return;
         }
-        setIzdatnice(odgovor.podaci);
-        setSifraIzdatnica(odgovor.podaci[0].sifra);
+        setIzdatnice(odgovor.podaci);  
     }
 
-  
 
     async function ObrisiIzdatnicu(sifra){
       
-        const odgovor = await IzdatnicaService.obrisi(sifra);
-        alert(dohvatiPorukeAlert(odgovor.podaci));
+        const odgovor = await IzdatnicaService.obrisi('Izdatnica',sifra);
+        prikaziError(odgovor.podaci);
         if (odgovor.ok){
            
             dohvatiIzdatnice();
-            dohvatiProizvodi();
+         
         }
         
     }
 
   
-   
-
-    useEffect(()=>{
+       useEffect(()=>{
         dohvatiIzdatnice();
     
 

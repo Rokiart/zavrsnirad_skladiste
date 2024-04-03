@@ -38,7 +38,7 @@ namespace SKladisteAppl.Models
     /// Predstavlja podatke o skladištaru za čitanje.
     /// </summary>
     public record SkladistarDTORead(int? sifra, string ime, string prezime,
-        string brojtelefona, string email);
+        string brojtelefona, string email, string V);
 
     /// <summary>
     /// Predstavlja podatke o skladištaru za unos i ažuriranje.
@@ -50,13 +50,21 @@ namespace SKladisteAppl.Models
     /// Predstavlja podatke o izdatnici za čitanje.
     /// </summary>
     public record IzdatnicaDTORead(int sifra, string? brojIzdatnice,
-        DateTime? datum, string? osobaImePrezime, string? skladistarImePrezime, string napomena, string? proizvodiPopis);
+        DateTime? datum, string? osobaImePrezime, string? skladistarImePrezime, List<Proizvod>? proizvodi, string napomena);
 
     /// <summary>
     /// Predstavlja podatke o izdatnici za unos i ažuriranje.
     /// </summary>
     public record IzdatnicaDTOInsertUpdate(string? brojizdatnice,
-        DateTime? datum, int? osobasifra, int? skladistarSifra, string napomena);
-    
+        DateTime? datum, int? osobasifra, int? skladistarSifra, string napomena)
+    {
+        internal object?[]? osobaSifra;
+    }
+
+    public record IzdatniceProizvodiDTORead(int sifra, int kolicina)
+
+
+    public record IzdatniceProizvodiDTOInsertUpdate(int izdatnicaSifra, int proizvodSifra, int kolicina)
+   
 }
 

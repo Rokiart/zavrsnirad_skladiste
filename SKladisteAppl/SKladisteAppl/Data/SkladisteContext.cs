@@ -1,6 +1,6 @@
 ﻿using SKladisteAppl.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Text.RegularExpressions;
+
 
 
 namespace SKladisteAppl.Data
@@ -9,13 +9,13 @@ namespace SKladisteAppl.Data
     /// Ovo mi je datoteka gdje ću navoditi datasetove i načine spajanja u bazi
     /// </summary>
 
-    public class SkladisteContext : DbContext
+    public class SkladisteContext  : DbContext
     {
-            /// <summary>
-            /// Kostruktor
-            /// </summary>
-            /// <param name="options"></param>
-            public SkladisteContext(DbContextOptions<SkladisteContext> options)
+        /// <summary>
+        /// Kostruktor
+        /// </summary>
+        /// <param name="options"></param>
+        public SkladisteContext(DbContextOptions<SkladisteContext> options)
                 : base(options)
             {
 
@@ -40,10 +40,18 @@ namespace SKladisteAppl.Data
         /// </summary>
 
         public DbSet<Proizvod> Proizvodi { get; set; }
+
         /// <summary>
         /// Izdatnice u bazi
         /// </summary>
-        public DbSet<Izdatnica> Izdatnice{ get; set; }
+        public DbSet<Izdatnica> Izdatnice { get; set; }
+
+
+
+
+        public DbSet<IzdatniceProizvodi> IzdatniceProizvodi { get; set; }
+        public object ProizvodiKolicine { get; internal set; }
+
         /// <summary>
         /// Implementacije veza
         /// </summary>
@@ -66,10 +74,15 @@ namespace SKladisteAppl.Data
                 c => c.ToTable("izdatniceproizvodi")
                 );
 
+            modelBuilder.Entity<IzdatniceProizvodi>().HasOne(x => x.Izdatnica);
+            modelBuilder.Entity<IzdatniceProizvodi>().HasOne(x => x.Kolicina);
 
         }
 
-         
+       
+
+        
+
 
 
     }

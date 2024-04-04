@@ -38,14 +38,14 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
         }
         try
         {
-            var p = _context.Izdatnice 
-                .Include(i => i.Proizvodi).FirstOrDefault(x => x.Sifra == sifraIzdatnice);
+            var p = _context.IzdatniceProizvodi 
+                .Include(i => i.Izdatnica).Include(i=>i.Proizvod).FirstOrDefault(x => x.Izdatnica.Sifra == sifraIzdatnice);
             if (p == null)
             {
                 return BadRequest("Ne postoji izdatnica s šifrom " + sifraIzdatnice + " u bazi");
             }
-            Mapping<Proizvod, ProizvodDTORead, ProizvodDTOInsertUpdate> mapping = new Mapping<Proizvod, ProizvodDTORead, ProizvodDTOInsertUpdate>();
-            return new JsonResult(mapping.MapReadList(p.Proizvodi));
+            Mapping<IzdatniceProizvodi, IzdatniceProizvodiDTORead, IzdatniceProizvodiDTOInsertUpdate> mapping = new ();
+            return new JsonResult(mapping.MapReadList());
         }
         catch (Exception ex)
         {
@@ -243,7 +243,7 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
         try
         {
             var kolicine = _context.IzdatniceProizvodi
-                .Include(i => i.Kolicina)
+                .Include(i => i.Proizvod)
                 .Include(i => i.Izdatnica)
                 .Where(x => x.Izdatnica.Sifra == sifraIzdatnica).ToList();
             if (kolicine == null)

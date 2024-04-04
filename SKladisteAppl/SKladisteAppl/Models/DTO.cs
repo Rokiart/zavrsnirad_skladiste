@@ -56,15 +56,13 @@ namespace SKladisteAppl.Models
     /// Predstavlja podatke o izdatnici za unos i ažuriranje.
     /// </summary>
     public record IzdatnicaDTOInsertUpdate(string? brojizdatnice,
-        DateTime? datum, int? osobasifra, int? skladistarSifra, string napomena)
-    {
-        internal object?[]? osobaSifra;
-    }
-
-    public record IzdatniceProizvodiDTORead(int sifra, int kolicina)
+        DateTime? datum, int? osobasifra, int? skladistarSifra, string napomena);
 
 
-    public record IzdatniceProizvodiDTOInsertUpdate(int izdatnicaSifra, int proizvodSifra, int kolicina)
+    public record IzdatniceProizvodiDTORead(int sifra, string? proizvodNaziv, string? sifraProizvoda, int? kolicina);
+
+
+    public record IzdatniceProizvodiDTOInsertUpdate(int? izdatnicaSifra, int? sifraProizvoda, int? kolicina);
    
 }
 

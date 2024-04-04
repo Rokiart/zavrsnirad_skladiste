@@ -3,12 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useError from '../../hooks/useError';
 
-
+import InputText from '../../components/InputText';
 import Service from '../../services/IzdatnicaService';
 import SkladistarService from '../../services/SkladistarService';
 import OsobaService from '../../services/OsobaService';
-
+import useLoading from '../../hooks/useLoading';
 import { RoutesNames } from '../../constants';
+import Akcije from '../../components/Akcije';
 
 
 
@@ -24,6 +25,7 @@ export default function IzdatniceDodaj() {
   const [skladistarSifra, setSkladistarSifra] = useState(0);
 
   const { prikaziError } = useError();
+  const { showLoading, hideLoading } = useLoading();
   
   async function dohvatiOsobe(){
     const odgovor = await OsobaService.get();
@@ -48,6 +50,7 @@ export default function IzdatniceDodaj() {
 async function ucitaj(){
   await dohvatiOsobe();
   await dohvatiSkladistare();
+  hideLoading();
 }
 
 useEffect(()=>{
@@ -57,6 +60,7 @@ useEffect(()=>{
 
 async function dodaj(e) {
   const odgovor = await Service.dodaj(e);
+  hideLoading();
   if(odgovor.ok){
     navigate(RoutesNames.IZDATNICE_PREGLED);
     return
@@ -99,7 +103,10 @@ async function dodaj(e) {
         // proizvodSifra: parseInt(proizvodSifra),
         osobaSifra: parseInt(osobaSifra),
         skladistarSifra: parseInt(skladistarSifra),
+        proizvodSifra:podaci.get('proizvod'),
+        izdatnicaProizvodSifra:podaci.get('kolicina'),
         napomena: podaci.get('napomena')
+
       });
     }   
       
@@ -134,7 +141,7 @@ async function dodaj(e) {
           />
          </Form.Group>
 
-         {/* <Form.Group className='mb-3' controlId='proizvod'>
+         <Form.Group className='mb-3' controlId='proizvod'>
           <Form.Label>Proizvod</Form.Label>
             <Form.Select
               onChange={(e)=>{setProizvodSifra(e.target.value)}}
@@ -145,7 +152,20 @@ async function dodaj(e) {
                    </option>
               ))}
              </Form.Select>
-          </Form.Group> */}
+          </Form.Group>
+
+          <Form.Group className='mb-3' controlId='kolicina'>
+          <Form.Label>Kolicina</Form.Label>
+            <Form.Select
+              onChange={(e)=>{setIzdatniceProizvodiSifra(e.target.value)}}
+              >
+               {IzdatniceProizvodi && IzdatniceProizvodi.map((e,index)=>(
+                    <option key={index} value={e.sifra}>
+                   {e.kolicina} 
+                   </option>
+              ))}
+             </Form.Select>
+          </Form.Group>
 
          <Form.Group className='mb-3' controlId='osoba'>
           <Form.Label>Osoba</Form.Label>

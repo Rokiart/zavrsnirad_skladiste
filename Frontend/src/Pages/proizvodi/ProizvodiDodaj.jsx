@@ -1,11 +1,12 @@
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Container, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { RoutesNames } from '../../constants';
 import ProizvodService from '../../services/ProizvodService';
 import useError from '../../hooks/useError';
 import InputText from '../../Components/InputText';
 import Akcije from '../../Components/Akcije';
 import useError from "../../hooks/useError";
+import useLoading from '../../hooks/useLoading';
 
 
 
@@ -13,15 +14,17 @@ import useError from "../../hooks/useError";
 export default function ProizvodiDodaj() {
   const navigate = useNavigate();
   const { prikaziError } = useError();
+  const { showLoading, hideLoading } = useLoading();
 
-  async function dodajProizvod(proizvod) {
-    const odgovor = await ProizvodService.dodaj(proizvod);
+  async function dodajProizvod(Proizvod) {
+    const odgovor = await ProizvodService.dodaj('Proizvod',Proizvod);
     if (odgovor.ok) {
+      hideLoading();
       navigate(RoutesNames.PROIZVODI_PREGLED);
-    } else {
-      console.log(odgovor);
-      prikaziError(odgovor.podaci);
+      return
     }
+    prikaziError(odgovor.podaci);
+    hideLoading();
   }
 
   function handleSubmit(e) {

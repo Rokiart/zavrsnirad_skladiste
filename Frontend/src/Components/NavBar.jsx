@@ -23,9 +23,15 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+
+          <NavDropdown title="Izbornik" id="basic-nav-dropdown">
+              <NavDropdown.Item 
+                onClick={()=>navigate(RoutesNames.IZDATNICEPROIZVODI_PREGLED)}
+              >
+                Kolicine
             
-            <NavDropdown title="Izbornik" id="basic-nav-dropdown">
-              <NavDropdown.Item
+                </NavDropdown.Item>
+              <NavDropdown.Item 
                 onClick={()=>navigate(RoutesNames.OSOBE_PREGLED)}
               >
                 Osobe

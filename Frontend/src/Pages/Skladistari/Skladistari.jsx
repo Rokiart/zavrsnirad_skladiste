@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button,Container, Table } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import SkladistarService from "../../services/SkladistarService";
 import { ImManWoman } from "react-icons/im";
 import { FaRegEdit } from "react-icons/fa";
@@ -11,35 +11,63 @@ import useError from "../../hooks/useError";
 
 export default function Skladistari() {
 
-    const [Skladistari,setSkladistari] = useState();
+    const [Skladistari, setSkladistari] = useState();
     const navigate = useNavigate();
     const { prikaziError } = useError();
+    const [prikaziModal, setPrikaziModal] = useState(false);
+    const [odabraniSkladistar, setOdabraniSkladistar] = useState({});
 
-    async function dohvatiSkladistare(){
+    async function dohvatiSkladistare() {
         const odgovor = await SkladistarService.get('Skladistar')
-        if(!odgovor.ok){
+        if (!odgovor.ok) {
             prikaziError(odgovor.podaci);
             return;
         }
         setSkladistari(odgovor.podaci);
     }
 
-    async function ObrisiSkladistara(sifra){
-        const odgovor = await SkladistarService.obrisi('Skladistar',sifra);
+    async function ObrisiSkladistara(sifra) {
+        const odgovor = await SkladistarService.obrisi('Skladistar', sifra);
         prikaziError(odgovor.podaci);
-        if (odgovor.ok){
+        if (odgovor.ok) {
             dohvatiSkladistare();
         }
-        
+
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         dohvatiSkladistare();
-    },[]);
+    }, []);
 
-   
+    function postaviDatotekuModal(skladistar) {
+        setOdabraniSkladistar(skladistar);
+        setPrikaziModal(true);
+    }
 
-    return(
+    function zatvoriModal() {
+        setPrikaziModal(false);
+    }
+
+    async function postaviDatoteku(e) {
+        if (e.currentTarget.files) {
+            const formData = new FormData();
+            formData.append('datoteka', e.currentTarget.files[0]);
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                },
+            };
+            const odgovor = await Service.postaviDatoteku(odabraniSkladistar.sifra, formData, config);
+            alert(dohvatiPorukeAlert(odgovor.podaci));
+            if (odgovor.ok) {
+                dohvatiSkladistare();
+                setPrikaziModal(false);
+            }
+        }
+    }
+
+
+    return (
         <Container>
              <Link to={RoutesNames.SKLADISTARI_NOVI} className="btn btn-success gumb">
                 <ImManWoman
@@ -81,15 +109,56 @@ export default function Skladistari() {
                                     size={25}
                                     />
                                 </Button>
+                                {skladistar.datoteka!=null ? 
+                                        <>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a target="_blank" href={App.URL + skladistar.datoteka}>
+                                            <FaDownload
+                                            size={25}/>
+                                        </a>
+                                        </>
+                                        
+                                    : ''
+                                    }
+                                    &nbsp;&nbsp;&nbsp;
+                                        <Button
+                                         onClick={() => postaviDatotekuModal(skladistar)}
+                                         >
+                                             <FaUpload
+                                             size={25}/>
+                                         </Button>
 
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </Container>
+                                    </td>
+                                    </tr>
+                                 ))}
+                           </tbody>
+                     </Table>
+         </Container>
+         <Modal show={prikaziModal} onHide={zatvoriModal}>
+         <Modal.Header closeButton>
+         <Modal.Title>Postavljanje datoteke na <br /> {odabraniSkladistar.prezime}</Modal.Title>
+         </Modal.Header>
+         <Modal.Body>
+             <Form>
+                 <Form.Group>
+                     <Form.Control type="file" size="lg" 
+                     name='datoteka'
+                     id='datoteka'
+                     onChange={postaviDatoteku}
+                     />
+                 </Form.Group>
+                 <hr />
+             </Form>
+         </Modal.Body>
+         <Modal.Footer>
+         <Button variant='secondary' onClick={zatvoriModal}>
+             Zatvori
+         </Button>
+         </Modal.Footer>
+     </Modal>
+
+        </>
       
-    );
-
+        );
 
 }

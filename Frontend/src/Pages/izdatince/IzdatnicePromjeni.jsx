@@ -5,8 +5,9 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { RoutesNames } from "../../constants";
 
 import { FaTrash } from 'react-icons/fa';
-
-
+import Akcije from '../../components/Akcije';
+import useLoading from '../../hooks/useLoading';
+import InputText from '../../components/InputText';
 import useError from '../../hooks/useError';
 import Service from '../../services/IzdatnicaService';
 import SkladistarService from '../../services/SkladistarService';
@@ -34,6 +35,7 @@ export default function IzdatnicePromjeni(){
 
     const typeaheadRef = useRef(null);
     const { prikaziError } = useError();
+    const { showLoading, hideLoading } = useLoading();
 
 
     async function dohvatiIzdatnica() {
@@ -94,10 +96,12 @@ export default function IzdatnicePromjeni(){
 
 
       async function dohvatiInicijalnePodatke() {
+        showLoading();
         await dohvatiOsobe();
         await dohvatiSkladistare();
         await dohvatiIzdatnica();
         await dohvatiProizvodi();
+        hideLoading();
       }
     
       useEffect(() => {
@@ -126,8 +130,10 @@ export default function IzdatnicePromjeni(){
             const odgovor = await Service.dodajProizvod(routeParams.sifra, e[0].sifra);
             if(odgovor.ok){
               await dohvatiProizvodi();
+              hideLoading();
               return;
             }
+            hideLoading();
             prikaziError(odgovor.podaci);
         }
       
@@ -156,6 +162,8 @@ export default function IzdatnicePromjeni(){
             datum: datum,
             OsobaSifra: parseInt(sifraOsoba), 
             SkladistarSifra: parseInt(sifraSkladistar),
+            proizvodSifra:podaci.get('proizvod'),
+            izdatnicaProizvodSifra:podaci.get('kolicina'),
             napomena: podaci.get('napomena')
      
         });
@@ -169,11 +177,14 @@ export default function IzdatnicePromjeni(){
               if (odgovor2?.ok) {
                 typeaheadRef.current.clear();
                 await dohvatiProizvodi();
+                hideLoading();
                 return;
               }
+              hideLoading();
               prikaziError(odgovor.podaci);
               return;
             }
+            hideLoading();
             prikaziError(odgovor.podaci);
               
           }

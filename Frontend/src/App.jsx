@@ -27,8 +27,6 @@ import IzdatnicePromjeni from './Pages/izdatince/IzdatnicePromjeni'
 
 import useError from "./hooks/useError"
 import ErrorModal from './Components/ErrorModal'
-import IzdatniceProizvodi from "./pages/izdatnicaProizvod/IzdatniceProizvodi"
-import LoadingSpinner from "./components/LoadingSpinner"
 
 function App() {
 
@@ -36,14 +34,11 @@ function App() {
   const { errors, prikaziErrorModal, sakrijError } = useError();
   return (
     <>
-      <LoadingSpinner />
       <ErrorModal show={prikaziErrorModal} errors={errors} onHide={sakrijError} />
       <NavBar />
       <Routes>  
       <>
         <Route path={RoutesNames.HOME} element={<Pocetna/>} />
-
-        <Route path={RoutesNames.IZDATNICEPROIZVODI_PREGLED} element={<IzdatniceProizvodi/>} />
         
         <Route path={RoutesNames.OSOBE_PREGLED} element={<Osobe/>} />
         <Route path={RoutesNames.OSOBE_NOVI} element={<OsobeDodaj/>} />

@@ -15,9 +15,7 @@ export const RoutesNames = {
 
     IZDATNICE_PREGLED: '/izdatnice',
     IZDATNICE_NOVI: '/izdatnice/dodaj',
-    IZDATNICE_PROMJENI: '/izdatnice/:sifra',
-
-    IZDATNICEPROIZVODI_PREGLED: '/IzdatniceProizvodi'
+    IZDATNICE_PROMJENI: '/izdatnice/:sifra'
 
 };
 

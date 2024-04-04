@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Form, Pagination, Row } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import ProizvodService from "../../services/ProizvodService";
 import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -7,31 +7,20 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 import useError from "../../hooks/useError";
-import useLoading from "../../hooks/useLoading";
 
 
 export default function Proizvodi(){
     const [Proizvodi,setProizvodi] = useState();
-    const [stranica, setStranica] = useState(1);
     const navigate = useNavigate();
-    const [uvjet, setUvjet] = useState('');
     const { prikaziError } = useError(); 
-    const { showLoading, hideLoading } = useLoading();
 
     async function dohvatiProizvode(){
         const odgovor = await ProizvodService.get('Proizvod');
         if(!odgovor.ok){
             prikaziError(odgovor.podaci);
-            hideLoading();
-            return;
-        }
-        if(odgovor.podaci.length==0){
-            setStranica(stranica-1);
-            hideLoading();
             return;
         }
         setProizvodi(odgovor.podaci);
-        hideLoading();
     }
 
    
@@ -44,116 +33,62 @@ export default function Proizvodi(){
             dohvatiProizvode();
       
         }
-        hideLoading();
       }
 
       useEffect(()=>{
         dohvatiProizvode();
-    },[stranica, uvjet]);
-
-    function slika(polaznik){
-        if(polaznik.slika!=null){
-            return App.URL + polaznik.slika;
-        }
-        return nepoznato;
-    }
-
-    function promjeniUvjet(e) {
-        if(e.nativeEvent.key == "Enter"){
-            setStranica(1);
-            setUvjet(e.nativeEvent.srcElement.value);
-            setProizvodi([]);
-        }
-    }
-    function povecajStranicu() {
-        setStranica(stranica + 1);
-      }
-    
-      function smanjiStranicu() {
-        if(stranica==1){
-            return;
-        }
-        setStranica(stranica - 1);
-      }
+     },[]);
+ 
 
     return (
 
         <Container>
-            <Row>
-                <Col key={1} sm={12} lg={4} md={4}>
-                    <Form.Control
-                    type='text'
-                    name='trazilica'
-                    placeholder='Dio naziva [Enter]'
-                    maxLength={255}
-                    defaultValue=''
-                    onKeyUp={promjeniUvjet}
-                    />
-                </Col>
-                <Col key={2} sm={12} lg={4} md={4}>
-                {proizvodi && proizvodi.length > 0 && (
-                            <div style={{ display: "flex", justifyContent: "center" }}>
-                                <Pagination size="lg">
-                                <Pagination.Prev onClick={smanjiStranicu} />
-                                <Pagination.Item disabled>{stranica}</Pagination.Item> 
-                                <Pagination.Next
-                                    onClick={povecajStranicu}
-                                />
-                            </Pagination>
-                        </div>
-                    )}
-                </Col>
-                <Col key={3} sm={12} lg={4} md={4}>
-                    <Link to={RoutesNames.PROIZVODI_NOVI} className="btn btn-success gumb">
-                        <IoIosAdd
-                        size={25}
-                        /> Dodaj
-                    </Link>
-                </Col>
-            </Row>
-            
-                
-            <Row>
-                
-            { proizvodi && proizvodi.map((p) => (
-           
-           <Col key={p.sifra} sm={12} lg={3} md={3}>
-              <Card style={{ marginTop: '1rem' }}>
-              <Card.Img variant="top" src={slika(p)} className="slika"/>
-                <Card.Body>
-                  <Card.Title>{p.naziv} </Card.Title>
-                  <Card.Text>
-                    {p.sifraProizvoda}
-                  </Card.Text>
-                  <Row>
-                      <Col>
-                      <Link className="btn btn-primary gumb" to={`/proizvodi/${p.sifra}`}><FaEdit /></Link>
-                      </Col>
-                      <Col>
-                      <Button variant="danger" className="gumb"  onClick={() => obrisiProizvod(p.sifra)}><FaTrash /></Button>
-                      </Col>
-                    </Row>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))
-      }
-      </Row>
-      <hr />
-              {proizvodi && proizvodi.length > 0 && (
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    <Pagination size="lg">
-                    <Pagination.Prev onClick={smanjiStranicu} />
-                    <Pagination.Item disabled>{stranica}</Pagination.Item> 
-                    <Pagination.Next
-                        onClick={povecajStranicu}
-                    />
-                    </Pagination>
-                </div>
-                )}
-        </Container>
+            <Link to={RoutesNames.PROIZVODI_NOVI} className="btn btn-success gumb">
+                <IoIosAdd
+                size={25}
+                /> Dodaj
+            </Link>
+            <Table striped bordered hover responsive>
+                <thead>
+                    <tr>
+                        <th>Naziv</th>
+                        <th>SifraProizvoda</th>
+                        <th>MjernaJedinica</th>
+                        <th>Akcija</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Proizvodi && Proizvodi.map((Proizvod,index)=>(
+                        <tr key={index}>
+                            <td>{Proizvod.naziv}</td>
+                            <td>{Proizvod.sifraproizvoda}</td>
+                            <td>{Proizvod.mjernajedinica}</td>
+                            <td className="sredina">
+                                    <Button
+                                        variant='primary'
+                                        onClick={()=>{navigate(`/proizvodi/${Proizvod.sifra}`)}}
+                                    >
+                                        <FaEdit 
+                                    size={25}
+                                    />
+                                    </Button>
+                               
+                                
+                                    &nbsp;&nbsp;&nbsp;
+                                    <Button
+                                        variant='danger'
+                                        onClick={() => obrisiProizvod(Proizvod.sifra)}
+                                    >
+                                        <FaTrash
+                                        size={25}/>
+                                    </Button>
 
-        
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+        </Container>
 
     );
 

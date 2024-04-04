@@ -27,6 +27,7 @@ export default{
   getBySifra,
   promjeni,
   traziProizvod,
-  postaviSliku,
-  getStranicenje
+  getKolicine,
+  obrisiKolicinu,
+  dodajKolicinu
 };

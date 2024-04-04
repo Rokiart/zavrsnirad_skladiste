@@ -8,8 +8,6 @@ import useError from "../../hooks/useError";
 import InputText from '../../Components/InputText';
 import Akcije from '../../Components/Akcije';
 import { FaTrash } from "react-icons/fa";
-import nepoznato from '../../assets/nepoznato.png'; 
-import useLoading from '../../hooks/useLoading';
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 
 
@@ -24,9 +22,6 @@ export default function ProizvodiPromjeni() {
   const routeParams = useParams();
   const navigate = useNavigate();
   const { prikaziError } = useError();
-  const [trenutnaSlika, setTrenutnaSlika] = useState('');
-  const [slikaZaCrop, setSlikaZaCrop] = useState('');
-  const [slikaZaServer, setSlikaZaServer] = useState('');
 
 
   async function dohvatiProizvod() {
@@ -34,89 +29,94 @@ export default function ProizvodiPromjeni() {
     const odgovor = await ProizvodService
       .getBySifra('Proizvod',routeParams.sifra)
       if(!odgovor.ok){
-        hideLoading();
         prikaziError(odgovor.podaci);
-       
-        return;
-      }
-      setProizvod(odgovor.podaci);
-      if(odgovor.podaci.slika!=null){
-        setTrenutnaSlika(App.URL + odgovor.podaci.slika + `?${Date.now()}`);
-      }else{
-        setTrenutnaSlika(nepoznato);
-      }
-      hideLoading();
-    }
-
-    useEffect(() => {
-      dohvatiProizvod();
-    }, []);
-
-    async function promjeniProizvod(proizvod) {
-      showLoading();
-      const odgovor = await Service.promjeni('Proizvod',routeParams.sifra, proizvod);
-      if(odgovor.ok){
-        hideLoading();
         navigate(RoutesNames.PROIZVODI_PREGLED);
         return;
       }
-      alert(dohvatiPorukeAlert(odgovor.podaci));
-      hideLoading();
-    }
+      setProizvod(odgovor.podaci);
+      setPrikaziModal(false);
 
-    function handleSubmit(e) {
-      e.preventDefault();
-  
-      const podaci = new FormData(e.target);
-      promjeniProivod({
-        naziv: podaci.get('naziv'),
-        sifraProizvoda: podaci.get('sifraProizvoda'),
-        mjernaJedinica: podaci.get('mjernaJedinica'),
-        slika: ''
-      });
-    }
-  
-  
+  }
 
-    function onCrop() {
-      setSlikaZaServer(cropperRef.current.cropper.getCroppedCanvas().toDataURL());
+  async function traziKolicina(uvjet) {
+    const odgovor =  await KolicinaService.traziKolicina('Kolicina',uvjet);
+    if(!odgovor.ok){
+      prikaziError(odgovor.podaci);
+      return;
     }
-  
-    function onChangeImage(e) {
-      e.preventDefault();
-  
-      let files;
-      if (e.dataTransfer) {
-        files = e.dataTransfer.files;
-      } else if (e.target) {
-        files = e.target.files;
-      }
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSlikaZaCrop(reader.result);
-      };
-      try {
-        reader.readAsDataURL(files[0]);
-      } catch (error) {
-        console.error(error);
-      }
+    setPronadeneKolicine(odgovor.podaci);
+  }
+
+async function dohvatiKolicine() {
+    const odgovor = await Service.getKolicine(routeParams.sifra);
+    if(!odgovor.ok){
+      prikaziError(odgovor.podaci);
+      return;
     }
-  
-    async function spremiSliku() {
-      showLoading();
-      const base64 = slikaZaServer;
-  
-      const odgovor = await Service.postaviSliku(routeParams.sifra, {Base64: base64.replace('data:image/png;base64,', '')});
-      if(!odgovor.ok){
-        hideLoading();
-        prikaziError(odgovor.podaci);
-      }
-      //Date.now je zbog toga što se src na image komponenti cache-ira
-      //pa kad promjenimo sliku url ostane isti i trenutna slika se ne updatea
-      setTrenutnaSlika(slikaZaServer);
-      hideLoading();
+    setKolicine(odgovor.podaci);
+  }
+
+
+  useEffect(() => {
+    dohvatiProizvod();
+    dohvatiKolicine();
+  }, []);
+
+  async function promjeniProizvod(proizvod) {
+    const odgovor = await ProizvodService.promjeni('Proizvod',routeParams.sifra, proizvod);
+
+    if (odgovor.ok) {
+      navigate(RoutesNames.PROIZVODI_PREGLED);
+      return;
     }
-  
+    prikaziError(odgovor.podaci);
+  }
+  async function obrisiKolicinu(sifra) {
+    const odgovor = await Service.obrisiKolicinu(sifra);
+    if(odgovor.ok){
+      await dohvatiKolicine();
+      return;
+    }
+    prikaziError(odgovor.podaci);
+  }
+
+  async function dodajKolicinuModal(e) {
+    setOdabranaKolicina(e[0]);
+    setPrikaziModal(true);
+  }
+
+  async function dodajKolicinu() {
+    const odgovor = await Service.dodajKolicinu({
+      proizvodSifra: routeParams.sifra,
+      kolicinaSifra: odabranaKolicina.sifra,
+      napomena: document.getElementById('napomena').value
+    });
+    if(odgovor.ok){
+      setPrikaziModal(false);
+      await dohvatiKolicine();
+      typeaheadRef.current.clear();
+      return;
+    }
+    prikaziError(odgovor.podaci);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const podaci = new FormData(e.target);
+    promjeniProizvod({
+      naziv: podaci.get('naziv'),
+      sifraProizvoda: podaci.get('sifraProizvoda'),
+      mjernaJedinica: podaci.get('mjernaJedinica')
+     
+    });
+  }
+
+  function zatvoriModal(){
+    setPrikaziModal(false);
+}
+
+
   return (
     <>
     <Container >

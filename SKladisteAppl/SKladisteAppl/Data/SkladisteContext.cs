@@ -46,11 +46,15 @@ namespace SKladisteAppl.Data
         /// </summary>
         public DbSet<Izdatnica> Izdatnice { get; set; }
 
+        public DbSet<Operater> Operateri { get; set; }
 
 
 
         public DbSet<IzdatniceProizvodi> IzdatniceProizvodi { get; set; }
-        public object ProizvodiKolicine { get; internal set; }
+
+
+
+     
 
         /// <summary>
         /// Implementacije veza
@@ -64,18 +68,18 @@ namespace SKladisteAppl.Data
             modelBuilder.Entity<Izdatnica>().HasOne(i => i.Osoba);
             modelBuilder.Entity<Izdatnica>().HasOne(i => i.Skladistar);
 
-            // implementacija veze n:n
-            modelBuilder.Entity<Izdatnica>()
-                 .HasMany(i => i.Proizvodi)
-                .WithMany(i => i.Izdatnice)
-                .UsingEntity<Dictionary<string, object>>("izdatniceproizvodi",
-                c => c.HasOne<Proizvod>().WithMany().HasForeignKey("proizvod"),
-                c => c.HasOne<Izdatnica>().WithMany().HasForeignKey("izdatnica"),
-                c => c.ToTable("izdatniceproizvodi")
-                );
+            //// implementacija veze n:n
+            //modelBuilder.Entity<Izdatnica>()
+            //     .HasMany(i => i.Proizvodi)
+            //    .WithMany(i => i.Izdatnice)
+            //    .UsingEntity<Dictionary<string, object>>("izdatniceproizvodi",
+            //    c => c.HasOne<Proizvod>().WithMany().HasForeignKey("proizvod"),
+            //    c => c.HasOne<Izdatnica>().WithMany().HasForeignKey("izdatnica"),
+            //    c => c.ToTable("izdatniceproizvodi")
+            //    );
 
-            modelBuilder.Entity<IzdatniceProizvodi>().HasOne(x => x.Izdatnica);
-            modelBuilder.Entity<IzdatniceProizvodi>().HasOne(x => x.Kolicina);
+            //modelBuilder.Entity<IzdatniceProizvodi>().HasOne(x => x.Izdatnica);
+            //modelBuilder.Entity<IzdatniceProizvodi>().HasOne(x => x.Kolicina);
 
         }
 

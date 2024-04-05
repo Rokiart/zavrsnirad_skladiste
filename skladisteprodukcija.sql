@@ -50,6 +50,7 @@ napomena varchar(250)
 
 create table izdatniceproizvodi (
 
+sifra int not null primary key identity(1,1),
 proizvod int not null references proizvodi(sifra),
 izdatnica int not null references izdatnice(sifra),
 kolicina int

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SKladisteAppl.Data;
 using SKladisteAppl.Models;
-using Microsoft.Data.SqlClient;
-using SKladisteAppl.Extensions;
+
 using System.Text;
 using EdunovaAPP.Controllers;
 using SKladisteAppl.Mappers;

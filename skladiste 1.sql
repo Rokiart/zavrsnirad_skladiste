@@ -1,4 +1,28 @@
-﻿create table proizvodi(
+--SELECT name, collation_name FROM sys.databases;
+--GO
+---- Doma primjeniti na ime svoje baze 3 puta
+--ALTER DATABASE db_aa599c_romanprodukcija SET SINGLE_USER WITH
+--ROLLBACK IMMEDIATE;
+--GO
+--ALTER DATABASE db_aa599c_romanprodukcija COLLATE Croatian_CI_AS;
+--GO
+--ALTER DATABASE db_aa599c_romanprodukcija SET MULTI_USER;
+--GO
+--SELECT name, collation_name FROM sys.databases;
+--GO
+
+use master;
+go
+drop database if exists skladisnoposlovanje;
+go
+
+create database skladisnoposlovanje;
+go
+alter database skladisnoposlovanje collate Croatian_CI_AS;
+go
+use skladisnoposlovanje;
+
+create table proizvodi(
 
 sifra int not null primary key identity(1,1),
 naziv varchar(50) not null,
@@ -37,9 +61,10 @@ napomena varchar(250)
 
 create table izdatniceproizvodi (
 
+sifra int not null primary key identity(1,1),
 proizvod int not null references proizvodi(sifra),
 izdatnica int not null references izdatnice(sifra),
-kolicina int
+kolicina not null int
 );
 
 

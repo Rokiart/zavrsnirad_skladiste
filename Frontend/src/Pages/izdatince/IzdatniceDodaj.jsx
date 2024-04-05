@@ -1,13 +1,13 @@
 import { Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+
+
 import useError from '../../hooks/useError';
-
-
 import Service from '../../services/IzdatnicaService';
 import SkladistarService from '../../services/SkladistarService';
 import OsobaService from '../../services/OsobaService';
-
+import useLoading from '../../hooks/useLoading';
 import { RoutesNames } from '../../constants';
 
 
@@ -24,6 +24,7 @@ export default function IzdatniceDodaj() {
   const [skladistarSifra, setSkladistarSifra] = useState(0);
 
   const { prikaziError } = useError();
+  const { showLoading, hideLoading } = useLoading();
   
   async function dohvatiOsobe(){
     const odgovor = await OsobaService.get();
@@ -46,8 +47,10 @@ export default function IzdatniceDodaj() {
 }
 
 async function ucitaj(){
+  showLoading();
   await dohvatiOsobe();
   await dohvatiSkladistare();
+  hideLoading();
 }
 
 useEffect(()=>{
@@ -56,7 +59,9 @@ useEffect(()=>{
 
 
 async function dodaj(e) {
+  showLoading();
   const odgovor = await Service.dodaj(e);
+  hideLoading();
   if(odgovor.ok){
     navigate(RoutesNames.IZDATNICE_PREGLED);
     return
@@ -96,7 +101,7 @@ async function dodaj(e) {
       dodaj({
         brojIzdatnice: podaci.get('brojizdatnice'),
         datum: datum,
-        // proizvodSifra: parseInt(proizvodSifra),
+        proizvodSifra: parseInt(proizvodSifra),
         osobaSifra: parseInt(osobaSifra),
         skladistarSifra: parseInt(skladistarSifra),
         napomena: podaci.get('napomena')

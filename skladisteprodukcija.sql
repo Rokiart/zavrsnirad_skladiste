@@ -123,9 +123,9 @@ insert into izdatnice(brojizdatnice,osoba,skladistar)
 values
 (100,1,1),(101,12,2),(102,19,1),(103,24,2);
 
-insert into izdatniceproizvodi(proizvod,izdatnica) 
+insert into izdatniceproizvodi(proizvod,kolicina,izdatnica) 
 values
-(2,2),(1,2),(3,2),(4,3),(7,4);
+(2,6,2),(1,5,2),(3,232,2),(4,1,3),(7,56,4);
 
 select a.sifra,a.brojizdatnice,a.datum,b.ime,b.prezime,c.ime,c.prezime
 ,e.naziv,d.kolicina,e.naziv,e.mjernajedinica

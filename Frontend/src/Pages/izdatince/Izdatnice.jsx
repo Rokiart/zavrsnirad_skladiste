@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button,Container, Table } from "react-bootstrap";
 import { ImManWoman } from "react-icons/im";
+import { NumericFormat } from "react-number-format";
+import { GrValidate } from "react-icons/gr";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,6 +12,7 @@ import IzdatnicaService from "../../services/IzdatnicaService";
 
 import { RoutesNames } from "../../constants";
 import useError from "../../hooks/useError";
+import useLoading from "../../hooks/useLoading";
 
 
 
@@ -17,21 +20,24 @@ export default function Izdatnice() {
 
     const [Izdatnice,setIzdatnice] = useState();
     let navigate = useNavigate(); 
-     
+    const { showLoading, hideLoading } = useLoading();
      const { prikaziError } = useError();
 
     async function dohvatiIzdatnice(){
+        showLoading();
         const odgovor =await IzdatnicaService.get('Izdatnica');
         if(!odgovor.ok){
+            hideLoading();
             prikaziError(odgovor.podaci);
             return;
         }
-        setIzdatnice(odgovor.podaci);  
+        setIzdatnice(odgovor.podaci); 
+        hideLoading(); 
     }
 
 
     async function ObrisiIzdatnicu(sifra){
-      
+        showLoading();
         const odgovor = await IzdatnicaService.obrisi('Izdatnica',sifra);
         prikaziError(odgovor.podaci);
         if (odgovor.ok){
@@ -72,6 +78,7 @@ export default function Izdatnice() {
                      <th>BrojIzdatnice</th>
                      <th>Datum</th>
                      <th>Proizvodi</th>
+                     <th>Kolicine</th>
                      <th>Osoba</th>
                      <th>Skladistar</th> 
                      <th>Napomena</th>
@@ -93,6 +100,7 @@ export default function Izdatnice() {
                                
                               </td>
                               <td>{izdatnica.proizvodiPopis}</td>
+                              <td>{izdatnica.kolicna}</td>
                             <td>{izdatnica.osobaImePrezime}</td>
                             <td>{izdatnica.skladistarImePrezime}</td> 
                             <td>{izdatnica.napomena}</td>

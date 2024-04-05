@@ -27,18 +27,28 @@ import IzdatnicePromjeni from './Pages/izdatince/IzdatnicePromjeni'
 
 import useError from "./hooks/useError"
 import ErrorModal from './Components/ErrorModal'
+import Oznake from "./pages/oznake/Oznake"
+import LoadingSpinner from "./components/LoadingSpinner"
+import Login from "./pages/Login"
+import useAuth from "./hooks/useAuth"
+import NadzornaPloca from "./pages/NadzornaPloca"
 
 function App() {
 
   
   const { errors, prikaziErrorModal, sakrijError } = useError();
+  const { isLoggedIn } = useAuth();
   return (
     <>
+      <LoadingSpinner />
       <ErrorModal show={prikaziErrorModal} errors={errors} onHide={sakrijError} />
       <NavBar />
       <Routes>  
+      <Route path={RoutesNames.HOME} element={<Pocetna />} />
+      {isLoggedIn ? (
       <>
-        <Route path={RoutesNames.HOME} element={<Pocetna/>} />
+        <Route path={RoutesNames.NADZORNA_PLOCA} element={<NadzornaPloca />} />
+        <Route path={RoutesNames.IZDATNICEPROIZVODI_PREGLED} element={<IzdatniceProizvodi />} />
         
         <Route path={RoutesNames.OSOBE_PREGLED} element={<Osobe/>} />
         <Route path={RoutesNames.OSOBE_NOVI} element={<OsobeDodaj/>} />
@@ -56,6 +66,11 @@ function App() {
         <Route path={RoutesNames.IZDATNICE_NOVI} element={<IzdatniceDodaj/>} />
         <Route path={RoutesNames.IZDATNICE_PROMJENI} element={<IzdatnicePromjeni/>} />
       </>
+          ) : (
+            <>
+              <Route path={RoutesNames.LOGIN} element={<Login />} />
+            </>
+          )}
      </Routes>
     </>
   )

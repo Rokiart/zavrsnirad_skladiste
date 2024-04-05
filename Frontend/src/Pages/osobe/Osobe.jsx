@@ -15,6 +15,8 @@ export default function Osobe() {
     const [osobe,setOsobe] = useState();
     let navigate = useNavigate();
     const { prikaziError } = useError();
+   
+    
     
 
     async function dohvatiOsobe(){
@@ -39,6 +41,8 @@ export default function Osobe() {
     useEffect(()=>{
         dohvatiOsobe();
     },[]);
+
+    
 
    
     return(

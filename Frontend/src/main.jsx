@@ -9,10 +9,14 @@ import { ErrorProvider } from './Components/ErrorContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ErrorProvider>
-        <App />
-      </ErrorProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <ErrorProvider>
+      <LoadingProvider>
+        <AuthProvider>
+            <App />
+        </AuthProvider>
+      </LoadingProvider>
+    </ErrorProvider>
+  </BrowserRouter>
+</React.StrictMode>,
 )

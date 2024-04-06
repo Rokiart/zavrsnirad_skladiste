@@ -1,15 +1,35 @@
 SELECT name, collation_name FROM sys.databases;
 GO
 -- Doma primjeniti na ime svoje baze 3 puta
-ALTER DATABASE db_aa599c_romanprodukcija SET SINGLE_USER WITH
+ALTER DATABASE db_aa599c_skladiste SET SINGLE_USER WITH
 ROLLBACK IMMEDIATE;
 GO
-ALTER DATABASE db_aa599c_romanprodukcija COLLATE Croatian_CI_AS;
+ALTER DATABASE db_aa599c_skladiste COLLATE Croatian_CI_AS;
 GO
-ALTER DATABASE db_aa599c_romanprodukcija SET MULTI_USER;
+ALTER DATABASE db_aa599c_skladiste SET MULTI_USER;
 GO
 SELECT name, collation_name FROM sys.databases;
 GO
+
+drop table proizvodi;
+drop table skladistari;
+drop table osobe;
+drop table izdatnice;
+drop table izdatniceproizvodi;
+drop table operateri;
+
+
+create table operateri(
+sifra int not null primary key identity(1,1),
+email varchar(50) not null,
+lozinka varchar(200) not null
+
+);
+
+-- Lozinka roman generirana pomoæu https://bcrypt-generator.com/
+insert into operateri values ('roman.zaric@gmail.com',
+'$2a$12$iaj3Mg0BB00GfijrgiZ96Otcm1zVjRJTDhTiW2yZGzR1S9/ImU75a');
+
 
 create table proizvodi(
 
@@ -128,13 +148,3 @@ insert into izdatniceproizvodi(proizvod,izdatnica)
 values
 (2,2),(1,2),(3,2),(4,3),(7,4);
 
-select a.sifra,a.brojizdatnice,a.datum,b.ime,b.prezime,c.ime,c.prezime
-,e.naziv,d.kolicina,e.naziv,e.mjernajedinica
-from izdatnice a inner join osobe b 
-on b.sifra=a. osoba
-left join skladistari c
-on c.sifra=a.skladistar
-inner join izdatniceproizvodi d
-on a.sifra=d.izdatnica
-inner join proizvodi e
-on d.proizvod=e.sifra;

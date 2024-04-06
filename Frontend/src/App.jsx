@@ -25,15 +25,20 @@ import IzdatniceDodaj from './Pages/izdatince/IzdatniceDodaj'
 import IzdatnicePromjeni from './Pages/izdatince/IzdatnicePromjeni'
 
 
+
 import useError from "./hooks/useError"
 import ErrorModal from './Components/ErrorModal'
 import IzdatniceProizvodi from "./pages/izdatnicaProizvod/IzdatniceProizvodi"
 import LoadingSpinner from "./components/LoadingSpinner"
+import Login from "./pages/Login"
+import useAuth from "./hooks/useAuth"
+import NadzornaPloca from "./pages/NadzornaPloca"
 
 function App() {
 
   
   const { errors, prikaziErrorModal, sakrijError } = useError();
+  const { isLoggedIn } = useAuth();
   return (
     <>
       <LoadingSpinner />

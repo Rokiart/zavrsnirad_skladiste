@@ -1,5 +1,7 @@
 export const RoutesNames = {
     HOME: '/',
+
+    NADZORNA_PLOCA: '/nadzornaploca',
     
     OSOBE_PREGLED: '/Osobe',
     OSOBE_NOVI: '/Osobe/dodaj',
@@ -17,7 +19,9 @@ export const RoutesNames = {
     IZDATNICE_NOVI: '/izdatnice/dodaj',
     IZDATNICE_PROMJENI: '/izdatnice/:sifra',
 
-    IZDATNICEPROIZVODI_PREGLED: '/IzdatniceProizvodi'
+    IZDATNICEPROIZVODI_PREGLED: '/IzdatniceProizvodi',
+
+    LOGIN: '/login'
 
 };
 

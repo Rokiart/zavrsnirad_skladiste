@@ -3,13 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useError from '../../hooks/useError';
 
-import InputText from '../../components/InputText';
+
 import Service from '../../services/IzdatnicaService';
-import SkladistarService from '../../services/SkladistarService';
-import OsobaService from '../../services/OsobaService';
 import useLoading from '../../hooks/useLoading';
 import { RoutesNames } from '../../constants';
-import Akcije from '../../components/Akcije';
+
+import InputText from '../../Components/InputText';
 
 
 
@@ -48,6 +47,7 @@ export default function IzdatniceDodaj() {
 }
 
 async function ucitaj(){
+  showLoading();
   await dohvatiOsobe();
   await dohvatiSkladistare();
   hideLoading();
@@ -59,6 +59,7 @@ useEffect(()=>{
 
 
 async function dodaj(e) {
+  showLoading();
   const odgovor = await Service.dodaj(e);
   hideLoading();
   if(odgovor.ok){
@@ -114,6 +115,9 @@ async function dodaj(e) {
   return (
     <Container className='mt-4'>
       <Form onSubmit={handleSubmit}>
+ 
+      <InputText atribut='naziv' vrijednost='' />
+
         <Form.Group className='mb-3' controlId='brojIzdatnice'>
           <Form.Label>Broj Izdatnice</Form.Label>
           <Form.Control

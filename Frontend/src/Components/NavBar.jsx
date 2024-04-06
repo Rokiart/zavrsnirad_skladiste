@@ -4,12 +4,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
 import { RoutesNames, App } from '../constants';
-
+import useAuth from '../hooks/useAuth';
 import './NavBar.css';
+
 
 function NavBar() {
 
   const navigate  = useNavigate ();
+  const { logout, isLoggedIn } = useAuth();
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -20,6 +22,9 @@ function NavBar() {
         >
           Skladište APP
           </Navbar.Brand>
+
+          {isLoggedIn ? (
+          <>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -53,12 +58,26 @@ function NavBar() {
                Izdatnice
               </NavDropdown.Item>
             </NavDropdown>
+
+
           </Nav>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav.Link target="_blank" href={App.URL + '/swagger/index.html'}>
-          API dokumentacija</Nav.Link>
-        </Navbar.Collapse>
+          </Navbar.Collapse>
+            <Navbar.Collapse className="justify-content-end">
+                <Nav>
+                  <Nav.Link onClick={logout}>Odjava</Nav.Link>
+                  <Nav.Link target="_blank" href={App.URL + '/swagger/index.html'}>API dokumentacija</Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+        </>
+         ) : (
+          <>
+          <Navbar.Collapse className="justify-content-end">
+            <Nav.Link onClick={() => navigate(RoutesNames.LOGIN)}>
+              Prijava
+            </Nav.Link>
+          </Navbar.Collapse>
+          </>
+        )}
       </Container>
     </Navbar>
   );

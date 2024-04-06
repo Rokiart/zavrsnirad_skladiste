@@ -39,8 +39,11 @@ function App() {
       <LoadingSpinner />
       <ErrorModal show={prikaziErrorModal} errors={errors} onHide={sakrijError} />
       <NavBar />
-      <Routes>  
+      <Routes>
+      <Route path={RoutesNames.HOME} element={<Pocetna />} />
+      {isLoggedIn ? (  
       <>
+        <Route path={RoutesNames.NADZORNA_PLOCA} element={<NadzornaPloca />} />
         <Route path={RoutesNames.HOME} element={<Pocetna/>} />
 
         <Route path={RoutesNames.IZDATNICEPROIZVODI_PREGLED} element={<IzdatniceProizvodi/>} />
@@ -61,6 +64,11 @@ function App() {
         <Route path={RoutesNames.IZDATNICE_NOVI} element={<IzdatniceDodaj/>} />
         <Route path={RoutesNames.IZDATNICE_PROMJENI} element={<IzdatnicePromjeni/>} />
       </>
+    ) : (
+          <>
+            <Route path={RoutesNames.LOGIN} element={<Login />} />
+          </>
+        )}
      </Routes>
     </>
   )

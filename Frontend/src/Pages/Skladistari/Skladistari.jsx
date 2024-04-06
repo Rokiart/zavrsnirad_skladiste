@@ -68,6 +68,7 @@ export default function Skladistari() {
 
 
     return (
+        <>
         <Container>
              <Link to={RoutesNames.SKLADISTARI_NOVI} className="btn btn-success gumb">
                 <ImManWoman

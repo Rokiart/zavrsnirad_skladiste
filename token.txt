@@ -1,3 +1,6 @@
 
 
 $2a$12$iaj3Mg0BB00GfijrgiZ96Otcm1zVjRJTDhTiW2yZGzR1S9/ImU75a
+
+
+Bearer $2a$12$iaj3Mg0BB00GfijrgiZ96Otcm1zVjRJTDhTiW2yZGzR1S9/ImU75a

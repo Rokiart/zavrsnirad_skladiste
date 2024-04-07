@@ -59,12 +59,12 @@ namespace SKladisteAppl.Models
     /// </summary>
     public record IzdatnicaDTOInsertUpdate(string? brojizdatnice,
         DateTime? datum, int? osobaSifra, int? skladistarSifra, string napomena);
-  
-
-    public record IzdatniceProizvodiDTORead(int? sifra, int? kolicina );
 
 
-    public record IzdatniceProizvodiDTOInsertUpdate(int? izdatnicaSifra, int? proizvodSifra, int? kolicina);
+    public record IzdatniceProizvodiDTORead(int? sifra, string? naziv, int? kolicina);
+
+
+    public record IzdatniceProizvodiDTOInsertUpdate(int? izdatnicaSifra, int? proizvodSifra, [Required(ErrorMessage = "Kolicina obavezno")] string? kolicina);
 
     public record SlikaDTO([Required(ErrorMessage = "Base64 zapis slike obavezno")] string Base64);
 

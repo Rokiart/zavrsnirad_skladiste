@@ -128,37 +128,60 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
         try
         {
 
-            var izdatnica = _context.Izdatnice
-                .Include(g => g.Proizvodi)
-                .FirstOrDefault(g => g.Sifra == sifra);
 
-            if (izdatnica == null)
+            var entitet = _context.IzdatniceProizvodi.Find(sifra);
+
+            if (entitet == null)
             {
-                return BadRequest("Ne postoji izdatnica s šifrom " + sifra + " u bazi");
+                return BadRequest("Ne postoji proizvod na smjeru s šifrom " + sifra + " u bazi");
             }
 
-            var proizvod = _context.Proizvodi.Find(proizvodSifra);
-
-            if (proizvod == null)
-            {
-                return BadRequest("Ne postoji proizvod s šifrom " + proizvodSifra + " u bazi");
-            }
-
-
-            izdatnica.Proizvodi.Remove(proizvod);
-
-            _context.Izdatnice.Update(izdatnica);
+            _context.IzdatniceProizvodi.Remove(entitet);
             _context.SaveChanges();
 
-            return Ok();
+            return Ok("Obrisano");
 
         }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
+
         }
 
     }
+
+
+    //[HttpPatch]
+    //[Route("PromjeniProizvod/{sifra:int}")]
+    //public IActionResult PromjeniProizvod(int sifra, string naziv)
+    //{
+    //    if (!ModelState.IsValid)
+    //    {
+    //        return BadRequest(ModelState);
+    //    }
+    //    try
+    //    {
+
+    //        var entitet = _context.IzdatniceProizvodi.Include(x => x.Proizvod).FirstOrDefault(x => x.Sifra == sifra);
+
+    //        if (entitet == null)
+    //        {
+    //            return BadRequest("Ne postoji proizvod na na izdatnici s šifrom " + sifra + " u bazi");
+    //        }
+
+    //        entitet.Naziv = naziv;
+
+    //        _context.IzdatniceProizvodi.Update(entitet);
+    //        _context.SaveChanges();
+
+    //        return new JsonResult(new IzdatniceProizvodiDTORead(entitet.Sifra, entitet.Proizvod.Naziv,entitet.kolicina));
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return BadRequest(ex.Message);
+    //    }
+
+    //}
 
 
     protected override void KontrolaBrisanje(Izdatnica entitet)

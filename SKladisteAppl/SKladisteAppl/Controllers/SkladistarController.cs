@@ -38,6 +38,41 @@ namespace SKladisteAppl.Controllers
                 throw new Exception(sb.ToString().Substring(0, sb.ToString().Length - 2));
             }
         }
+
+        [HttpPatch]
+        [Route("{sifraSkladistar:int}")]
+        public async Task<ActionResult> Patch(int sifraSkladistar, IFormFile datoteka)
+        {
+            if (datoteka == null)
+            {
+                return BadRequest("Datoteka nije postavljena");
+            }
+
+            var entitetIzbaze = _context.Skladistari.Find(sifraSkladistar);
+
+            if (entitetIzbaze == null)
+            {
+                return BadRequest("Ne postoji skladistar s šifrom " + sifraSkladistar + " u bazi");
+            }
+            try
+            {
+                var ds = Path.DirectorySeparatorChar;
+                string dir = Path.Combine(Directory.GetCurrentDirectory()
+                    + ds + "wwwroot" + ds + "datoteke" + ds + "skladistari");
+                if (!System.IO.Directory.Exists(dir))
+                {
+                    System.IO.Directory.CreateDirectory(dir);
+                }
+                var putanja = Path.Combine(dir + ds + sifraSkladistar + "_" + System.IO.Path.GetExtension(datoteka.FileName));
+                Stream fileStream = new FileStream(putanja, FileMode.Create);
+                await datoteka.CopyToAsync(fileStream);
+                return Ok("Datoteka pohranjena");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
 

@@ -55,21 +55,20 @@ namespace SKladisteAppl.Controllers
 
         protected override void KontrolaBrisanje(Proizvod entitet)
         {
-            var entitetIzbaze = _context.Proizvodi.Include(x => x.Izdatnice).FirstOrDefault(x => x.Sifra == entitet.Sifra);
+            var lista = _context.IzdatniceProizvodi
+                .Include(x => x.Proizvod)
+                .Include(x => x.Izdatnica)
+                .Where(x => x.Proizvod.Sifra == entitet.Sifra).ToList();
+           
+            
 
-            if (entitetIzbaze == null)
-            {
-                throw new Exception("Ne postoji proizvod s šifrom " + entitet.Sifra + " u bazi");
-            }
-
-
-            if (entitetIzbaze.Izdatnice != null && entitetIzbaze.Izdatnice.Count() > 0)
+            if (lista != null && lista.Count() > 0)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Proizvod se ne može obrisati jer je postavljen na izdatnici: ");
-                foreach (var e in entitetIzbaze.Izdatnice)
+                foreach (var e in lista)
                 {
-                    sb.Append(e.BrojIzdatnice).Append(", ");
+                    sb.Append(e.Izdatnica ).Append(", ");
                 }
 
                 throw new Exception(sb.ToString().Substring(0, sb.ToString().Length - 2));

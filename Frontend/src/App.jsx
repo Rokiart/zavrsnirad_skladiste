@@ -28,7 +28,7 @@ import IzdatnicePromjeni from './Pages/izdatince/IzdatnicePromjeni'
 
 import useError from "./hooks/useError"
 import ErrorModal from './Components/ErrorModal'
-import IzdatniceProizvodi from "./pages/izdatnicaProizvod/IzdatniceProizvodi"
+import IzdatniceProizvodi from "./pages/izdatniceProizvodi/IzdatniceProizvodi"
 import LoadingSpinner from "./components/LoadingSpinner"
 import Login from "./pages/Login"
 import useAuth from "./hooks/useAuth"

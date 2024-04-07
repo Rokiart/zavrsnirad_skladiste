@@ -27,7 +27,7 @@ export default function IzdatniceDodaj() {
   const { showLoading, hideLoading } = useLoading();
   
   async function dohvatiOsobe(){
-    const odgovor = await OsobaService.get();
+    const odgovor = await OsobaService.get('Osoba');
     if(!odgovor.ok){
       prikaziError(odgovor.podaci);
       return;
@@ -37,7 +37,7 @@ export default function IzdatniceDodaj() {
 }
 
   async function dohvatiSkladistare(){
-    const odgovor = await SkladistarService.get();
+    const odgovor = await SkladistarService.get('Skladistar');
     if(!odgovor.ok){
       prikaziError(odgovor.podaci);
       return;
@@ -60,7 +60,7 @@ useEffect(()=>{
 
 async function dodaj(e) {
   showLoading();
-  const odgovor = await Service.dodaj(e);
+  const odgovor = await Service.dodaj('Izdatnica',e);
   hideLoading();
   if(odgovor.ok){
     navigate(RoutesNames.IZDATNICE_PREGLED);

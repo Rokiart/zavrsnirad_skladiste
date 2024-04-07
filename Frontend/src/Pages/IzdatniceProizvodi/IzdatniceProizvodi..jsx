@@ -9,7 +9,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function IzdatniceProizvodi(){
     const [lista,setLista] = useState();
-    const [IzdatniceProizvodi,setIzdatniceProizvodi] = useState();
+    const [odabrano,setOdabrano] = useState();
     const { prikaziError } = useError();
     const { showLoading, hideLoading } = useLoading();
 
@@ -49,7 +49,7 @@ export default function IzdatniceProizvodi(){
 
     async function promjeni(IzdatniceProizvodi){
         showLoading();
-        const odgovor = await Service.promjeni('IzdatniceProizvodi',kolicina.sifra,IzdatniceProizvodi);
+        const odgovor = await Service.promjeni('IzdatniceProizvodi',odabrano.sifra,IzdatniceProizvodi);
         if(!odgovor.ok){
             hideLoading();
             prikaziError(odgovor.podaci);
@@ -95,7 +95,7 @@ export default function IzdatniceProizvodi(){
                         <tbody>
                             {lista && lista.map((e,index)=>(
                                 <tr key={index}>
-                                    <td className={IzdatniceProizvodi!=null && IzdatniceProizvodi.sifra==e.sifra ? 'podebljano' : ''}>
+                                    <td className={odabrano!=null && odabrano.sifra==e.sifra ? 'podebljano' : ''}>
                                         {e.kolicina}
                                     </td>
                                     

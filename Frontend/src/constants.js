@@ -1,7 +1,9 @@
+
+
 export const RoutesNames = {
     HOME: '/',
 
-    NADZORNA_PLOCA: '/nadzornaploca',
+    //NADZORNA_PLOCA: '/nadzornaploca',
     
     OSOBE_PREGLED: '/Osobe',
     OSOBE_NOVI: '/Osobe/dodaj',
@@ -21,7 +23,7 @@ export const RoutesNames = {
 
     IZDATNICEPROIZVODI_PREGLED: '/IzdatniceProizvodi',
 
-    LOGIN: '/login'
+    Login: '/Login'
 
 };
 

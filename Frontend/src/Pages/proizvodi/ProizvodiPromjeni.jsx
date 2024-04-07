@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Modal, Row, Table} from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProizvodService from '../../services/ProizvodService';
-import KolicinaService from "../../services/KolicinaService";
+
 import { RoutesNames } from '../../constants';
 import useError from "../../hooks/useError";
 import InputText from '../../Components/InputText';
 import Akcije from '../../Components/Akcije';
 import { FaTrash } from "react-icons/fa";
-import nepoznato from '../../assets/nepoznato.png'; 
-import useLoading from '../../hooks/useLoading';
+
+
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 
 

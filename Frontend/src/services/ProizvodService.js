@@ -20,6 +20,14 @@ async function obrisiKolicinu(sifra){
 async function dodajKolicinu(proizvodKolicina) {
   return await httpService.post('/Proizvod/DodajKolicinu/',proizvodKolicina).then((res)=>{return obradiUspjeh(res);}).catch((e)=>{ return obradiGresku(e);});
 }
+
+async function postaviSliku(sifra, slika) {
+  return await httpService.put('/Proizvod/postaviSliku/' + sifra, slika).then((res)=>{return obradiUspjeh(res);}).catch((e)=>{ return obradiGresku(e);});
+}
+async function getStranicenje(stranica,uvjet){
+  return await httpService.get('/Proizvod/traziStranicenje/'+stranica + '?uvjet=' + uvjet)
+  .then((res)=>{return obradiUspjeh(res);}).catch((e)=>{ return obradiGresku(e);});
+}
 export default{
   get,
   obrisi,
@@ -27,6 +35,10 @@ export default{
   getBySifra,
   promjeni,
   traziProizvod,
+  getKolicine,
+  obrisiKolicinu,
+  dodajKolicinu,
   postaviSliku,
   getStranicenje
+  
 };

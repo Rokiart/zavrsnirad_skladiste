@@ -21,18 +21,23 @@ import SkladistariPromjeni from './Pages/Skladistari/SkladistariPromjeni'
 
 
 import Izdatnice from './Pages/izdatince/Izdatnice'
-import IzdatniceDodaj from './Pages/izdatince/IzdatniceDodaj'
-import IzdatnicePromjeni from './Pages/izdatince/IzdatnicePromjeni'
+import IzdatniceDodaj from './Pages/Izdatince/IzdatniceDodaj'
+import IzdatnicePromjeni from './Pages/Izdatince/IzdatnicePromjeni'
 
-
+import IzdatniceProizvodi from './Pages/IzdatniceProizvodi/IzdatniceProizvodi.'
 
 import useError from "./hooks/useError"
 import ErrorModal from './Components/ErrorModal'
-import IzdatniceProizvodi from "./pages/izdatniceProizvodi/IzdatniceProizvodi"
+
 import LoadingSpinner from "./components/LoadingSpinner"
-import Login from "./pages/Login"
+import Login from './Pages/Login'
+//import NadzornaPloca from './Pages/NadzornaPloca'
 import useAuth from "./hooks/useAuth"
-import NadzornaPloca from "./pages/NadzornaPloca"
+
+
+
+
+
 
 function App() {
 
@@ -48,7 +53,7 @@ function App() {
       <Route path={RoutesNames.HOME} element={<Pocetna />} />
       {isLoggedIn ? (  
       <>
-        <Route path={RoutesNames.NADZORNA_PLOCA} element={<NadzornaPloca />} />
+        {/* <Route path={RoutesNames.NADZORNA_PLOCA} element={<NadzornaPloca />} /> */}
         <Route path={RoutesNames.HOME} element={<Pocetna/>} />
 
         <Route path={RoutesNames.IZDATNICEPROIZVODI_PREGLED} element={<IzdatniceProizvodi/>} />

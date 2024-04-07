@@ -67,6 +67,10 @@ namespace SKladisteAppl.Data
             // implementacija veze 1:n
             modelBuilder.Entity<Izdatnica>().HasOne(i => i.Osoba);
             modelBuilder.Entity<Izdatnica>().HasOne(i => i.Skladistar);
+            modelBuilder.Entity<IzdatniceProizvodi>().HasOne(i => i.Izdatnica);
+            modelBuilder.Entity<IzdatniceProizvodi>().HasOne(i => i.Proizvod);
+
+
 
             //// implementacija veze n:n
             //modelBuilder.Entity<Izdatnica>()

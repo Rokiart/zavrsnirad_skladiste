@@ -4,7 +4,7 @@ using SKladisteAppl.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Text;
-using EdunovaAPP.Controllers;
+using SKladisteAppl.Controllers;
 using System.Data.Entity;
 
 

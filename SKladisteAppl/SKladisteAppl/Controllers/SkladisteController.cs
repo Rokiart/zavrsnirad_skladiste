@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SKladisteAppl.Models;
 using System.Text;
 
-namespace EdunovaAPP.Controllers
+namespace SKladisteAppl.Controllers
 {
     public abstract class SkladisteController <T, TDR, TDI> : ControllerBase where T : Entitet
     {

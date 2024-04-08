@@ -63,16 +63,16 @@ create table izdatnice(
 sifra int not null primary key identity(1,1),
 brojizdatnice varchar (50) not null,
 datum datetime,
-osoba int not null references osobe(sifra),
-skladistar int not null references skladistari(sifra),
+osoba int not null references osobe(sifra) not null,
+skladistar int not null references skladistari(sifra) not null,
 napomena varchar(250)
 );
 
 create table izdatniceproizvodi (
 
 sifra int not null primary key identity(1,1),
-proizvod int not null references proizvodi(sifra),
-izdatnica int not null references izdatnice(sifra),
+proizvod int not null references proizvodi(sifra) not null,
+izdatnica int not null references izdatnice(sifra) not null,
 kolicina int
 );
 

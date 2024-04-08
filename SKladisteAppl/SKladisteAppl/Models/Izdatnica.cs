@@ -36,11 +36,6 @@ namespace SKladisteAppl.Models
         /// </summary>
         public string? Napomena { get; set; }
 
-        /// <summary>
-        /// Lista proizvoda koji su vezani uz izdatnicu.
-        /// </summary>
-        [ForeignKey("IzdatniceProizvodi")]
-        public IzdatniceProizvodi? IzdatniceProizvodi { get; set; }
         public List<Proizvod>? Proizvodi { get; set; }
     }
 }

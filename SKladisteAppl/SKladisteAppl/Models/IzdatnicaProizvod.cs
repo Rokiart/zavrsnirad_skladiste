@@ -2,15 +2,15 @@
 
 namespace SKladisteAppl.Models
 {
-    public class IzdatniceProizvodi : Entitet
+    public class IzdatnicaProizvod : Entitet
 
     {
         public string? Kolicina { get; set; }
 
         [ForeignKey("izdatnica")]
-        public Izdatnica? Izdatnica  { get; set; }
+        public  Izdatnica? Izdatnica  { get; set; }
         [ForeignKey("proizvod")]
-        public Proizvod? Proizvod { get; set; }
+        public  Proizvod? Proizvod { get; set; }
 
        
 

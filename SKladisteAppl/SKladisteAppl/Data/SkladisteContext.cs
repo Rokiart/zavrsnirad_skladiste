@@ -50,7 +50,7 @@ namespace SKladisteAppl.Data
 
 
 
-        public DbSet<IzdatniceProizvodi> IzdatniceProizvodi { get; set; }
+        public DbSet<IzdatnicaProizvod> IzdatniceProizvodi { get; set; }
 
 
 
@@ -67,8 +67,8 @@ namespace SKladisteAppl.Data
             // implementacija veze 1:n
             modelBuilder.Entity<Izdatnica>().HasOne(i => i.Osoba);
             modelBuilder.Entity<Izdatnica>().HasOne(i => i.Skladistar);
-            modelBuilder.Entity<IzdatniceProizvodi>().HasOne(i => i.Izdatnica);
-            modelBuilder.Entity<IzdatniceProizvodi>().HasOne(i => i.Proizvod);
+            modelBuilder.Entity<IzdatnicaProizvod>().HasOne(i => i.Izdatnica);
+            modelBuilder.Entity<IzdatnicaProizvod>().HasOne(i => i.Proizvod);
 
 
 

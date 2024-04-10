@@ -15,7 +15,7 @@ namespace SKladisteAppl.Mappers
                  new IzdatnicaDTORead(
                     entitet.Sifra,
                     entitet.BrojIzdatnice,
-                      entitet.Datum,
+                    entitet.Datum,
                     entitet.Osoba == null ? "" : ( entitet.Osoba.Ime
                         + " " + entitet.Osoba.Prezime).Trim(),
                     entitet.Skladistar == null ? "" : (entitet.Skladistar.Ime
@@ -49,8 +49,6 @@ namespace SKladisteAppl.Mappers
              );
         }
 
-        public Mapper MapperMapReadToDTO { get; }
-        public Mapper MapperMapInsertUpdatedFromDTO { get; }
-        public Mapper MapperMapMapInsertUpdateToDTO { get; }
+       
     }
 }

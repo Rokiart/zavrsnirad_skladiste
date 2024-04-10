@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { RoutesNames } from '../constants';
 import useError from '../hooks/useError';
 import useLoading from '../hooks/useLoading';
-import slika from '../../assets/slika.png'; 
 
 export const AuthContext = createContext();
 

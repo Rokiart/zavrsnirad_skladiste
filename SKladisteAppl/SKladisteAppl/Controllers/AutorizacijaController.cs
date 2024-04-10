@@ -35,7 +35,7 @@ namespace SKladisteAppl.Controllers
 
 
                 var operBaza = _context.Operateri
-                       .Where(p => p.Email!.Equals(operater.email))
+                       .Where(p => p.Email.Equals(operater.email))
                        .FirstOrDefault();
 
                 if (operBaza == null)

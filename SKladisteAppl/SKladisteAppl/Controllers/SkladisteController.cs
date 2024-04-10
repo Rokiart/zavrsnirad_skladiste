@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SKladisteAppl.Models;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SKladisteAppl.Controllers
 {
+    [Authorize]
     public abstract class SkladisteController <T, TDR, TDI> : ControllerBase where T : Entitet
     {
         protected DbSet<T> DbSet;

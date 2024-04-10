@@ -16,7 +16,7 @@ namespace SKladisteAppl.Controllers;
 [Route("api/v1/[controller]")]
 public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORead, IzdatnicaDTOInsertUpdate>
 {
-    private Proizvod proizvod;
+  
 
     public IzdatnicaController(SkladisteContext context) : base(context)
     {
@@ -129,14 +129,14 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
         {
 
 
-            var entitet = _context.IzdatniceProizvodi.Find(sifra);
+            var entitet = _context.Proizvodi.Find(sifra);
 
             if (entitet == null)
             {
                 return BadRequest("Ne postoji proizvod na smjeru s šifrom " + sifra + " u bazi");
             }
 
-            _context.IzdatniceProizvodi.Remove(entitet);
+            _context.Proizvodi.Remove(entitet);
             _context.SaveChanges();
 
             return Ok("Obrisano");

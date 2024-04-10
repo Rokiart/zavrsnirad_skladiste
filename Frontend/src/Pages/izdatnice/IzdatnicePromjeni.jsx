@@ -5,9 +5,9 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { RoutesNames } from "../../constants";
 
 import { FaTrash } from 'react-icons/fa';
-import Akcije from '../../components/Akcije';
+
 import useLoading from '../../hooks/useLoading';
-import InputText from '../../components/InputText';
+import InputText from '../../Components/InputText';
 import useError from '../../hooks/useError';
 import Service from '../../services/IzdatnicaService';
 import SkladistarService from '../../services/SkladistarService';

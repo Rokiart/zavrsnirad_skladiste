@@ -1,4 +1,4 @@
-using SKladisteAppl.Data;
+ï»¿using SKladisteAppl.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SKladisteAppl.Extensions;
@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(x => {
 {
     x.TokenValidationParameters = new TokenValidationParameters
     {
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Klokan64pinup i dovoljno dugaèak da se može koristiti")),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Klokan64pinup i dovoljno dugaÄak da se moÅ¾e koristiti")),
         ValidateIssuer = false,
         ValidateAudience = false,
         ValidateLifetime = true,
@@ -51,7 +51,7 @@ var app = builder.Build();
 //if (app.Environment.IsDevelopment())
 //{
 app.UseSwagger();
-// moguænost generiranja poziva rute u CMD i Powershell
+// moguÃ¦nost generiranja poziva rute u CMD i Powershell
 app.UseSwaggerUI(opcije =>
 {
     opcije.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);

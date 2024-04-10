@@ -5,9 +5,9 @@ export const RoutesNames = {
 
     //NADZORNA_PLOCA: '/nadzornaploca',
     
-    OSOBE_PREGLED: '/Osobe',
-    OSOBE_NOVI: '/Osobe/dodaj',
-    OSOBE_PROMJENI: '/Osobe/:sifra',
+    OSOBE_PREGLED: '/osobe',
+    OSOBE_NOVI: '/osobe/dodaj',
+    OSOBE_PROMJENI: '/osobe/:sifra',
 
     PROIZVODI_PREGLED: '/proizvodi',
     PROIZVODI_NOVI: '/proizvodi/dodaj',
@@ -21,9 +21,9 @@ export const RoutesNames = {
     IZDATNICE_NOVI: '/izdatnice/dodaj',
     IZDATNICE_PROMJENI: '/izdatnice/:sifra',
 
-    IZDATNICEPROIZVODI_PREGLED: '/IzdatniceProizvodi',
+    IZDATNICEPROIZVODI_PREGLED: '/izdatniceProizvodi',
 
-    Login: '/Login'
+    LOGIN: '/Login'
 
 };
 

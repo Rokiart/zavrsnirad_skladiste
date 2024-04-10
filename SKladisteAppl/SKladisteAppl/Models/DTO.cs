@@ -10,7 +10,7 @@ namespace SKladisteAppl.Models
     /// <summary>
     /// Predstavlja podatke o osobi za čitanje.
     /// </summary>
-    public record OsobaDTORead(int sifra, string ime, string prezime,
+    public record OsobaDTORead(int? sifra, string? ime, string? prezime,
         string? brojtelefona, string? email);
 
     /// <summary>
@@ -21,7 +21,8 @@ namespace SKladisteAppl.Models
         string ime,
         [Required(ErrorMessage = "Naziv obavezno")]
         string prezime,
-        string brojtelefona, string email);
+        string brojtelefona, 
+        string email);
 
     /// <summary>
     /// Predstavlja podatke o proizvodu za čitanje.
@@ -39,14 +40,19 @@ namespace SKladisteAppl.Models
     /// <summary>
     /// Predstavlja podatke o skladištaru za čitanje.
     /// </summary>
-    public record SkladistarDTORead(int? sifra, string? ime, string? prezime,
-        string brojtelefona, string email, string V);
+    public record SkladistarDTORead(int sifra, string ime, string prezime,
+        string brojtelefona, string email, string? datoteka);
 
     /// <summary>
     /// Predstavlja podatke o skladištaru za unos i ažuriranje.
     /// </summary>
-    public record SkladistarDTOInsertUpdate(string? ime, string? prezime,
-        string brojtelefona, string email);
+    public record SkladistarDTOInsertUpdate(
+         [Required(ErrorMessage = "Naziv obavezno")]
+        string ime,
+         [Required(ErrorMessage = "Naziv obavezno")]
+        string prezime,
+        string brojtelefona, 
+        string email);
 
     /// <summary>
     /// Predstavlja podatke o izdatnici za čitanje.

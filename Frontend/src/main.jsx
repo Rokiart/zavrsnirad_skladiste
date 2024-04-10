@@ -4,8 +4,8 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import { ErrorProvider } from './Components/ErrorContext.jsx'
 
-import { AuthProvider } from './components/AuthContext.jsx'
-import { LoadingProvider } from './components/LoadingContext.jsx'
+import { AuthProvider } from './Components/AuthContext.jsx'
+import { LoadingProvider } from './Components/LoadingContext.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

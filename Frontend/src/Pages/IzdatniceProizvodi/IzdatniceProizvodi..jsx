@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Container, Form, Row, Table } from "react-bootstrap";
 import useError from "../../hooks/useError";
 import useLoading from "../../hooks/useLoading";
-import Service from "../../services/IzdatniceService";
+import Service from "../../services/IzdatnicaService";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 

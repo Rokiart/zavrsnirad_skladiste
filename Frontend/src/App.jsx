@@ -15,21 +15,21 @@ import Proizvodi from './Pages/proizvodi/Proizvodi'
 import ProizvodiDodaj from './Pages/proizvodi/ProizvodiDodaj'
 import ProizvodiPromjeni from './Pages/proizvodi/ProizvodiPromjeni'
 
-import Skladistari from './Pages/Skladistari/Skladistari'
-import SkladistariDodaj from './Pages/Skladistari/SkladistariDodaj'
-import SkladistariPromjeni from './Pages/Skladistari/SkladistariPromjeni'
+import Skladistari from './Pages/skladistari/Skladistari'
+import SkladistariDodaj from './Pages/skladistari/SkladistariDodaj'
+import SkladistariPromjeni from './Pages/skladistari/SkladistariPromjeni'
 
 
-import Izdatnice from './Pages/izdatince/Izdatnice'
-import IzdatniceDodaj from './Pages/Izdatince/IzdatniceDodaj'
-import IzdatnicePromjeni from './Pages/Izdatince/IzdatnicePromjeni'
+import Izdatnice from './Pages/izdatnice/Izdatnice'
+import IzdatniceDodaj from './Pages/izdatnice/IzdatniceDodaj'
+import IzdatnicePromjeni from './Pages/izdatnice/IzdatnicePromjeni'
 
 import IzdatniceProizvodi from './Pages/IzdatniceProizvodi/IzdatniceProizvodi.'
 
 import useError from "./hooks/useError"
 import ErrorModal from './Components/ErrorModal'
 
-import LoadingSpinner from "./components/LoadingSpinner"
+import LoadingSpinner from "./Components/LoadingSpinner"
 import Login from './Pages/Login'
 //import NadzornaPloca from './Pages/NadzornaPloca'
 import useAuth from "./hooks/useAuth"

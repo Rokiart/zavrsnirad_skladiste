@@ -34,7 +34,7 @@ namespace SKladisteAppl.Models
     /// Predstavlja podatke o proizvodu za unos i ažuriranje.
     /// </summary>
     public record ProizvodDTOInsertUpdate(string? naziv, string? sifraproizvoda,
-        string? mjernajedinica, string V);
+        string? mjernajedinica, string? slika);
   
 
     /// <summary>
@@ -67,10 +67,10 @@ namespace SKladisteAppl.Models
         DateTime? datum, int? osobaSifra, int? skladistarSifra, string napomena);
 
 
-    public record IzdatniceProizvodiDTORead(int? sifra, string? naziv, int? kolicina);
+    public record IzdatniceProizvodiDTORead(int? sifra, int? kolicina);
 
 
-    public record IzdatniceProizvodiDTOInsertUpdate(int? izdatnicaSifra, int? proizvodSifra, [Required(ErrorMessage = "Kolicina obavezno")] string? kolicina);
+    public record IzdatniceProizvodiDTOInsertUpdate(int? kolicina);
 
     public record SlikaDTO([Required(ErrorMessage = "Base64 zapis slike obavezno")] string Base64);
 

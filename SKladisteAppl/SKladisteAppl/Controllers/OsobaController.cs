@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using System.Text;
 using SKladisteAppl.Controllers;
 using System.Data.Entity;
+using SKladisteAppl.Mappers;
 
 
 namespace SKladisteAppl.Controllers

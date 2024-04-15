@@ -83,7 +83,7 @@ namespace SKladisteAppl.Data
             //    );
 
             //modelBuilder.Entity<IzdatniceProizvodi>().HasOne(x => x.Izdatnica);
-            //modelBuilder.Entity<IzdatniceProizvodi>().HasOne(x => x.Kolicina);
+            //modelBuilder.Entity<IzdatniceProizvodi>().HasOne(x => x.Proizvod);
 
         }
 

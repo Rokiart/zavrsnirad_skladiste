@@ -38,72 +38,64 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
         }
         try
         {
-            var p = _context.Izdatnice 
-                .Include(i => i.Proizvodi).FirstOrDefault(x => x.Sifra == sifraIzdatnice);
-            if (p == null)
+            var proizvodi = _context.IzdatniceProizvodi 
+                .Include(i => i.Proizvod)
+                .Include(i => i.Izdatnica)
+                .Where(x => x.Izdatnica.Sifra == sifraIzdatnice).ToList();
+            if (proizvodi == null)
             {
-                return BadRequest("Ne postoji izdatnica s šifrom " + sifraIzdatnice + " u bazi");
+                return BadRequest("Ne postoji proizvod s šifrom " + sifraIzdatnice + " u bazi");
             }
-            Mapping<Proizvod, ProizvodDTORead, ProizvodDTOInsertUpdate> mapping = new Mapping<Proizvod, ProizvodDTORead, ProizvodDTOInsertUpdate>();
-            return new JsonResult(mapping.MapReadList(p.Proizvodi));
+            List<IzdatniceProizvodiDTORead> lista = new List<IzdatniceProizvodiDTORead>();
+            proizvodi.ForEach(x => lista.Add(new IzdatniceProizvodiDTORead(x.Sifra, x.Proizvod.Naziv, x.Kolicina)));
+
+            return new JsonResult(lista);
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                     ex.Message);
         }
     }
 
 
 
 
+
     [HttpPost]
-    [Route("{sifra:int}/dodaj/{proizvodSifra:int}")]
-    public IActionResult DodajProizvod(int sifra, int proizvodSifra)
+    [Route("DodajOznaku")]
+    public IActionResult DodajOznaku(IzdatniceProizvodiDTOInsertUpdate dto)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-
-        if (sifra <= 0 || proizvodSifra <= 0)
-        {
-            return BadRequest("Šifra izdatnice ili proizvoda nije dobra");
-        }
-
         try
         {
-
-            var izdatnica = _context.Izdatnice
-                .Include(g => g.Proizvodi)
-                .FirstOrDefault(g => g.Sifra == sifra);
+            var izdatnica = _context.Izdatnice.Find(dto.izdatnicaSifra);
 
             if (izdatnica == null)
             {
-                return BadRequest("Ne postoji izdatnica s šifrom " + sifra + " u bazi");
+                throw new Exception("Ne postoji izdatnica s šifrom " + dto.izdatnicaSifra + " u bazi");
             }
 
-            var proizvod = _context.Proizvodi.Find(proizvodSifra);
+            var proizvod = _context.Proizvodi.Find(dto.proizvodSifra);
 
             if (proizvod == null)
             {
-                return BadRequest("Ne postoji proizvod s šifrom " + proizvodSifra + " u bazi");
+                throw new Exception("Ne postoji proizvod s šifrom " + dto.proizvodSifra + " u bazi");
             }
 
-           
-            izdatnica.Proizvodi.Add(proizvod);
+            var entitet = new IzdatnicaProizvod() { Izdatnica = izdatnica, Proizvod = proizvod, Kolicina = dto.kolicina };
 
-            _context.Izdatnice.Update(izdatnica);
+            _context.IzdatniceProizvodi.Add(entitet);
             _context.SaveChanges();
 
-            return Ok();
-
+            return new JsonResult(new IzdatniceProizvodiDTORead(entitet.Sifra, entitet.Proizvod.Naziv, entitet.Kolicina));
         }
         catch (Exception ex)
         {
-            return StatusCode(
-                   StatusCodes.Status503ServiceUnavailable,
-                   ex.Message);
-
+            return BadRequest(ex.Message);
         }
 
     }
@@ -111,8 +103,8 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
 
 
     [HttpDelete]
-    [Route("{sifra:int}/obrisi/{proizvodSifra:int}")]
-    public IActionResult ObrisiProizvod(int sifra, int proizvodSifra)
+    [Route("ObrisiProizvod/{sifra:int}")]
+    public IActionResult ObrisiProizvod(int sifra)
     {
 
         if (!ModelState.IsValid)
@@ -120,23 +112,23 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
             return BadRequest(ModelState);
         }
 
-        if (sifra <= 0 || proizvodSifra <= 0)
+        if (sifra <= 0 )
         {
-            return BadRequest("Šifra izdatnice ili proizvoda nije dobra");
+            return BadRequest("Šifra proizvoda nije dobra");
         }
 
         try
         {
 
 
-            var entitet = _context.Proizvodi.Find(sifra);
+            var entitet = _context.IzdatniceProizvodi.Find(sifra);
 
             if (entitet == null)
             {
                 return BadRequest("Ne postoji proizvod na smjeru s šifrom " + sifra + " u bazi");
             }
 
-            _context.Proizvodi.Remove(entitet);
+            _context.IzdatniceProizvodi.Remove(entitet);
             _context.SaveChanges();
 
             return Ok("Obrisano");
@@ -151,48 +143,49 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
     }
 
 
-    //[HttpPatch]
-    //[Route("PromjeniProizvod/{sifra:int}")]
-    //public IActionResult PromjeniProizvod(int sifra, string naziv)
-    //{
-    //    if (!ModelState.IsValid)
-    //    {
-    //        return BadRequest(ModelState);
-    //    }
-    //    try
-    //    {
+    [HttpPatch]
+    [Route("PromjeniProizvod/{sifra:int}")]
+    public IActionResult PromjeniProizvod(int sifra, int Kolicina)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        try
+        {
 
-    //        var entitet = _context.IzdatniceProizvodi.Include(x => x.Proizvod).FirstOrDefault(x => x.Sifra == sifra);
+            var entitet = _context.IzdatniceProizvodi.Include(x => x.Proizvod).FirstOrDefault(x => x.Sifra == sifra);
 
-    //        if (entitet == null)
-    //        {
-    //            return BadRequest("Ne postoji proizvod na na izdatnici s šifrom " + sifra + " u bazi");
-    //        }
+            if (entitet == null)
+            {
+                return BadRequest("Ne postoji proizvod na na izdatnici s šifrom " + sifra + " u bazi");
+            }
 
-    //        entitet.Naziv = naziv;
+            entitet.Kolicina = Kolicina;
 
-    //        _context.IzdatniceProizvodi.Update(entitet);
-    //        _context.SaveChanges();
+            _context.IzdatniceProizvodi.Update(entitet);
+            _context.SaveChanges();
 
-    //        return new JsonResult(new IzdatniceProizvodiDTORead(entitet.Sifra, entitet.Proizvod.Naziv,entitet.kolicina));
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return BadRequest(ex.Message);
-    //    }
+            return new JsonResult(new IzdatniceProizvodiDTORead(entitet.Sifra, entitet.Proizvod.Naziv, entitet.Kolicina));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
 
-    //}
+    }
 
 
     protected override void KontrolaBrisanje(Izdatnica entitet)
     {
-        if (entitet != null && entitet.Proizvodi != null && entitet.Proizvodi.Count() > 0)
-        {
+        var lista = _context.Izdatnice;
+        if (lista != null && lista.Count() > 0)
+        { 
             StringBuilder sb = new StringBuilder();
             sb.Append("Izdatnica se ne može obrisati jer su na njoj proizvodi: ");
-            foreach (var e in entitet.Proizvodi)
+            foreach (var e in lista)
             {
-                sb.Append(e.Naziv);
+                sb.Append(e.BrojIzdatnice).Append(", ");
             }
 
             throw new Exception(sb.ToString().Substring(0, sb.ToString().Length - 2));

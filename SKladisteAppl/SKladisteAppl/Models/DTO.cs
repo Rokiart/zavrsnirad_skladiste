@@ -58,19 +58,19 @@ namespace SKladisteAppl.Models
     /// Predstavlja podatke o izdatnici za čitanje.
     /// </summary>
     public record IzdatnicaDTORead(int? sifra, string? brojIzdatnice,
-        DateTime? datum, string? osobaImePrezime, string? skladistarImePrezime, List<Proizvod>? proizvodi, string napomena);
+        DateTime? datum, string? osobaImePrezime, string? skladistarImePrezime, List<Proizvod>? proizvodi,int? izdatniceProizvodiKolicina,  string napomena);
 
     /// <summary>
     /// Predstavlja podatke o izdatnici za unos i ažuriranje.
     /// </summary>
     public record IzdatnicaDTOInsertUpdate(string? brojizdatnice,
-        DateTime? datum, int? osobaSifra, int? skladistarSifra, string napomena);
+        DateTime? datum, int? osobaSifra, int? skladistarSifra, int? izdatniceProizvodiKolicina, string napomena);
 
 
-    public record IzdatniceProizvodiDTORead(int? sifra, int? kolicina);
+    public record IzdatniceProizvodiDTORead(int? sifra, string? naziv, int? kolicina);
 
 
-    public record IzdatniceProizvodiDTOInsertUpdate(int? kolicina);
+    public record IzdatniceProizvodiDTOInsertUpdate(int izdatnicaSifra, int proizvodSifra, [Required(ErrorMessage = "Kolicina obavezno")] int? kolicina);
 
     public record SlikaDTO([Required(ErrorMessage = "Base64 zapis slike obavezno")] string Base64);
 

@@ -197,7 +197,7 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
         var osoba = _context.Osobe.Find(dto.osobaSifra) ?? throw new Exception("Ne postoji osoba s šifrom " + dto.osobaSifra + " u bazi");
         var skladistar = _context.Skladistari.Find(dto.skladistarSifra) ?? throw new Exception("Ne postoji skladistar s šifrom " + dto.skladistarSifra + " u bazi");
         var entitet = _mapper.MapInsertUpdatedFromDTO(dto);
-        entitet.Proizvodi = new List<Proizvod>();
+        entitet.IzdatniceProizvodi = new List<IzdatnicaProizvod>();
         entitet.Osoba = osoba;
         entitet.Skladistar = skladistar;
         return entitet;
@@ -208,7 +208,7 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
         var lista = _context.Izdatnice  
                 .Include(g => g.Osoba)
                 .Include(g => g.Skladistar)
-                .Include(g => g.Proizvodi)
+                .Include(g => g.IzdatniceProizvodi)
                 .ToList();
         if (lista == null || lista.Count == 0)
         {
@@ -220,7 +220,7 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
     protected override Izdatnica NadiEntitet(int sifra)
     {
         return _context.Izdatnice.Include(i => i.Osoba).Include(i => i.Skladistar)
-                .Include(i => i.Proizvodi).FirstOrDefault(x => x.Sifra == sifra) ?? throw new Exception("Ne postoji izdatnica s šifrom " + sifra + " u bazi");
+                .Include(i => i.IzdatniceProizvodi).FirstOrDefault(x => x.Sifra == sifra) ?? throw new Exception("Ne postoji izdatnica s šifrom " + sifra + " u bazi");
     }
 
 

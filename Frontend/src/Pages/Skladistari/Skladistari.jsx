@@ -11,7 +11,7 @@ import useError from "../../hooks/useError";
 
 export default function Skladistari() {
 
-    const [Skladistari, setSkladistari] = useState();
+    const [skladistari, setSkladistari] = useState();
     const navigate = useNavigate();
     const { prikaziError } = useError();
     const [prikaziModal, setPrikaziModal] = useState(false);

@@ -5,8 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import OsobaService from "../../services/OsobaService";
 import { RoutesNames } from "../../constants";
 import useError from "../../hooks/useError";
-import InputText from "../../Components/InputText";
+
 import Akcije from "../../Components/Akcije";
+import InputText from "../../Components/InputText";
+
 
 
 
@@ -22,7 +24,7 @@ export default function OsobePromjeni(){
 
     async function dohvatiOsobu(){
         const odgovor = await OsobaService
-        .getBySifra(routeParams.sifra)
+        .getBySifra('Osoba',routeParams.sifra)
         if(!odgovor.ok){
             prikaziError(odgovor.podaci);
             return;
@@ -31,7 +33,7 @@ export default function OsobePromjeni(){
     }
 
     async function promjeniOsobu(osoba){
-        const odgovor = await OsobaService.promjeni(routeParams.sifra,osoba);
+        const odgovor = await OsobaService.promjeni('Osoba',routeParams.sifra,osoba);
         if(odgovor.ok){
           navigate(RoutesNames.OSOBE_PREGLED);
           return;

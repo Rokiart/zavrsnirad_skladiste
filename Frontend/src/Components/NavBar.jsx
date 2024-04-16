@@ -30,12 +30,7 @@ function NavBar() {
           <Nav className="me-auto">
 
           <NavDropdown title="Izbornik" id="basic-nav-dropdown">
-              <NavDropdown.Item 
-                onClick={()=>navigate(RoutesNames.IZDATNICEPROIZVODI_PREGLED)}
-              >
-                Kolicine
-            
-                </NavDropdown.Item>
+              
               <NavDropdown.Item 
                 onClick={()=>navigate(RoutesNames.OSOBE_PREGLED)}
               >

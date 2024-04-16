@@ -36,7 +36,6 @@ namespace SKladisteAppl.Models
         /// </summary>
         public string? Napomena { get; set; }
 
-        public List<Proizvod>? Proizvodi { get; set; }
 
         public List<IzdatnicaProizvod>? IzdatniceProizvodi { get; set; }
 

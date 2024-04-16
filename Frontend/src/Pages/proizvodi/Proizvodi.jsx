@@ -8,10 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { App, RoutesNames } from "../../constants";
 import useError from "../../hooks/useError";
 import useLoading from "../../hooks/useLoading";
+import nepoznato from "../../assets/nepoznato.png";
 
 
 export default function Proizvodi(){
-    const [Proizvodi,setProizvodi] = useState();
+    const [proizvodi,setProizvodi] = useState();
     const [stranica, setStranica] = useState(1);
     const navigate = useNavigate();
     const [uvjet, setUvjet] = useState('');
@@ -51,9 +52,9 @@ export default function Proizvodi(){
         dohvatiProizvode();
     },[stranica, uvjet]);
 
-    function slika(polaznik){
-        if(polaznik.slika!=null){
-            return App.URL + polaznik.slika;
+    function slika(p){
+        if(p.slika!=null){
+            return App.URL + p.slika;
         }
         return nepoznato;
     }

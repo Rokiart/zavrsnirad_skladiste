@@ -5,7 +5,7 @@ namespace SKladisteAppl.Mappers
 {
     public class MappingProizvod : Mapping<Proizvod, ProizvodDTORead, ProizvodDTOInsertUpdate>
     {
-        private Mapper MapperMapInsertUpdateToDTO;
+       
 
         public MappingProizvod()
         {

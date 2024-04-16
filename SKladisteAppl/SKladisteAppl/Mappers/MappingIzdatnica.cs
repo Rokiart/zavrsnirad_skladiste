@@ -33,7 +33,7 @@ namespace SKladisteAppl.Mappers
                 })
                 );
 
-            MapperMapMapInsertUpdateToDTO = new Mapper(
+            MapperMapInsertUpdateToDTO = new Mapper(
              new MapperConfiguration(c =>
              {
                  c.CreateMap<Izdatnica, IzdatnicaDTOInsertUpdate>()

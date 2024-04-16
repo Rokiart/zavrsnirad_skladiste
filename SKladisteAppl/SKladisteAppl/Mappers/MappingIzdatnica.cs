@@ -21,8 +21,8 @@ namespace SKladisteAppl.Mappers
                     entitet.Skladistar == null ? "" : (entitet.Skladistar.Ime
                         + " " + entitet.Skladistar.Prezime).Trim(),
                     entitet.Proizvodi,
-                    entitet.Kolicina,
-                  
+                    entitet.IzdatniceProizvodi ,
+
                     entitet.Napomena));
             })
             );
@@ -43,7 +43,7 @@ namespace SKladisteAppl.Mappers
                      entitet.Datum,
                      entitet.Osoba == null ? null : entitet.Osoba.Sifra,
                      entitet.Skladistar == null ? null : entitet.Skladistar.Sifra,
-                     entitet.Kolicina,
+                    
                      entitet.Napomena))
                  ;
              })

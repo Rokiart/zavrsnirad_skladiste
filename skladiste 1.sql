@@ -31,7 +31,7 @@ lozinka varchar(200) not null
 
 -- Lozinka roman generirana pomoæu https://bcrypt-generator.com/
 insert into operateri values ('roman.zaric@gmail.com',
-'$2a$12$iaj3Mg0BB00GfijrgiZ96Otcm1zVjRJTDhTiW2yZGzR1S9/ImU75a');
+'$2a$12$tlc2ATQlkYPyp/woj.1fY.cJj.TQGzM1kuazcKBQuObbHE2jOVELy');
 
 
 create table proizvodi(
@@ -151,13 +151,3 @@ insert into izdatniceproizvodi(proizvod,izdatnica)
 values
 (2,2),(1,2),(3,2),(4,3),(7,4);
 
-select a.sifra,a.brojizdatnice,a.datum,b.ime,b.prezime,c.ime,c.prezime
-,e.naziv,d.kolicina,e.naziv,e.mjernajedinica
-from izdatnice a inner join osobe b 
-on b.sifra=a. osoba
-left join skladistari c
-on c.sifra=a.skladistar
-inner join izdatniceproizvodi d
-on a.sifra=d.izdatnica
-inner join proizvodi e
-on d.proizvod=e.sifra;

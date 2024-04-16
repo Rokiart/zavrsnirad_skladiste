@@ -30,9 +30,9 @@ export default function ProizvodiPromjeni() {
 
 
   async function dohvatiProizvod() {
-
-    const odgovor = await ProizvodService
-      .getBySifra('Proizvod',routeParams.sifra)
+    showLoading();
+    const odgovor = await Service
+      .getBySifra('Proizvod',routeParams.sifra);
       if(!odgovor.ok){
         hideLoading();
         prikaziError(odgovor.podaci);
@@ -68,7 +68,7 @@ export default function ProizvodiPromjeni() {
       e.preventDefault();
   
       const podaci = new FormData(e.target);
-      promjeniProivod({
+      promjeniProizvod({
         naziv: podaci.get('naziv'),
         sifraProizvoda: podaci.get('sifraProizvoda'),
         mjernaJedinica: podaci.get('mjernaJedinica'),

@@ -17,6 +17,7 @@ export default function ProizvodiDodaj() {
   const { showLoading, hideLoading } = useLoading();
 
   async function dodajProizvod(Proizvod) {
+    showLoading();
     const odgovor = await ProizvodService.dodaj('Proizvod',Proizvod);
     if (odgovor.ok) {
       hideLoading();
@@ -33,8 +34,9 @@ export default function ProizvodiDodaj() {
     dodajProizvod({
       naziv: podaci.get('naziv'),
       sifraProizvoda: podaci.get('sifraProizvoda'),
-      mjernaJedinica: podaci.get('mjernaJedinica')
-      
+      mjernaJedinica: podaci.get('mjernaJedinica'),
+     
+      slika: ''
     });
   }
 

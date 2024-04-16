@@ -20,6 +20,7 @@ export default function Proizvodi(){
     const { showLoading, hideLoading } = useLoading();
 
     async function dohvatiProizvode(){
+        showLoading();
         const odgovor = await ProizvodService.get('Proizvod');
         if(!odgovor.ok){
             prikaziError(odgovor.podaci);
@@ -39,7 +40,7 @@ export default function Proizvodi(){
 
 
     async function obrisiProizvod(sifra) {
-        const odgovor = await ProizvodService.obrisi('Proizvod',sifra);
+        const odgovor = await Service.obrisi('Proizvod',sifra);
         prikaziError(odgovor.podaci);
         if (odgovor.ok) {
             dohvatiProizvode();

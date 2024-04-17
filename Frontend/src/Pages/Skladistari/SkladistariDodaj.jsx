@@ -1,7 +1,7 @@
 import { Container, Form } from "react-bootstrap";
 import { useNavigate  } from "react-router-dom";
 import { RoutesNames } from "../../constants";
-import SkladistarService from "../../services/SkladistarService";
+import Service from "../../services/SkladistarService";
 import useError from "../../hooks/useError";
 import InputText from "../../Components/InputText";
 import Akcije from "../../Components/Akcije";
@@ -13,7 +13,7 @@ export default function SkladistareDodaj() {
     const { prikaziError } = useError();
 
     async function dodajSkladistara(skladistar){
-        const odgovor = await SkladistarService.dodaj(skladistar);
+        const odgovor = await Service.dodaj('Skladistar',skladistar);
         if(odgovor.ok){
           navigate(RoutesNames.SKLADISTARI_PREGLED);
           return
@@ -42,7 +42,7 @@ export default function SkladistareDodaj() {
           <InputText atribut='prezime' vrijednost='' />
           <InputText atribut='brojTelefona' vrijednost='' />
           <InputText atribut='email' vrijednost='' />
-         <Akcije odustani={RoutesNames.SKLADISTARI_PREGLED} akcija='Dodaj predavača' />       
+         <Akcije odustani={RoutesNames.SKLADISTARI_PREGLED} akcija='Dodaj skladistara' />       
         </Form>
       </Container>
     );

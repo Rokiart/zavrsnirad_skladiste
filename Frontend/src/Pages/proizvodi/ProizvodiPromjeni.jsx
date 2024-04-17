@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { Button, Col, Container, Form, Modal, Row, Table} from 'react-bootstrap';
+import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-import ProizvodService from '../../services/ProizvodService';
-
-import { RoutesNames } from '../../constants';
+import Service from '../../services/ProizvodService';
+import { dohvatiPorukeAlert } from '../../services/httpService';
+import {App, RoutesNames } from '../../constants';
 import useError from "../../hooks/useError";
 import InputText from '../../Components/InputText';
 import Akcije from '../../Components/Akcije';
 import { FaTrash } from "react-icons/fa";
+import 'cropperjs/dist/cropper.css';
+import nepoznato from '../../assets/nepoznato.png'; 
+import useLoading from '../../hooks/useLoading';
 
 
-import { AsyncTypeahead } from "react-bootstrap-typeahead";
 
 
 
@@ -18,12 +20,13 @@ export default function ProizvodiPromjeni() {
   const [proizvod, setProizvod] = useState({});
   const [kolicine, setKolicine] = useState([]);
   const [pronadeneKolicine, setPronadeneKolicine] = useState([]);
-  const typeaheadRef = useRef(null);
-  const [prikaziModal, setPrikaziModal] = useState(false);
+  const cropperRef = useRef(null);
+ 
   const [odabranaKolicina, setOdabranaKolicina] = useState(false);
   const routeParams = useParams();
   const navigate = useNavigate();
   const { prikaziError } = useError();
+  const { showLoading, hideLoading } = useLoading();
   const [trenutnaSlika, setTrenutnaSlika] = useState('');
   const [slikaZaCrop, setSlikaZaCrop] = useState('');
   const [slikaZaServer, setSlikaZaServer] = useState('');
@@ -31,8 +34,7 @@ export default function ProizvodiPromjeni() {
 
   async function dohvatiProizvod() {
     showLoading();
-    const odgovor = await Service
-      .getBySifra('Proizvod',routeParams.sifra);
+    const odgovor = await Service.getBySifra('Proizvod',routeParams.sifra);
       if(!odgovor.ok){
         hideLoading();
         prikaziError(odgovor.podaci);

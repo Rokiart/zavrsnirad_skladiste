@@ -14,7 +14,7 @@ import nepoznato from "../../assets/nepoznato.png";
 export default function Proizvodi(){
     const [proizvodi,setProizvodi] = useState();
     const [stranica, setStranica] = useState(1);
-    const navigate = useNavigate();
+   
     const [uvjet, setUvjet] = useState('');
     const { prikaziError } = useError(); 
     const { showLoading, hideLoading } = useLoading();
@@ -24,6 +24,7 @@ export default function Proizvodi(){
         const odgovor = await ProizvodService.get('Proizvod');
         if(!odgovor.ok){
             prikaziError(odgovor.podaci);
+            
             hideLoading();
             return;
         }

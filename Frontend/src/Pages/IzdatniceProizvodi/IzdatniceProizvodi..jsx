@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Button, Container, Form, Row, Table } from "react-bootstrap";
 import useError from "../../hooks/useError";
 import useLoading from "../../hooks/useLoading";
-import Service from "../../services/IzdatnicaService";
+import Service from "../../services/IzdatniceProizvodiService";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 
 
 export default function IzdatniceProizvodi(){
+    const [izdatniceProizvodi,setIzdatniceProizvodi] = useState();
     const [lista,setLista] = useState();
     const [odabrano,setOdabrano] = useState();
     const { prikaziError } = useError();
@@ -74,7 +75,7 @@ export default function IzdatniceProizvodi(){
         e.target.kolicina.value='';
     }
 
-    function postaviOdabrano(e){
+    function Odabrano(e){
         setOdabrano(e);
     }
     
@@ -116,9 +117,9 @@ export default function IzdatniceProizvodi(){
                 <Col>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group>
-                            <Form.Label>Naziv</Form.Label>
+                            <Form.Label>Kolicina</Form.Label>
                             <Form.Control
-                                name='naziv'
+                                name='kolicina'
                                 defaultValue={odabrano!=null ? odabrano.naziv : ''}
                             />
                         </Form.Group>

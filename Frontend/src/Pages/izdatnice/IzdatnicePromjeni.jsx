@@ -10,8 +10,9 @@ import useLoading from '../../hooks/useLoading';
 import InputText from '../../Components/InputText';
 import useError from '../../hooks/useError';
 import Service from '../../services/IzdatnicaService';
-import SkladistarService from '../../services/SkladistarService';
-import OsobaService from '../../services/OsobaService';
+import Service from '../../services/SkladistarService';
+import Service from '../../services/OsobaService';
+import Service from '../../services/IzdatnicaProizvodService';
 import ProizvodService from '../../services/ProizvodService';
 
 
@@ -31,6 +32,9 @@ export default function IzdatnicePromjeni(){
     const [proizvodi, setProizvodi] = useState([]);
     const [pronadeniProizvodi, setPronadeniProizvodi] = useState(0);
 
+    const [izdatniceProizvodi , setIzdatniceProizvodi] = useState([]);
+    const [sifraIzdatnicaProizvod , setSifraIzdatnicaProizvod ]= useState(0);
+
     const [searchName, setSearchName] = useState('');
 
     const typeaheadRef = useRef(null);
@@ -39,7 +43,7 @@ export default function IzdatnicePromjeni(){
 
 
     async function dohvatiIzdatnica() {
-        const odgovor = await Service.getBySifra(routeParams.sifra);
+        const odgovor = await Service.getBySifra('Izdatnica',routeParams.sifra);
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
           return;
@@ -52,7 +56,7 @@ export default function IzdatnicePromjeni(){
       }
 
     async function dohvatiProizvodi() {
-        const odgovor = await Service.getProizvodi(routeParams.sifra);
+        const odgovor = await Service.getProizvodi('Izdatnica',routeParams.sifra);
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
             return;
@@ -63,7 +67,7 @@ export default function IzdatnicePromjeni(){
 
 
       async function dohvatiOsobe() {
-        const odgovor =  await OsobaService.getOsobe();
+        const odgovor =  await Service.getOsobe('Osoba');
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
             return;
@@ -74,7 +78,7 @@ export default function IzdatnicePromjeni(){
       }
 
       async function dohvatiSkladistare() {
-        const odgovor =  await SkladistarService.get();
+        const odgovor =  await Service.get('Skladistar');
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
           return;
@@ -83,8 +87,19 @@ export default function IzdatnicePromjeni(){
         setSifraSkladistar(odgovor.podaci[0].sifra);
       }
 
+      async function dohvatiIzdatniceProizvodi() {
+        const odgovor =  await Service.get('IzdatnicaProizvod');
+        if(!odgovor.ok){
+          prikaziError(odgovor.podaci);
+          return;
+        }
+        setIzdatniceProizvodi(odgovor.podaci);
+        setSifraIzdatnicaProizvod(odgovor.podaci[0].sifra);
+      }
+
+
       async function traziProizvod(uvjet) {
-        const odgovor =  await ProizvodService.traziProizvod(uvjet);
+        const odgovor =  await ProizvodService.traziProizvod('Proizvod',uvjet);
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
           return;
@@ -101,6 +116,7 @@ export default function IzdatnicePromjeni(){
         await dohvatiSkladistare();
         await dohvatiIzdatnica();
         await dohvatiProizvodi();
+        await dohvatiIzdatniceProizvodi();
         hideLoading();
       }
     
@@ -109,7 +125,7 @@ export default function IzdatnicePromjeni(){
       }, []);
 
       async function promjeni(e) {
-        const odgovor = await Service.promjeni(routeParams.sifra, e);
+        const odgovor = await Service.promjeni('Izdatnica',routeParams.sifra, e);
         if(odgovor.ok){
           navigate(RoutesNames.IZDATNICE_PREGLED);
           return;
@@ -118,7 +134,7 @@ export default function IzdatnicePromjeni(){
       }
     
       async function obrisiProizvod(izdatnica, proizvod) {
-        const odgovor = await Service.obrisiProizvod(izdatnica, proizvod);
+        const odgovor = await Service.obrisiProizvod('Izdatnica',izdatnica, proizvod);
         if(odgovor.ok){
           await dohvatiProizvodi();
           return;
@@ -127,7 +143,7 @@ export default function IzdatnicePromjeni(){
       }
         async function dodajProizvod(e) {
             //console.log(e[0]);
-            const odgovor = await Service.dodajProizvod(routeParams.sifra, e[0].sifra);
+            const odgovor = await Service.dodajProizvod('Izdatnica',routeParams.sifra, e[0].sifra);
             if(odgovor.ok){
               await dohvatiProizvodi();
               hideLoading();
@@ -158,7 +174,7 @@ export default function IzdatnicePromjeni(){
    
       
           promjeni({
-           brojIzdatnice: podaci.get('naziv'),
+            brojIzdatnice: podaci.get('naziv'),
             datum: datum,
             OsobaSifra: parseInt(sifraOsoba), 
             SkladistarSifra: parseInt(sifraSkladistar),
@@ -171,9 +187,9 @@ export default function IzdatnicePromjeni(){
 
       
           async function dodajRucnoProizvod(Proizvod) {
-            const odgovor = await ProizvodService.dodaj(Proizvod);
+            const odgovor = await ProizvodService.dodaj('Proizvod', Proizvod);
             if (odgovor.ok) {
-              const odgovor2 = await Service.dodajProizvod(routeParams.sifra, odgovor.podaci.sifra);
+              const odgovor2 = await Service.dodajProizvod('Izdatnica', routeParams.sifra, odgovor.podaci.sifra);
               if (odgovor2?.ok) {
                 typeaheadRef.current.clear();
                 await dohvatiProizvodi();
@@ -181,12 +197,12 @@ export default function IzdatnicePromjeni(){
                 return;
               }
               hideLoading();
-              prikaziError(odgovor.podaci);
+              prikaziError(odgovor2.podaci);
               return;
             }
             hideLoading();
             prikaziError(odgovor.podaci);
-              
+             
           }
     
           function dodajRucnoProizvod(){
@@ -220,7 +236,7 @@ export default function IzdatnicePromjeni(){
                   <Form.Control
                     type='date'
                     name='datum'
-                    defaultValue={grupa.datum}
+                    defaultValue={izdatnica.datum}
                   />
                 </Form.Group>
               </Col>
@@ -230,7 +246,7 @@ export default function IzdatnicePromjeni(){
                   <Form.Control
                     type='time'
                     name='vrijeme'
-                    defaultValue={grupa.vrijeme}
+                    defaultValue={izdatnica.vrijeme}
                   />
                 </Form.Group>
               </Col>

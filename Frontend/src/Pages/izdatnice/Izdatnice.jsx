@@ -6,7 +6,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 
-import IzdatnicaService from "../../services/IzdatnicaService";
+import Service from "../../services/IzdatnicaService";
 
 import { RoutesNames } from "../../constants";
 import useError from "../../hooks/useError";
@@ -16,14 +16,16 @@ import useLoading from "../../hooks/useLoading";
 
 export default function Izdatnice() {
 
-    const [Izdatnice,setIzdatnice] = useState();
+    const [izdatnice,setIzdatnice] = useState();
     let navigate = useNavigate(); 
     const { showLoading, hideLoading } = useLoading();
     const { prikaziError } = useError();
 
     async function dohvatiIzdatnice(){
-        const odgovor =await IzdatnicaService.get('Izdatnica');
+        showLoading();
+        const odgovor =await Service.get('Izdatnica');
         if(!odgovor.ok){
+            hideLoading();
             prikaziError(odgovor.podaci);
             return;
         }
@@ -34,7 +36,8 @@ export default function Izdatnice() {
 
     async function ObrisiIzdatnicu(sifra){
         showLoading();
-        const odgovor = await IzdatnicaService.obrisi('Izdatnica',sifra);
+        const odgovor = await Service.obrisi('Izdatnica',sifra);
+        hideLoading();
         prikaziError(odgovor.podaci);
         if (odgovor.ok){
            
@@ -82,28 +85,28 @@ export default function Izdatnice() {
                   </tr>
                </thead>
                <tbody>
-                    {Izdatnice && Izdatnice.map((izdatnica,index)=>(
+                    {izdatnice && izdatnice.map((entitet,index)=>(
                         <tr key={index}>
-                            <td>{izdatnica.brojIzdatnice}</td>
+                            <td>{entitet.brojIzdatnice}</td>
                             <td>  <p>
-                                {izdatnica.datum==null 
+                                {entitet.datum==null 
                                 ? 'Nije definirano'
                                 :   
-                                formatirajDatum(izdatnica.datum)
+                                formatirajDatum(entitet.datum)
                                 }
                                 </p>
                              
                                
                               </td>
-                              <td>{izdatnica.proizvodiPopis}</td>
-                              <td>{izdatnica.izdatniceProizvodiKolicina}</td>
-                            <td>{izdatnica.osobaImePrezime}</td>
-                            <td>{izdatnica.skladistarImePrezime}</td> 
-                            <td>{izdatnica.napomena}</td>
-                            <td className="sredina">
+                              <td>{entitet.proizvodiNaziv}</td>
+                              <td>{entitet.izdatnicaProizvodKolicina}</td>
+                              <td>{entitet.osobaImePrezime}</td>
+                              <td>{entitet.skladistarImePrezime}</td> 
+                              <td>{entitet.napomena}</td>
+                              <td className="sredina">
                                 <Button 
                                 variant="primary"
-                                onClick={()=>{navigate(`/izdatnica/${izdatnica.sifra}`)}}>
+                                onClick={()=>{navigate(`/izdatnica/${entitet.sifra}`)}}>
                                     <FaRegEdit
                                     size={25}
                                     />
@@ -112,14 +115,14 @@ export default function Izdatnice() {
                                     &nbsp;&nbsp;&nbsp;
                                 <Button
                                     variant="danger"
-                                    onClick={()=>ObrisiIzdatnicu(izdatnica.sifra)}
+                                    onClick={()=>ObrisiIzdatnicu(entitet.sifra)}
                                 >
                                     <FaRegTrashAlt 
                                     size={25}
                                     />
                                 </Button>
 
-                            </td>
+                              </td>
                         </tr>
                     ))}
                 </tbody>

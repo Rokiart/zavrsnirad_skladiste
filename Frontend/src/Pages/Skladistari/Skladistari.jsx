@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Table } from "react-bootstrap";
-import SkladistarService from "../../services/SkladistarService";
+import { Button, Container, Form ,Modal, Table } from "react-bootstrap";
+import Service from "../../services/SkladistarService";
 import { ImManWoman } from "react-icons/im";
-import { FaRegEdit } from "react-icons/fa";
+import { FaDownload, FaRegEdit, FaUpload } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { RoutesNames } from "../../constants";
+import { RoutesNames, App } from "../../constants";
 import useError from "../../hooks/useError";
 
 
 export default function Skladistari() {
 
     const [skladistari, setSkladistari] = useState();
-    const navigate = useNavigate();
+    let navigate = useNavigate();
     const { prikaziError } = useError();
     const [prikaziModal, setPrikaziModal] = useState(false);
     const [odabraniSkladistar, setOdabraniSkladistar] = useState({});
 
     async function dohvatiSkladistare() {
-        const odgovor = await SkladistarService.get('Skladistar')
+        const odgovor = await Service.get('Skladistar')
         if (!odgovor.ok) {
             prikaziError(odgovor.podaci);
             return;
@@ -27,7 +27,7 @@ export default function Skladistari() {
     }
 
     async function ObrisiSkladistara(sifra) {
-        const odgovor = await SkladistarService.obrisi('Skladistar', sifra);
+        const odgovor = await Service.obrisi('Skladistar', sifra);
         prikaziError(odgovor.podaci);
         if (odgovor.ok) {
             dohvatiSkladistare();
@@ -86,7 +86,7 @@ export default function Skladistari() {
                   </tr>
                </thead>
                <tbody>
-                    {Skladistari && Skladistari.map((skladistar,index)=>(
+                    {skladistari && skladistari.map((skladistar,index)=>(
                         <tr key={index}>
                             <td>{skladistar.ime}</td>
                             <td>{skladistar.prezime}</td>
@@ -95,7 +95,8 @@ export default function Skladistari() {
                             <td className="sredina">
                                 <Button 
                                 variant="primary"
-                                onClick={()=>{navigate(`/skladistari/${skladistar.sifra}`)}}>
+                                onClick={()=>{navigate(`/skladistari/${skladistar.sifra}`)}}
+                                >
                                     <FaRegEdit
                                     size={25}
                                     />

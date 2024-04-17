@@ -18,11 +18,11 @@ namespace SKladisteAppl.Models
     /// </summary>
     public record OsobaDTOInsertUpdate(
         [Required(ErrorMessage = "Naziv obavezno")]
-        string ime,
+        string? ime,
         [Required(ErrorMessage = "Naziv obavezno")]
-        string prezime,
-        string brojtelefona, 
-        string email);
+        string? prezime,
+        string? brojtelefona, 
+        string? email);
 
     /// <summary>
     /// Predstavlja podatke o proizvodu za čitanje.
@@ -40,19 +40,19 @@ namespace SKladisteAppl.Models
     /// <summary>
     /// Predstavlja podatke o skladištaru za čitanje.
     /// </summary>
-    public record SkladistarDTORead(int sifra, string ime, string prezime,
-        string brojtelefona, string email, string? datoteka);
+    public record SkladistarDTORead(int? sifra, string? ime, string? prezime,
+        string? brojtelefona, string? email, string? datoteka);
 
     /// <summary>
     /// Predstavlja podatke o skladištaru za unos i ažuriranje.
     /// </summary>
     public record SkladistarDTOInsertUpdate(
          [Required(ErrorMessage = "Naziv obavezno")]
-        string ime,
+        string? ime,
          [Required(ErrorMessage = "Naziv obavezno")]
-        string prezime,
-        string brojtelefona, 
-        string email);
+        string? prezime,
+        string? brojtelefona, 
+        string? email);
 
     /// <summary>
     /// Predstavlja podatke o izdatnici za čitanje.
@@ -70,7 +70,7 @@ namespace SKladisteAppl.Models
     public record IzdatniceProizvodiDTORead(int? sifra, string? naziv, int? kolicina);
 
 
-    public record IzdatniceProizvodiDTOInsertUpdate(int izdatnicaSifra, int proizvodSifra, [Required(ErrorMessage = "Kolicina obavezno")] int? kolicina);
+    public record IzdatniceProizvodiDTOInsertUpdate(int? izdatnicaSifra, int? proizvodSifra, [Required(ErrorMessage = "Kolicina obavezno")] int? kolicina);
 
     public record SlikaDTO([Required(ErrorMessage = "Base64 zapis slike obavezno")] string Base64);
 

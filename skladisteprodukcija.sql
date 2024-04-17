@@ -28,7 +28,7 @@ lozinka varchar(200) not null
 
 -- Lozinka roman generirana pomoæu https://bcrypt-generator.com/
 insert into operateri values ('roman.zaric@gmail.com',
-'$2a$12$iaj3Mg0BB00GfijrgiZ96Otcm1zVjRJTDhTiW2yZGzR1S9/ImU75a');
+'$2a$12$tlc2ATQlkYPyp/woj.1fY.cJj.TQGzM1kuazcKBQuObbHE2jOVELy');
 
 
 create table proizvodi(

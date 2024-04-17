@@ -10,16 +10,37 @@
 }
 
 .btn-success {
-    background-color: #31a554;
+    background-color: #a9dab8;
 }
 
 .akcije{
     margin-top: 1.5rem;
 }
+
 .labelaAtributa:first-letter {
     text-transform: uppercase;
 }
 
 .form-check-label:first-letter {
     text-transform: uppercase;
+}
+
+.podebljano{
+    font-weight: bold;
+}
+
+.slika{
+    max-width: 250px;
+    border: 2px solid black;
+}
+
+.loading-spinner-overlay {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

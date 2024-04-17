@@ -7,7 +7,7 @@ import useError from '../../hooks/useError';
 import Service from '../../services/IzdatnicaService';
 import useLoading from '../../hooks/useLoading';
 import { RoutesNames } from '../../constants';
-
+import Akcije from '../../Components/Akcije';
 import InputText from '../../Components/InputText';
 
 
@@ -19,15 +19,18 @@ export default function IzdatniceDodaj() {
 
   const [osobe , setOsobe] =useState([]);
   const [osobaSifra, setOsobaSifra] =useState(0);
-
+  const [izdatniceProizvodi , setIzdatniceProizvodi] = useState([]);
+  const [izdatnicaProizvodSifra, setIzdatnicaProizvodSifra] = useState(0);
   const [skladistari, setSkladistari] = useState([]);
   const [skladistarSifra, setSkladistarSifra] = useState(0);
+  const [proizvodi , setProizvodi] = useState([]);
+  const [proizvodSifra , setProizvodSifra] = (0);
 
   const { prikaziError } = useError();
   const { showLoading, hideLoading } = useLoading();
   
   async function dohvatiOsobe(){
-    const odgovor = await OsobaService.get('Osoba');
+    const odgovor = await Service.get('Osoba');
     if(!odgovor.ok){
       prikaziError(odgovor.podaci);
       return;
@@ -37,7 +40,7 @@ export default function IzdatniceDodaj() {
 }
 
   async function dohvatiSkladistare(){
-    const odgovor = await SkladistarService.get('Skladistar');
+    const odgovor = await Service.get('Skladistar');
     if(!odgovor.ok){
       prikaziError(odgovor.podaci);
       return;
@@ -46,10 +49,33 @@ export default function IzdatniceDodaj() {
   setSkladistarSifra(odgovor.podaci[0].sifra);
 }
 
+async function dohvatiIzdatniceProizvode(){
+  const odgovor = await Service.get('IzdatnicaProizvod');
+  if(!odgovor.ok){
+    prikaziError(odgovor.podaci);
+    return;
+}
+setIzdatniceProizvodi(odgovor.podaci);
+setIzdatnicaProizvodSifra(odgovor.podaci[0].sifra);
+}
+
+async function dohvatiProizvode(){
+  const odgovor =await Service.getProizvodi();
+  if(!odgovor.ok){
+    alert(dohvatiPorukeAlert(odgovor.podaci));
+    return;
+}
+setProizvodi(odgovor.podaci);
+setProizvodSifra(odgovor.podaci[0].sifra);
+}
+
 async function ucitaj(){
   showLoading();
+
   await dohvatiOsobe();
   await dohvatiSkladistare();
+  await dohvatiProizvode();
+  await dohvatiIzdatniceProizvode();
   hideLoading();
 }
 
@@ -70,15 +96,7 @@ async function dodaj(e) {
   
 }
 
-//   async function dohvatiProizvode(){
-//     const odgovor =await ProizvodService.getProizvodi();
-//     if(!odgovor.ok){
-//       alert(dohvatiPorukeAlert(odgovor.podaci));
-//       return;
-//   }
-//   setProizvodi(odgovor.podaci);
-//   setProizvodSifra(odgovor.podaci[0].sifra);
-// }
+
 
 
   async function handleSubmit(e) {
@@ -101,11 +119,10 @@ async function dodaj(e) {
       dodaj({
         brojIzdatnice: podaci.get('brojizdatnice'),
         datum: datum,
-        // proizvodSifra: parseInt(proizvodSifra),
+        proizvodSifra: parseInt(proizvodSifra),
         osobaSifra: parseInt(osobaSifra),
         skladistarSifra: parseInt(skladistarSifra),
-        proizvodSifra:podaci.get('proizvod'),
-        izdatnicaProizvodSifra:podaci.get('kolicina'),
+        izdatnicaProizvodSifra: parseInt(izdatnicaProizvodSifra),
         napomena: podaci.get('napomena')
 
       });
@@ -152,18 +169,18 @@ async function dodaj(e) {
               >
                {proizvodi && proizvodi.map((e,index)=>(
                     <option key={index} value={e.sifra}>
-                   {e.naziv} 
+                   {e.naziv}  
                    </option>
               ))}
              </Form.Select>
           </Form.Group>
 
-          <Form.Group className='mb-3' controlId='kolicina'>
+          <Form.Group className='mb-3' controlId='izdatnicaProizvod'>
           <Form.Label>Kolicina</Form.Label>
             <Form.Select
-              onChange={(e)=>{setIzdatniceProizvodiSifra(e.target.value)}}
+              onChange={(e)=>{setIzdatnicaProizvodSifra(e.target.value)}}
               >
-               {IzdatniceProizvodi && IzdatniceProizvodi.map((e,index)=>(
+               {izdatniceProizvodi && izdatniceProizvodi.map((e,index)=>(
                     <option key={index} value={e.sifra}>
                    {e.kolicina} 
                    </option>
@@ -221,6 +238,7 @@ async function dodaj(e) {
             </Button>
           </Col>
         </Row>
+        <Akcije odustani={RoutesNames.IZDATNICE_PREGLED} akcija='Dodaj izdatnicu' /> 
       </Form>
     </Container>
   );

@@ -29,7 +29,7 @@ lozinka varchar(200) not null
 
 );
 
--- Lozinka roman generirana pomoæu https://bcrypt-generator.com/
+-- Lozinka roman generirana pomoÄ‡u https://bcrypt-generator.com/
 insert into operateri values ('roman.zaric@gmail.com',
 '$2a$12$tlc2ATQlkYPyp/woj.1fY.cJj.TQGzM1kuazcKBQuObbHE2jOVELy');
 
@@ -87,9 +87,9 @@ kolicina int
 insert into skladistari(ime,prezime) 
 values
 --1
-('Roman','ariæ'),
+('Roman','Å½ariÄ‡'),
 --2
-('Miroslav','Janiæ');
+('Miroslav','JaniÄ‡');
 
 insert into proizvodi(naziv,sifraproizvoda,mjernajedinica) 
 values
@@ -100,54 +100,54 @@ values
 --3
 ('sapun',102,'kom'),
 --4
-('šampon',103,'lit'),
+('Å¡ampon',103,'lit'),
 --5
 ('gedore',104,'gar'),
 --6
-('deterğent',105,'kg'),
+('deterÄ‘ent',105,'kg'),
 --7
 ('pijesak',106,'t');
 
 
 insert into osobe(prezime,ime,brojtelefona) 
 values
-('Boiæ','Petra',null),
-('Farkaš','Dominik',null),
-('Glavaš','Natalija',null),
-('Janiæ','Miroslav',null),
-('Janješiæ','Filip',null),
-('Jovi?æ','Nataša',null),
-('Bariæ','Luka',null),
+('BoÅ¾iÄ‡','Petra',null),
+('FarkaÅ¡','Dominik',null),
+('GlavaÅ¡','Natalija',null),
+('JaniÄ‡','Miroslav',null),
+('JanjeÅ¡iÄ‡','Filip',null),
+('Jovi?Ä‡','NataÅ¡a',null),
+('BariÄ‡','Luka',null),
 ('Kelava','Antonio',null),
-('Kešinoviæ','Marijan',null),
+('KeÅ¡inoviÄ‡','Marijan',null),
 ('Leninger','Ivan',null),
 ('Macanga','Antonio',null),
-('Miloloa','Antonio',null),
-('Pavkoviæ','Matija',null),
+('MiloloÅ¾a','Antonio',null),
+('PavkoviÄ‡','Matija',null),
 ('Peterfaj','Karlo',null),
-('Pleæaš','Adriana',null),
-('Senèiæ','Ivan',null),
-('Šuler','Zvonimir',null),
-('Turèek','Mario',null),
+('PleÄ‡aÅ¡','Adriana',null),
+('SenÄiÄ‡','Ivan',null),
+('Å uler','Zvonimir',null),
+('TurÄek','Mario',null),
 ('Veseli','Domagoj',null),
 ('Vukovi?','Kristijan',null),
-('Vukušiæ','Ivan',null),
-('ariæ','Roman',null),
+('VukuÅ¡iÄ‡','Ivan',null),
+('Å½ariÄ‡','Roman',null),
 ('Pavlovi?','Ivan',null),
-('upaniæ','Andrea',null),
-('upaniæ','Tomislav',null),
+('Å½upaniÄ‡','Andrea',null),
+('Å½upaniÄ‡','Tomislav',null),
 ('Petak','Martina',null),
 ('Perak','Marko',null),
-('Mokriš','Bartol',null),
-('Julariæ','Ljubomir',null),
-('Èeliæ','Ivor',null);
+('MokriÅ¡','Bartol',null),
+('JulariÄ‡','Ljubomir',null),
+('ÄŒeliÄ‡','Ivor',null);
 
 
 insert into izdatnice(brojizdatnice,osoba,skladistar) 
 values
 (100,1,1),(101,12,2),(102,19,1),(103,24,2);
 
-insert into izdatniceproizvodi(proizvod,izdatnica) 
-values
-(2,2),(1,2),(3,2),(4,3),(7,4);
+--insert into izdatniceproizvodi(proizvod,izdatnica) 
+--values
+--(2,2),(1,2),(3,2),(4,3),(7,4);
 

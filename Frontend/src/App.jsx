@@ -24,7 +24,7 @@ import Izdatnice from './Pages/izdatnice/Izdatnice'
 import IzdatniceDodaj from './Pages/izdatnice/IzdatniceDodaj'
 import IzdatnicePromjeni from './Pages/izdatnice/IzdatnicePromjeni'
 
-import IzdatniceProizvodi from './Pages/IzdatniceProizvodi/IzdatniceProizvodi.'
+import IzdatniceProizvodi from './Pages/izdatniceProizvodi/IzdatniceProizvodi'
 
 import useError from "./hooks/useError"
 import ErrorModal from './Components/ErrorModal'
@@ -54,7 +54,7 @@ function App() {
       {isLoggedIn ? (  
       <>
         {/* <Route path={RoutesNames.NADZORNA_PLOCA} element={<NadzornaPloca />} /> */}
-        <Route path={RoutesNames.HOME} element={<Pocetna/>} />
+       
 
         <Route path={RoutesNames.IZDATNICEPROIZVODI_PREGLED} element={<IzdatniceProizvodi/>} />
         

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import SkladistarService from "../../services/SkladistarService";
+import Service from "../../services/SkladistarService";
 import { RoutesNames } from "../../constants";
 import useError from "../../hooks/useError";
 import InputText from "../../Components/InputText";
@@ -18,8 +18,7 @@ export default function SkladistaraPromjeni(){
     const { prikaziError } = useError();
 
     async function dohvatiSkladistara(){
-        const odgovor = await SkladistarService
-        .getBySifra(routeParams.sifra)
+        const odgovor = await Service.getBySifra('Skladistar',routeParams.sifra);
         if(!odgovor.ok){
             prikaziError(odgovor.podaci);
             return;
@@ -28,10 +27,10 @@ export default function SkladistaraPromjeni(){
     }
 
     async function promjeniSkladistar(skladistar){
-        const odgovor = await SkladistarService.promjeni(routeParams.sifra,skladistar);
+        const odgovor = await Service.promjeni('Skladistar',routeParams.sifra,skladistar);
         if(odgovor.ok){
           navigate(RoutesNames.SKLADISTARI_PREGLED);
-          return
+          return;
         }
         prikaziError(odgovor.podaci);
     }

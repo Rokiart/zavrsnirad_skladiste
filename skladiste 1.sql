@@ -147,7 +147,7 @@ insert into izdatnice(brojizdatnice,osoba,skladistar)
 values
 (100,1,1),(101,12,2),(102,19,1),(103,24,2);
 
---insert into izdatniceproizvodi(proizvod,izdatnica) 
---values
---(2,2),(1,2),(3,2),(4,3),(7,4);
+insert into izdatniceproizvodi(proizvod,izdatnica) 
+values
+(2,2),(1,2),(3,2),(4,3),(7,4);
 

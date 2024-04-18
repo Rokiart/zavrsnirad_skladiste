@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SKladisteAppl.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using System.Data.Entity.Core.Metadata.Edm;
 
 
 
@@ -209,12 +210,36 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
                 .Include(g => g.Osoba)
                 .Include(g => g.Skladistar)
                 .Include(g => g.IzdatniceProizvodi)
+                .ThenInclude(g=>g.Proizvod)
                 .ToList();
         if (lista == null || lista.Count == 0)
         {
             throw new Exception("Ne postoje podaci u bazi");
         }
-        return _mapper.MapReadList(lista);
+
+        var dtoLista = new List<IzdatnicaDTORead>();
+        foreach ( var item in lista)
+        {
+            var LPNI = new List<ProizvodNaIzdatniciDTORead>();
+            foreach(var p in item.IzdatniceProizvodi)
+            {
+                LPNI.Add(new ProizvodNaIzdatniciDTORead(p.Proizvod.Naziv, p.Kolicina));
+                dtoLista.Add(new IzdatnicaDTORead(
+                item.Sifra,
+                    item.BrojIzdatnice,
+                item.Datum,
+                item.Osoba == null ? "" : (item.Osoba.Ime
+                        + " " + item.Osoba.Prezime).Trim(),
+                item.Skladistar == null ? "" : (item.Skladistar.Ime
+                        + " " + item.Skladistar.Prezime).Trim(),
+                LPNI,
+
+                    item.Napomena
+                    ));
+            }
+        }
+
+        return dtoLista;
     }
 
     protected override Izdatnica NadiEntitet(int sifra)

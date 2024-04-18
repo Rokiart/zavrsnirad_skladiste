@@ -69,6 +69,7 @@ namespace SKladisteAppl.Data
             modelBuilder.Entity<Izdatnica>().HasOne(i => i.Skladistar);
             modelBuilder.Entity<IzdatnicaProizvod>().HasOne(i => i.Izdatnica);
             modelBuilder.Entity<IzdatnicaProizvod>().HasOne(i => i.Proizvod);
+            modelBuilder.Entity<Izdatnica>().HasMany(i => i.IzdatniceProizvodi);
 
 
 

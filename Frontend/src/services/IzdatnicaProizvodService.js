@@ -10,5 +10,5 @@ export default{
   dodaj,
   getBySifra,
   promjeni,
-  traziKolicina
+  traziIzdatnicaProizvod
 };

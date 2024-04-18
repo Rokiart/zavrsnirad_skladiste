@@ -54,11 +54,15 @@ namespace SKladisteAppl.Models
         string? brojtelefona, 
         string? email);
 
+    public record ProizvodNaIzdatniciDTORead(
+        string? naziv,
+        int? kolicina);
+
     /// <summary>
     /// Predstavlja podatke o izdatnici za čitanje.
     /// </summary>
     public record IzdatnicaDTORead(int? sifra, string? brojIzdatnice,
-        DateTime? datum, string? osobaImePrezime, string? skladistarImePrezime, List<IzdatnicaProizvod>? IzdatniceProizvodi,  string napomena);
+        DateTime? datum, string? osobaImePrezime, string? skladistarImePrezime, List<ProizvodNaIzdatniciDTORead>? IzdatniceProizvodi,  string napomena);
 
     /// <summary>
     /// Predstavlja podatke o izdatnici za unos i ažuriranje.

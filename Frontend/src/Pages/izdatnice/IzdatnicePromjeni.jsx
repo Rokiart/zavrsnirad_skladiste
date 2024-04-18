@@ -10,9 +10,9 @@ import useLoading from '../../hooks/useLoading';
 import InputText from '../../Components/InputText';
 import useError from '../../hooks/useError';
 import Service from '../../services/IzdatnicaService';
-import Service from '../../services/SkladistarService';
-import Service from '../../services/OsobaService';
-import Service from '../../services/IzdatnicaProizvodService';
+import SkladistarService from '../../services/SkladistarService';
+import OsobaService from '../../services/OsobaService';
+import IzdatnicaProizvodService from '../../services/IzdatnicaProizvodService';
 import ProizvodService from '../../services/ProizvodService';
 
 
@@ -56,7 +56,7 @@ export default function IzdatnicePromjeni(){
       }
 
     async function dohvatiProizvodi() {
-        const odgovor = await Service.getProizvodi('Izdatnica',routeParams.sifra);
+        const odgovor = await ProizvodService.getProizvodi('Izdatnica',routeParams.sifra);
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
             return;
@@ -67,7 +67,7 @@ export default function IzdatnicePromjeni(){
 
 
       async function dohvatiOsobe() {
-        const odgovor =  await Service.getOsobe('Osoba');
+        const odgovor =  await OsobaService.getOsobe('Osoba');
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
             return;
@@ -78,7 +78,7 @@ export default function IzdatnicePromjeni(){
       }
 
       async function dohvatiSkladistare() {
-        const odgovor =  await Service.get('Skladistar');
+        const odgovor =  await SkladistarService.get('Skladistar');
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
           return;
@@ -88,7 +88,7 @@ export default function IzdatnicePromjeni(){
       }
 
       async function dohvatiIzdatniceProizvodi() {
-        const odgovor =  await Service.get('IzdatnicaProizvod');
+        const odgovor =  await IzdatnicaProizvodService.get('IzdatnicaProizvod');
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
           return;

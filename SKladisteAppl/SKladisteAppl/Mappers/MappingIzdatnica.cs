@@ -20,7 +20,7 @@ namespace SKladisteAppl.Mappers
                         + " " + entitet.Osoba.Prezime).Trim(),
                     entitet.Skladistar == null ? "" : (entitet.Skladistar.Ime
                         + " " + entitet.Skladistar.Prezime).Trim(),
-                    entitet.IzdatniceProizvodi ,
+                    null,
 
                     entitet.Napomena));
             })

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace SKladisteAppl.Controllers
 {
-    [Authorize]
+  //  [Authorize]
     public abstract class SkladisteController <T, TDR, TDI> : ControllerBase where T : Entitet
     {
         protected DbSet<T> DbSet;

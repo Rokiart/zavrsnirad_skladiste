@@ -64,8 +64,8 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
 
 
     [HttpPost]
-    [Route("DodajOznaku")]
-    public IActionResult DodajOznaku(IzdatniceProizvodiDTOInsertUpdate dto)
+    [Route("IzdatnicaProizvod")]
+    public IActionResult DodajIzdatnicuProizvod(IzdatniceProizvodiDTOInsertUpdate dto)
     {
         if (!ModelState.IsValid)
         {

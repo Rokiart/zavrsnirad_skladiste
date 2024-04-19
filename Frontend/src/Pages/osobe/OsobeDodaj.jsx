@@ -35,7 +35,7 @@ export default function OsobeDodaj() {
         dodajOsobu({
           ime: podaci.get('ime'),
           prezime: podaci.get('prezime'),
-          brojtelefona: podaci.get('brojTelefona'),
+          brojtelefona: podaci.get('brojtelefona'),
           email: podaci.get('email')
         });
             
@@ -47,7 +47,7 @@ export default function OsobeDodaj() {
         <Form onSubmit={handleSubmit}>
           <InputText atribut='ime' vrijednost='' />
           <InputText atribut='prezime' vrijednost='' />
-          <InputText atribut='brojTelefona' vrijednost='' />
+          <InputText atribut='brojtelefona' vrijednost='' />
           <InputText atribut='email' vrijednost='' />
           <Akcije odustani={RoutesNames.OSOBE_PREGLED} akcija='Dodaj osobu' />       
         </Form>

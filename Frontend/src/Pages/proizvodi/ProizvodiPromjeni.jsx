@@ -119,108 +119,175 @@ export default function ProizvodiPromjeni() {
       hideLoading();
     }
   
-  return (
-    <>
-    <Container >
-      <Form onSubmit={handleSubmit}>
-      <Row>
-      <Col key='1' sm={12} lg={6} md={6}>
-        <InputText atribut='Naziv' vrijednost={proizvod.naziv} />
-        <InputText atribut='sifraProizvoda' vrijednost={proizvod.sifraProizvoda} />
-        <InputText atribut='mjernaJedinica' vrijednost={proizvod.mjernaJedinica} />
+//   return (
+//     <>
+//     <Container >
+//       <Form onSubmit={handleSubmit}>
+//       <Row>
+//       <Col key='1' sm={12} lg={6} md={6}>
+//         <InputText atribut='Naziv' vrijednost={proizvod.naziv} />
+//         <InputText atribut='sifraProizvoda' vrijednost={proizvod.sifraProizvoda} />
+//         <InputText atribut='mjernaJedinica' vrijednost={proizvod.mjernaJedinica} />
        
-        <Akcije odustani={RoutesNames.PROIZVODI_PREGLED} akcija='Promjeni proizvod' /> 
-        </Col>
-                <Col key='2' sm={12} lg={6} md={6}>
-                <Form.Label>Traži kolicinu</Form.Label>
-                  <AsyncTypeahead
-                  className='autocomplete'
-                  id='uvjet'
-                  emptyLabel='Nema rezultata'
-                  searchText='Tražim...'
-                  labelKey={(o) => `${o.naziv}`}
-                  minLength={3}
-                  options={pronadeneKolicine}
-                  onSearch={traziKolicinu}
-                  placeholder='dio naziva kolicine'
-                  renderMenuItemChildren={(o) => (
-                    <>
-                      <span>
-                        {o.naziv}
-                      </span>
-                    </>
-                  )}
-                  onChange={dodajKolicinuModal}
-                  ref={typeaheadRef}
-                  />
-                        <Table striped bordered hover>
-                        <thead>
-                        <tr>
-                            <th>Kolicine proizvoda</th>
-                            <th>Akcija</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {kolicine &&
-                            kolicine.map((o, index) => (
-                            <tr key={index}>
-                                <td>
-                                {o.kolicina}
-                                <hr />
-                                {o.napomena}
-                                </td>
-                                <td>
-                                <Button
-                                    variant='danger'
-                                    onClick={() =>
-                                    obrisiKolicinu(o.sifra)
-                                    }
-                                >
-                                    <FaTrash />
-                                </Button>
-                                </td>
-                            </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row>
+//         <Akcije odustani={RoutesNames.PROIZVODI_PREGLED} akcija='Promjeni proizvod' /> 
+//         </Col>
+        
+
+
+
+
+
+//                 <Col key='2' sm={12} lg={6} md={6}>
+//                 <Form.Label>Traži kolicinu</Form.Label>
+//                   <AsyncTypeahead
+//                   className='autocomplete'
+//                   id='uvjet'
+//                   emptyLabel='Nema rezultata'
+//                   searchText='Tražim...'
+//                   labelKey={(o) => `${o.naziv}`}
+//                   minLength={3}
+//                   options={pronadeneKolicine}
+//                   onSearch={traziKolicinu}
+//                   placeholder='dio naziva kolicine'
+//                   renderMenuItemChildren={(o) => (
+//                     <>
+//                       <span>
+//                         {o.naziv}
+//                       </span>
+//                     </>
+//                   )}
+//                   onChange={dodajKolicinuModal}
+//                   ref={typeaheadRef}
+//                   />
+//                         <Table striped bordered hover>
+//                         <thead>
+//                         <tr>
+//                             <th>Kolicine proizvoda</th>
+//                             <th>Akcija</th>
+//                         </tr>
+//                         </thead>
+//                         <tbody>
+//                         {kolicine &&
+//                             kolicine.map((o, index) => (
+//                             <tr key={index}>
+//                                 <td>
+//                                 {o.kolicina}
+//                                 <hr />
+//                                 {o.napomena}
+//                                 </td>
+//                                 <td>
+//                                 <Button
+//                                     variant='danger'
+//                                     onClick={() =>
+//                                     obrisiKolicinu(o.sifra)
+//                                     }
+//                                 >
+//                                     <FaTrash />
+//                                 </Button>
+//                                 </td>
+//                             </tr>
+//                             ))}
+//                         </tbody>
+//                     </Table>
+//                 </Col>
+//             </Row>
             
                  
-           </Form>
-        </Container>
+//            </Form>
+//         </Container>
 
-        <Modal show={prikaziModal} onHide={zatvoriModal}>
-        <Modal.Header closeButton>
-        <Modal.Title>Dodavanje nove kolicne proizvodar <br /> {proizvod.kolicina}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            Oznaka: {odabranaKolicina.naziv}
-            <Form>
-                <Form.Group>
-                    <Form.Label>Napomena</Form.Label>
-                    <Form.Control
-                    autoFocus
-                    id='napomena'
-                    as='textarea' rows={3}
-                    name='napomena'
-                    />
-                </Form.Group>
-                <hr />
-                <Button variant='primary' onClick={dodajKolicinu}>
-                    Dodaj
-                </Button>
-            </Form>
-        </Modal.Body>
-        <Modal.Footer>
-        <Button variant='secondary' onClick={zatvoriModal}>
-            Zatvori
-        </Button>
-        </Modal.Footer>
-        </Modal>
+//         <Modal show={prikaziModal} onHide={zatvoriModal}>
+//         <Modal.Header closeButton>
+//         <Modal.Title>Dodavanje nove kolicne proizvodar <br /> {proizvod.kolicina}</Modal.Title>
+//         </Modal.Header>
+//         <Modal.Body>
+//             Oznaka: {odabranaKolicina.naziv}
+//             <Form>
+//                 <Form.Group>
+//                     <Form.Label>Napomena</Form.Label>
+//                     <Form.Control
+//                     autoFocus
+//                     id='napomena'
+//                     as='textarea' rows={3}
+//                     name='napomena'
+//                     />
+//                 </Form.Group>
+//                 <hr />
+//                 <Button variant='primary' onClick={dodajKolicinu}>
+//                     Dodaj
+//                 </Button>
+//             </Form>
+//         </Modal.Body>
+//         <Modal.Footer>
+//         <Button variant='secondary' onClick={zatvoriModal}>
+//             Zatvori
+//         </Button>
+//         </Modal.Footer>
+//         </Modal>
 
-        </>
+//         </>
 
-    );
+//     );
 
+// }
+
+return (
+  <Container className='mt-4'>
+     <Row>
+      <Col key='1' sm={12} lg={6} md={6}>
+        <Form onSubmit={handleSubmit}>
+         <InputText atribut='Naziv' vrijednost={proizvod.naziv} />
+         <InputText atribut='sifraProizvoda' vrijednost={proizvod.sifraProizvoda} />
+         <InputText atribut='mjernaJedinica' vrijednost={proizvod.mjernaJedinica} />
+          <Akcije odustani={RoutesNames.PROIZVODI_PREGLED} akcija='Promjeni proizvod' /> 
+        </Form>
+        <Row className='mb-4'>
+            <Col key='1' sm={12} lg={6} md={12}>
+              <p className='form-label'>Trenutna slika</p>
+              <Image
+               
+                src={trenutnaSlika}
+                className='slika'
+              />
+            </Col>
+            <Col key='2' sm={12} lg={6} md={12}>
+              {slikaZaServer && (
+                <>
+                  <p className='form-label'>Nova slika</p>
+                  <Image
+                    src={slikaZaServer || slikaZaCrop}
+                    className='slika'
+                  />
+                </>
+              )}
+            </Col>
+          </Row>
+      </Col>
+      <Col key='2' sm={12} lg={6} md={6}>
+      <input className='mb-3' type='file' onChange={onChangeImage} />
+            <Button disabled={!slikaZaServer} onClick={spremiSliku}>
+              Spremi sliku
+            </Button>
+
+            <Cropper
+              src={slikaZaCrop}
+              style={{ height: 400, width: '100%' }}
+              initialAspectRatio={1}
+              guides={true}
+              viewMode={1}
+              minCropBoxWidth={50}
+              minCropBoxHeight={50}
+              cropBoxResizable={false}
+              background={false}
+              responsive={true}
+              checkOrientation={false}
+              cropstart={onCrop}
+              cropend={onCrop}
+              ref={cropperRef}
+            />
+      </Col>
+    </Row>
+    
+  </Container>
+);
 }

@@ -13,7 +13,7 @@ import InputText from "../../Components/InputText";
 
 
 
-export default function OsobuPromjeni(){
+export default function OsobePromjeni(){
 
     const [osoba,setOsoba] = useState({});
     const routeParams = useParams();
@@ -32,7 +32,7 @@ export default function OsobuPromjeni(){
           setOsoba(odgovor.podaci);
     }
 
-    async function promjeniOsobu(osoba){
+    async function promjeniOsoba(osoba){
         const odgovor = await Service.promjeni('Osoba',routeParams.sifra,osoba);
         if(odgovor.ok){
           navigate(RoutesNames.OSOBE_PREGLED);
@@ -52,7 +52,7 @@ export default function OsobuPromjeni(){
         e.preventDefault();
         const podaci = new FormData(e.target);
             
-            promjeniOsobu({
+            promjeniOsoba({
                 ime: podaci.get('ime'),
                 prezime: podaci.get('prezime'),
                 brojtelefona: podaci.get('brojtelefona'),
@@ -70,7 +70,7 @@ export default function OsobuPromjeni(){
             <InputText atribut='prezime' vrijednost='' />
             <InputText atribut='brojTelefona' vrijednost='' />
             <InputText atribut='email' vrijednost='' />
-            <Akcije odustani={RoutesNames.OSOBE_PREGLED} akcija='Dodaj osobu' />       
+            <Akcije odustani={RoutesNames.OSOBE_PREGLED} akcija='Promjeni osobu' />       
           </Form>
         </Container>
       );

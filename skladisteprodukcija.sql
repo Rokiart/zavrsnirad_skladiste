@@ -1,12 +1,12 @@
 SELECT name, collation_name FROM sys.databases;
 GO
 -- Doma primjeniti na ime svoje baze 3 puta
-ALTER DATABASE db_aa599c_skladiste SET SINGLE_USER WITH
+ALTER DATABASE db_aa599c_romanzaric SET SINGLE_USER WITH
 ROLLBACK IMMEDIATE;
 GO
-ALTER DATABASE db_aa599c_skladiste COLLATE Croatian_CI_AS;
+ALTER DATABASE db_aa599c_romanzaric COLLATE Croatian_CI_AS;
 GO
-ALTER DATABASE db_aa599c_skladiste SET MULTI_USER;
+ALTER DATABASE db_aa599c_romanzaric SET MULTI_USER;
 GO
 SELECT name, collation_name FROM sys.databases;
 GO
@@ -19,16 +19,9 @@ drop table izdatniceproizvodi;
 drop table operateri;
 
 
-create table operateri(
-sifra int not null primary key identity(1,1),
-email varchar(50) not null,
-lozinka varchar(200) not null
 
-);
 
--- Lozinka roman generirana pomoÊu https://bcrypt-generator.com/
-insert into operateri values ('roman.zaric@gmail.com',
-'$2a$12$tlc2ATQlkYPyp/woj.1fY.cJj.TQGzM1kuazcKBQuObbHE2jOVELy');
+
 
 
 create table proizvodi(
@@ -45,8 +38,8 @@ create table skladistari(
 sifra int not null primary key identity(1,1),
 ime varchar(50) not null,
 prezime varchar(50) not null,
-email varchar(50),
-brojtelefona varchar(20)
+email varchar(50) not null,
+brojtelefona varchar(20)not null
 );
 
 create table osobe(
@@ -63,88 +56,159 @@ create table izdatnice(
 sifra int not null primary key identity(1,1),
 brojizdatnice varchar (50) not null,
 datum datetime,
-osoba int not null references osobe(sifra) not null,
-skladistar int not null references skladistari(sifra) not null,
+osoba int not null references osobe(sifra) ,
+skladistar int not null references skladistari(sifra) ,
 napomena varchar(250)
+);
+
+create table operateri(
+sifra int not null primary key identity(1,1),
+email varchar(50) not null,
+lozinka varchar(200) not null
+
 );
 
 create table izdatniceproizvodi (
 
 sifra int not null primary key identity(1,1),
-proizvod int not null references proizvodi(sifra) not null,
-izdatnica int not null references izdatnice(sifra) not null,
+proizvod int not null references proizvodi(sifra),
+izdatnica int not null references izdatnice(sifra),
 kolicina int
 );
 
+-- Lozinka roman generirana pomoÊu https://bcrypt-generator.com/
+insert into operateri values ('roman.zaric@gmail.com',
+'$2a$12$tlc2ATQlkYPyp/woj.1fY.cJj.TQGzM1kuazcKBQuObbHE2jOVELy');
 
 
 
 
-
-insert into skladistari(ime,prezime) 
+insert into skladistari(ime,prezime,brojtelefona,email) 
 values
 --1
-('Roman','≈Ωariƒá'),
+('Roman','éariÊ', 0995906456 , 'roman.zaric@gmail.com'),
 --2
-('Miroslav','Janiƒá');
+('Miroslav','JaniÊ', 0998511475 , 'miroslav.janic@gmail.com'),
+--3
+('Tomislav','Jakopec', 099565656 , 'tomislav.jakopec@gmail.com');
 
 insert into proizvodi(naziv,sifraproizvoda,mjernajedinica) 
 values
---1
-('lopata',100,'kom'),
---2
-('metla',101,'kom'),
---3
-('sapun',102,'kom'),
---4
-('≈°ampon',103,'lit'),
---5
-('gedore',104,'gar'),
---6
-('deterƒëent',105,'kg'),
---7
-('pijesak',106,'t');
+('Lopta', 'LP001', 'kom'),
+('Bicikl', 'BC002', 'kom'),
+('Monitor', 'MN003', 'kom'),
+('Tipkovnica', 'TK004', 'kom'),
+('Miö', 'MS005', 'kom'),
+('Tastatura', 'TS006', 'kom'),
+('USB kabel', 'UK007', 'kom'),
+('Sluöalice', 'SL008', 'kom'),
+('Mikrofon', 'MK009', 'kom'),
+('HDMI kabel', 'HK010', 'kom'),
+('PisaË', 'PS011', 'kom'),
+('Skener', 'SK012', 'kom'),
+('PunjaË za mobitel', 'PM013', 'kom'),
+('USB stick', 'US014', 'kom'),
+('Eksterni hard disk', 'EH015', 'kom'),
+('Torba za laptop', 'TL016', 'kom'),
+('Napajanje', 'NP017', 'kom'),
+('Monitor stoliÊ', 'MS018', 'kom'),
+('Mreûni kabel', 'MK019', 'kom'),
+('Vezice za kablove', 'VK020', 'kom'),
+('Dugmad', 'DG021', 'kom'),
+('PapuËe', 'PP022', 'par'),
+('HlaËe', 'HL023', 'kom'),
+('Majica', 'MJ024', 'kom'),
+('»arape', '»P025', 'par'),
+('äeöir', 'äR026', 'kom'),
+('Ogrlica', 'OG027', 'kom'),
+('NaoËale', 'NC028', 'kom'),
+('Sat', 'ST029', 'kom'),
+('Kiöobran', 'KB030', 'kom'),
+('äal', 'äL031', 'kom'),
+('Rukavice', 'RK032', 'kom'),
+('Koöulja', 'KL033', 'kom'),
+('Kaput', 'KT034', 'kom'),
+('»izme', '»Z035', 'par'),
+('Cipele', 'CP036', 'par'),
+('Haljina', 'HJ037', 'kom'),
+('Suknja', 'SK038', 'kom'),
+('Koöarkaöka lopta', 'KL039', 'kom'),
+('Teniska loptica', 'TL040', 'kom'),
+('Bazen', 'BZ041', 'kom'),
+('Daska za surfanje', 'DS042', 'kom'),
+('Roleri', 'RL043', 'par'),
+('Kajak', 'KJ044', 'kom'),
+('äator', 'ST045', 'kom'),
+('Roleri', 'RL046', 'par'),
+('BiciklistiËka kaciga', 'BK047', 'kom'),
+('PloËa za snowboard', 'PS048', 'kom'),
+('Tenisice za trËanje', 'TT049', 'par'),
+('ätap za hodanje', 'äH050', 'kom');
 
-
-insert into osobe(prezime,ime,brojtelefona) 
+insert into osobe(prezime,ime,brojtelefona,email) 
 values
-('Bo≈æiƒá','Petra',null),
-('Farka≈°','Dominik',null),
-('Glava≈°','Natalija',null),
-('Janiƒá','Miroslav',null),
-('Janje≈°iƒá','Filip',null),
-('Jovi√¶ƒá','Nata≈°a',null),
-('Bariƒá','Luka',null),
-('Kelava','Antonio',null),
-('Ke≈°inoviƒá','Marijan',null),
-('Leninger','Ivan',null),
-('Macanga','Antonio',null),
-('Milolo≈æa','Antonio',null),
-('Pavkoviƒá','Matija',null),
-('Peterfaj','Karlo',null),
-('Pleƒáa≈°','Adriana',null),
-('Senƒçiƒá','Ivan',null),
-('≈†uler','Zvonimir',null),
-('Turƒçek','Mario',null),
-('Veseli','Domagoj',null),
-('Vukovi√¶','Kristijan',null),
-('Vuku≈°iƒá','Ivan',null),
-('≈Ωariƒá','Roman',null),
-('Pavlovi√¶','Ivan',null),
-('≈Ωupaniƒá','Andrea',null),
-('≈Ωupaniƒá','Tomislav',null),
-('Petak','Martina',null),
-('Perak','Marko',null),
-('Mokri≈°','Bartol',null),
-('Julariƒá','Ljubomir',null),
-('ƒåeliƒá','Ivor',null);
+('KovaËiÊ', 'Ivan', '0991234567', 'ivan.kovacic@gmail.com'),
+('MariÊ', 'Ana', '0992345678', 'ana.maric@gmail.com'),
+('Horvat', 'Marko', '0993456789', 'marko.horvat@gmail.com'),
+('KneûeviÊ', 'Ivana', '0994567890', 'ivana.knezevic@gmail.com'),
+('äimiÊ', 'Petar', '0995678901', 'petar.simic@gmail.com'),
+('JuriÊ', 'Marija', '0996789012', 'marija.juric@gmail.com'),
+('PavloviÊ', 'Ante', '0997890123', 'ante.pavlovic@gmail.com'),
+('BabiÊ', 'Martina', '0998901234', 'martina.babic@gmail.com'),
+('éivkoviÊ', 'Tomislav', '0999012345', 'tomislav.zivkovic@gmail.com'),
+('KovaËeviÊ', 'Kristina', '0990123456', 'kristina.kovacevic@gmail.com'),
+('RadmanoviÊ', 'Luka', '0991234567', 'luka.radmanovic@gmail.com'),
+('MatijeviÊ', 'Mia', '0992345678', 'mia.matijevic@gmail.com'),
+('BariöiÊ', 'Filip', '0993456789', 'filip.barisic@gmail.com'),
+('PetroviÊ', 'Ana', '0994567890', 'ana.petrovic@gmail.com'),
+('TomiÊ', 'Ivan', '0995678901', 'ivan.tomic@gmail.com'),
+('Horvat', 'Petra', '0996789012', 'petra.horvat@gmail.com'),
+('KovaË', 'Marko', '0997890123', 'marko.kovac@gmail.com'),
+('BabiÊ', 'Marta', '0998901234', 'marta.babic@gmail.com'),
+('äimiÊ', 'Ivan', '0999012345', 'ivan.simic@gmail.com'),
+('JuriÊ', 'Martina', '0990123456', 'martina.juric@gmail.com'),
+('PavloviÊ', 'Luka', '0991234567', 'luka.pavlovic@gmail.com'),
+('KovaËeviÊ', 'Lucija', '0992345678', 'lucija.kovacevic@gmail.com'),
+('RadmanoviÊ', 'Marko', '0993456789', 'marko.radmanovic@gmail.com'),
+('MatijeviÊ', 'Mia', '0994567890', 'mia.matijevic@gmail.com'),
+('BariöiÊ', 'Petra', '0995678901', 'petra.barisic@gmail.com'),
+('PetroviÊ', 'Ante', '0996789012', 'ante.petrovic@gmail.com'),
+('TomiÊ', 'Mia', '0997890123', 'mia.tomic@gmail.com'),
+('éivkoviÊ', 'Ivan', '0998901234', 'ivan.zivkovic@gmail.com'),
+('KneûeviÊ', 'Petra', '0999012345', 'petra.knezevic@gmail.com');
 
 
-insert into izdatnice(brojizdatnice,osoba,skladistar) 
+insert into izdatnice(brojizdatnice,osoba,skladistar,proizvod,kolicina) 
 values
-(100,1,1),(101,12,2),(102,19,1),(103,24,2);
-
-insert into izdatniceproizvodi(proizvod,izdatnica) 
-values
-(2,2),(1,2),(3,2),(4,3),(7,4);
+(104,1,1,1,5),
+(105,12,2,2,10),
+(106,19,1,3,3),
+(107,24,2,4,8),
+(108,3,1,5,6),
+(109,8,2,6,4),
+(110,15,1,7,7),
+(111,20,2,1,2),
+(112,5,1,2,9),
+(113,14,2,3,1),
+(114,23,1,4,5),
+(115,11,2,5,3),
+(116,16,1,6,7),
+(117,21,2,7,8),
+(118,7,1,1,4),
+(119,18,2,2,6),
+(120,26,1,3,10),
+(121,30,2,4,2),
+(122,29,1,5,5),
+(123,10,2,6,7),
+(124,27,1,7,3),
+(125,28,2,1,8),
+(126,25,1,2,9),
+(127,22,2,3,2),
+(128,9,1,4,6),
+(129,17,2,5,4),
+(130,6,1,6,5),
+(131,13,2,7,7),
+(132,4,1,1,3),
+(133,2,2,2,2),
+(134,1,1,3,4);
 

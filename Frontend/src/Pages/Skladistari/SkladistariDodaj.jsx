@@ -29,7 +29,7 @@ export default function SkladistareDodaj() {
         dodajSkladistara({
             ime: podaci.get('ime'),
             prezime: podaci.get('prezime'),
-            brojTelefona: podaci.get('Broj Telefona'),
+            brojTelefona: podaci.get('brojtelefona'),
             email: podaci.get('email')
             
           });         
@@ -40,7 +40,7 @@ export default function SkladistareDodaj() {
         <Form onSubmit={handleSubmit}>
           <InputText atribut='ime' vrijednost='' />
           <InputText atribut='prezime' vrijednost='' />
-          <InputText atribut='brojTelefona' vrijednost='' />
+          <InputText atribut='brojtelefona' vrijednost='' />
           <InputText atribut='email' vrijednost='' />
          <Akcije odustani={RoutesNames.SKLADISTARI_PREGLED} akcija='Dodaj skladistara' />       
         </Form>

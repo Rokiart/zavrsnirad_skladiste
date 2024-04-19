@@ -127,7 +127,7 @@ export default function ProizvodiPromjeni() {
       <Col key='1' sm={12} lg={6} md={6}>
         <InputText atribut='Naziv' vrijednost={proizvod.naziv} />
         <InputText atribut='sifraProizvoda' vrijednost={proizvod.sifraProizvoda} />
-        <InputText atribut='mjernaJedinica' vrijednost={proizvodk.mjernaJedinica} />
+        <InputText atribut='mjernaJedinica' vrijednost={proizvod.mjernaJedinica} />
        
         <Akcije odustani={RoutesNames.PROIZVODI_PREGLED} akcija='Promjeni proizvod' /> 
         </Col>

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import OsobaService from "../../services/OsobaService";
+import Service from "../../services/OsobaService";
 import { RoutesNames } from "../../constants";
 import useError from "../../hooks/useError";
 
@@ -13,7 +13,7 @@ import InputText from "../../Components/InputText";
 
 
 
-export default function OsobePromjeni(){
+export default function OsobuPromjeni(){
 
     const [osoba,setOsoba] = useState({});
     const routeParams = useParams();
@@ -23,7 +23,7 @@ export default function OsobePromjeni(){
     
 
     async function dohvatiOsobu(){
-        const odgovor = await OsobaService
+        const odgovor = await Service
         .getBySifra('Osoba',routeParams.sifra)
         if(!odgovor.ok){
             prikaziError(odgovor.podaci);
@@ -33,7 +33,7 @@ export default function OsobePromjeni(){
     }
 
     async function promjeniOsobu(osoba){
-        const odgovor = await OsobaService.promjeni('Osoba',routeParams.sifra,osoba);
+        const odgovor = await Service.promjeni('Osoba',routeParams.sifra,osoba);
         if(odgovor.ok){
           navigate(RoutesNames.OSOBE_PREGLED);
           return;

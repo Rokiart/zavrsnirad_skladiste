@@ -18,11 +18,10 @@ import useLoading from '../../hooks/useLoading';
 
 export default function ProizvodiPromjeni() {
   const [proizvod, setProizvod] = useState({});
-  // const [kolicine, setKolicine] = useState([]);
-  // const [pronadeneKolicine, setPronadeneKolicine] = useState([]);
+
   const cropperRef = useRef(null);
  
-  //const [odabranaKolicina, setOdabranaKolicina] = useState(false);
+
   const routeParams = useParams();
   const navigate = useNavigate();
   const { prikaziError } = useError();
@@ -77,7 +76,7 @@ export default function ProizvodiPromjeni() {
         naziv: podaci.get('naziv'),
         sifraProizvoda: podaci.get('sifraProizvoda'),
         mjernaJedinica: podaci.get('mjernaJedinica'),
-        slika: ''
+        slika: slikaZaServer || proizvod.slika || '' // Koristi novu sliku ako postoji, inače trenutnu sliku, ili prazan string ako nema nijednu
       });
     }
   
@@ -111,10 +110,11 @@ export default function ProizvodiPromjeni() {
       showLoading();
       const base64 = slikaZaServer;
   
-      const odgovor = await Service.postaviSliku(routeParams.sifra, {Base64: base64.replace('data:image/png;base64,', '')});
+      const odgovor = await Service.postaviSliku(routeParams.sifra, {base64: base64.replace('data:image/png;base64,', '')});
       if(!odgovor.ok){
         hideLoading();
         prikaziError(odgovor.podaci);
+        return;
       }
       //Date.now je zbog toga što se src na image komponenti cache-ira
       //pa kad promjenimo sliku url ostane isti i trenutna slika se ne updatea
@@ -122,117 +122,7 @@ export default function ProizvodiPromjeni() {
       hideLoading();
     }
   
-//   return (
-//     <>
-//     <Container >
-//       <Form onSubmit={handleSubmit}>
-//       <Row>
-//       <Col key='1' sm={12} lg={6} md={6}>
-//         <InputText atribut='Naziv' vrijednost={proizvod.naziv} />
-//         <InputText atribut='sifraProizvoda' vrijednost={proizvod.sifraProizvoda} />
-//         <InputText atribut='mjernaJedinica' vrijednost={proizvod.mjernaJedinica} />
-       
-//         <Akcije odustani={RoutesNames.PROIZVODI_PREGLED} akcija='Promjeni proizvod' /> 
-//         </Col>
-        
 
-
-
-
-
-//                 <Col key='2' sm={12} lg={6} md={6}>
-//                 <Form.Label>Traži kolicinu</Form.Label>
-//                   <AsyncTypeahead
-//                   className='autocomplete'
-//                   id='uvjet'
-//                   emptyLabel='Nema rezultata'
-//                   searchText='Tražim...'
-//                   labelKey={(o) => `${o.naziv}`}
-//                   minLength={3}
-//                   options={pronadeneKolicine}
-//                   onSearch={traziKolicinu}
-//                   placeholder='dio naziva kolicine'
-//                   renderMenuItemChildren={(o) => (
-//                     <>
-//                       <span>
-//                         {o.naziv}
-//                       </span>
-//                     </>
-//                   )}
-//                   onChange={dodajKolicinuModal}
-//                   ref={typeaheadRef}
-//                   />
-//                         <Table striped bordered hover>
-//                         <thead>
-//                         <tr>
-//                             <th>Kolicine proizvoda</th>
-//                             <th>Akcija</th>
-//                         </tr>
-//                         </thead>
-//                         <tbody>
-//                         {kolicine &&
-//                             kolicine.map((o, index) => (
-//                             <tr key={index}>
-//                                 <td>
-//                                 {o.kolicina}
-//                                 <hr />
-//                                 {o.napomena}
-//                                 </td>
-//                                 <td>
-//                                 <Button
-//                                     variant='danger'
-//                                     onClick={() =>
-//                                     obrisiKolicinu(o.sifra)
-//                                     }
-//                                 >
-//                                     <FaTrash />
-//                                 </Button>
-//                                 </td>
-//                             </tr>
-//                             ))}
-//                         </tbody>
-//                     </Table>
-//                 </Col>
-//             </Row>
-            
-                 
-//            </Form>
-//         </Container>
-
-//         <Modal show={prikaziModal} onHide={zatvoriModal}>
-//         <Modal.Header closeButton>
-//         <Modal.Title>Dodavanje nove kolicne proizvodar <br /> {proizvod.kolicina}</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body>
-//             Oznaka: {odabranaKolicina.naziv}
-//             <Form>
-//                 <Form.Group>
-//                     <Form.Label>Napomena</Form.Label>
-//                     <Form.Control
-//                     autoFocus
-//                     id='napomena'
-//                     as='textarea' rows={3}
-//                     name='napomena'
-//                     />
-//                 </Form.Group>
-//                 <hr />
-//                 <Button variant='primary' onClick={dodajKolicinu}>
-//                     Dodaj
-//                 </Button>
-//             </Form>
-//         </Modal.Body>
-//         <Modal.Footer>
-//         <Button variant='secondary' onClick={zatvoriModal}>
-//             Zatvori
-//         </Button>
-//         </Modal.Footer>
-//         </Modal>
-
-//         </>
-
-//     );
-
-// }
 
 return (
   <Container className='mt-4'>

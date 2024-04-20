@@ -39,5 +39,7 @@ namespace SKladisteAppl.Models
 
         public List<IzdatnicaProizvod>? IzdatniceProizvodi { get; set; }
 
+        public List<Proizvod>? Proizvodi { get; set; }
+
     }
 }

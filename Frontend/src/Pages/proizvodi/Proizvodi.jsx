@@ -126,7 +126,7 @@ export default function Proizvodi(){
                 <Card.Body>
                   <Card.Title>{p.naziv} </Card.Title>
                   <Card.Text>
-                    {p.sifraProizvoda}
+                     {p.email}
                   </Card.Text>
                   <Row>
                       <Col>

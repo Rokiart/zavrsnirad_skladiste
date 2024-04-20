@@ -1,3 +1,73 @@
+use master;
+go
+drop database if exists skladisnoposlovanje;
+go
+create database skladisnoposlovanje;
+go
+alter database skladisnoposlovanje collate Croatian_CI_AS;
+go
+use skladisnoposlovanje;
+
+
+create table proizvodi(
+
+sifra int not null primary key identity(1,1),
+naziv varchar(50) not null,
+sifraproizvoda varchar(50) ,
+mjernajedinica varchar(20) not null
+ 
+); 
+
+create table skladistari(
+
+sifra int not null primary key identity(1,1),
+ime varchar(50) not null,
+prezime varchar(50) not null,
+email varchar(50) not null,
+brojtelefona varchar(20)not null
+);
+
+create table osobe(
+
+sifra int not null primary key identity(1,1),
+ime varchar(50) not null,
+prezime varchar(50) not null,
+email varchar(50),
+brojtelefona varchar(20)
+);
+
+create table izdatnice(
+
+sifra int not null primary key identity(1,1),
+brojizdatnice varchar (50) not null,
+datum datetime,
+osoba int not null references osobe(sifra) ,
+skladistar int not null references skladistari(sifra) ,
+napomena varchar(250)
+);
+
+create table operateri(
+sifra int not null primary key identity(1,1),
+email varchar(50) not null,
+lozinka varchar(200) not null
+
+);
+
+create table izdatniceproizvodi (
+
+sifra int not null primary key identity(1,1),
+proizvod int not null references proizvodi(sifra),
+izdatnica int not null references izdatnice(sifra),
+kolicina int
+);
+
+-- Lozinka roman generirana pomoæu https://bcrypt-generator.com/
+insert into operateri values ('roman.zaric@gmail.com',
+'$2a$12$KBZen7ZlWS3W9dLS/kZ9Nem2m5mqQE0cXttfY0yndTkUDhWgEW3N2');
+
+
+
+
 insert into skladistari(ime,prezime,brojtelefona,email) 
 values
 --1
@@ -130,4 +200,3 @@ values
 insert into izdatniceproizvodi(proizvod,izdatnica,kolicina) 
 values
 (2,178,3),(1,178,5),(3,178,3),(4,178,6),(7,178,2);
-

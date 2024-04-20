@@ -22,20 +22,20 @@ namespace SKladisteAppl.Mappers
             })
             );
 
-            //MapperMapInsertUpdateToDTO = new Mapper(
-            // new MapperConfiguration(c =>
-            // {
-            //     c.CreateMap<Osoba, OsobaDTOInsertUpdate>()
-            //  .ConstructUsing(entitet =>
-            //   new OsobaDTOInsertUpdate(
-            //      entitet.Ime,
-            //      entitet.Prezime,
-            //      entitet.BrojTelefona,
-            //      entitet.Email
-               
-            //      ));
-            // })
-            // );
+            MapperMapInsertUpdateToDTO = new Mapper(
+             new MapperConfiguration(c =>
+             {
+                 c.CreateMap<Osoba, OsobaDTOInsertUpdate>()
+              .ConstructUsing(entitet =>
+               new OsobaDTOInsertUpdate(
+                  entitet.Ime,
+                  entitet.Prezime,
+                  entitet.BrojTelefona,
+                  entitet.Email
+
+                  ));
+             })
+             );
         }
 
 

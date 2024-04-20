@@ -78,7 +78,7 @@ kolicina int
 
 -- Lozinka roman generirana pomoću https://bcrypt-generator.com/
 insert into operateri values ('roman.zaric@gmail.com',
-'$2a$12$tlc2ATQlkYPyp/woj.1fY.cJj.TQGzM1kuazcKBQuObbHE2jOVELy');
+'$2a$12$KBZen7ZlWS3W9dLS/kZ9Nem2m5mqQE0cXttfY0yndTkUDhWgEW3N2');
 
 
 

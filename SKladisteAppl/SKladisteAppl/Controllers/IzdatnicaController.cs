@@ -5,6 +5,7 @@ using SKladisteAppl.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Data.Entity.Core.Metadata.Edm;
+using System.Text.RegularExpressions;
 
 
 
@@ -17,7 +18,7 @@ namespace SKladisteAppl.Controllers;
 [Route("api/v1/[controller]")]
 public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORead, IzdatnicaDTOInsertUpdate>
 {
-  
+   
 
     public IzdatnicaController(SkladisteContext context) : base(context)
     {
@@ -64,39 +65,52 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
 
 
     [HttpPost]
-    [Route("IzdatnicaProizvod")]
-    public IActionResult DodajIzdatnicuProizvod(IzdatniceProizvodiDTOInsertUpdate dto)
+    [Route("{sifra:int}/dodaj/{proizvodSifra:int}")]
+    public IActionResult DodajProizvod(int sifra, int proizvodSifra)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
+
+        if (sifra <= 0 || proizvodSifra <= 0)
+        {
+            return BadRequest("Šifra izdatnice iliproizvoda nije dobra");
+        }
+
         try
         {
-            var izdatnica = _context.Izdatnice.Find(dto.izdatnicaSifra);
+
+            var izdatnica = _context.Izdatnice
+                .Include(g => g.Proizvodi)
+                .FirstOrDefault(g => g.Sifra == sifra);
 
             if (izdatnica == null)
             {
-                throw new Exception("Ne postoji izdatnica s šifrom " + dto.izdatnicaSifra + " u bazi");
+                return BadRequest("Ne postoji izdatnica s šifrom " + sifra + " u bazi");
             }
 
-            var proizvod = _context.Proizvodi.Find(dto.proizvodSifra);
+            var proizvod = _context.Proizvodi.Find(proizvodSifra);
 
             if (proizvod == null)
             {
-                throw new Exception("Ne postoji proizvod s šifrom " + dto.proizvodSifra + " u bazi");
+                return BadRequest("Ne postoji proizvod s šifrom " + proizvodSifra + " u bazi");
             }
 
-            var entitet = new IzdatnicaProizvod() { Izdatnica = izdatnica, Proizvod = proizvod, Kolicina = dto.kolicina };
+            izdatnica.Proizvodi.Remove(proizvod);
 
-            _context.IzdatniceProizvodi.Add(entitet);
+            _context.Izdatnice.Update(izdatnica);
             _context.SaveChanges();
 
-            return new JsonResult(new IzdatniceProizvodiDTORead(entitet.Sifra, entitet.Proizvod.Naziv, entitet.Kolicina));
+            return Ok();
+
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return StatusCode(
+                   StatusCodes.Status503ServiceUnavailable,
+                   ex.Message);
+
         }
 
     }
@@ -105,7 +119,7 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
 
     [HttpDelete]
     [Route("ObrisiProizvod/{sifra:int}")]
-    public IActionResult ObrisiProizvod(int sifra)
+    public IActionResult ObrisiProizvod(int sifra, int proizvodSifra)
     {
 
         if (!ModelState.IsValid)
@@ -113,26 +127,36 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
             return BadRequest(ModelState);
         }
 
-        if (sifra <= 0 )
+        if (sifra <= 0  || proizvodSifra <= 0)
         {
-            return BadRequest("Šifra proizvoda nije dobra");
+            return BadRequest("Šifra izdatnice ili proizvoda nije dobra");
         }
 
         try
         {
 
 
-            var entitet = _context.IzdatniceProizvodi.Find(sifra);
+            var izdatnica = _context.Izdatnice
+                .Include(g => g.Proizvodi)
+                    .FirstOrDefault(g => g.Sifra == sifra);
 
-            if (entitet == null)
+            if (izdatnica == null)
             {
-                return BadRequest("Ne postoji proizvod na smjeru s šifrom " + sifra + " u bazi");
+                return BadRequest("Ne postoji izdatnica  s šifrom " + sifra + " u bazi");
             }
 
-            _context.IzdatniceProizvodi.Remove(entitet);
+            var proizvod = _context.Proizvodi.Find(proizvodSifra);
+
+            if (proizvod == null)
+            {
+                return BadRequest("Ne postoji proizvod s šifrom " + proizvodSifra + " u bazi");
+            }
+            izdatnica.Proizvodi.Remove(proizvod);
+
+            _context.Izdatnice.Update(izdatnica);
             _context.SaveChanges();
 
-            return Ok("Obrisano");
+            return Ok();
 
         }
         catch (Exception ex)
@@ -232,6 +256,7 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
                         + " " + item.Osoba.Prezime).Trim(),
                 item.Skladistar == null ? "" : (item.Skladistar.Ime
                         + " " + item.Skladistar.Prezime).Trim(),
+               
                 LPNI,
 
                     item.Napomena

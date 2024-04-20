@@ -1,4 +1,6 @@
-﻿namespace SKladisteAppl.Models
+﻿using System.Text.RegularExpressions;
+
+namespace SKladisteAppl.Models
 {
     /// <summary>
     /// Predstavlja proizvod u sustavu skladišta.
@@ -19,7 +21,8 @@
         /// Mjerna jedinica proizvoda.
         /// </summary>
         public string? Mjernajedinica { get; set; }
-   
+        public ICollection<Izdatnica>? Izdatnice { get; } = new List<Izdatnica>();
+
 
     }
 }

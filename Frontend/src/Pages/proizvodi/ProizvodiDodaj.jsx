@@ -1,7 +1,7 @@
 import { Container, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { RoutesNames } from '../../constants';
-import ProizvodService from '../../services/ProizvodService';
+import Service from '../../services/ProizvodService';
 import useError from '../../hooks/useError';
 import InputText from '../../Components/InputText';
 import Akcije from '../../Components/Akcije';
@@ -18,7 +18,7 @@ export default function ProizvodiDodaj() {
 
   async function dodajProizvod(Proizvod) {
     showLoading();
-    const odgovor = await ProizvodService.dodaj('Proizvod',Proizvod);
+    const odgovor = await Service.dodaj('Proizvod',Proizvod);
     if (odgovor.ok) {
       hideLoading();
       navigate(RoutesNames.PROIZVODI_PREGLED);

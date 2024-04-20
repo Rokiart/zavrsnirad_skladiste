@@ -1,5 +1,5 @@
-import { Button, Col, Container, Form, Row} from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Container, Form, Row} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useError from '../../hooks/useError';
 
@@ -19,12 +19,15 @@ export default function IzdatniceDodaj() {
 
   const [osobe , setOsobe] =useState([]);
   const [osobaSifra, setOsobaSifra] =useState(0);
+
   const [izdatniceProizvodi , setIzdatniceProizvodi] = useState([]);
   const [izdatnicaProizvodSifra, setIzdatnicaProizvodSifra] = useState(0);
+
   const [skladistari, setSkladistari] = useState([]);
   const [skladistarSifra, setSkladistarSifra] = useState(0);
-  const [proizvodi , setProizvodi] = useState([]);
-  const [proizvodSifra , setProizvodSifra] = (0);
+
+  // const [proizvodi , setProizvodi] = useState([]);
+  // const [proizvodSifra , setProizvodSifra] = (0);
 
   const { prikaziError } = useError();
   const { showLoading, hideLoading } = useLoading();
@@ -65,8 +68,8 @@ async function dohvatiProizvode(){
     alert(dohvatiPorukeAlert(odgovor.podaci));
     return;
 }
-setProizvodi(odgovor.podaci);
-setProizvodSifra(odgovor.podaci[0].sifra);
+// setProizvodi(odgovor.podaci);
+// setProizvodSifra(odgovor.podaci[0].sifra);
 }
 
 async function ucitaj(){
@@ -117,7 +120,7 @@ async function dodaj(e) {
     
 
       dodaj({
-        brojIzdatnice: podaci.get('brojizdatnice'),
+        brojIzdatnice: podaci.get('brojIzdatnice'),
         datum: datum,
         proizvodSifra: parseInt(proizvodSifra),
         osobaSifra: parseInt(osobaSifra),
@@ -162,18 +165,18 @@ async function dodaj(e) {
           />
          </Form.Group>
 
-         <Form.Group className='mb-3' controlId='proizvod'>
+         {/* <Form.Group className='mb-3' controlId='proizvod'>
           <Form.Label>Proizvod</Form.Label>
             <Form.Select
               onChange={(e)=>{setProizvodSifra(e.target.value)}}
               >
-               {proizvodi && proizvodi.map((e,index)=>(
-                    <option key={index} value={e.sifra}>
-                   {e.naziv}  
+               {proizvodi && proizvodi.map((s,index)=>(
+                    <option key={index} value={s.sifra}>
+                   {s.naziv}  
                    </option>
               ))}
              </Form.Select>
-          </Form.Group>
+          </Form.Group> */}
 
           <Form.Group className='mb-3' controlId='izdatnicaProizvod'>
           <Form.Label>Kolicina</Form.Label>
@@ -226,7 +229,7 @@ async function dodaj(e) {
             </Form.Group> 
                 
 
-        <Row>
+        {/* <Row>
           <Col>
             <Link className='btn btn-danger gumb' to={RoutesNames.IZDATNICE_PREGLED}>
               Odustani
@@ -237,7 +240,7 @@ async function dodaj(e) {
               Dodaj novu izdatnicu
             </Button>
           </Col>
-        </Row>
+        </Row> */}
         <Akcije odustani={RoutesNames.IZDATNICE_PREGLED} akcija='Dodaj izdatnicu' /> 
       </Form>
     </Container>

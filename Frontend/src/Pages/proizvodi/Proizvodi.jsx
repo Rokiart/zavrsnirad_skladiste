@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Form, Pagination, Row } from "react-bootstrap";
-import ProizvodService from "../../services/ProizvodService";
+import Service from "../../services/ProizvodService";
 import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 import { App, RoutesNames } from "../../constants";
 import useError from "../../hooks/useError";
 import useLoading from "../../hooks/useLoading";
@@ -21,7 +21,7 @@ export default function Proizvodi(){
 
     async function dohvatiProizvode(){
         showLoading();
-        const odgovor = await ProizvodService.get('Proizvod');
+        const odgovor = await Service.get('Proizvod');
         if(!odgovor.ok){
             prikaziError(odgovor.podaci);
             
@@ -54,9 +54,9 @@ export default function Proizvodi(){
         dohvatiProizvode();
     },[stranica, uvjet]);
 
-    function slika(p){
-        if(p.slika!=null){
-            return App.URL + p.slika;
+    function slika(proizvod){
+        if(proizvod.slika!=null){
+            return App.URL + proizvod.slika `?${Date.now()}`;
         }
         return nepoznato;
     }

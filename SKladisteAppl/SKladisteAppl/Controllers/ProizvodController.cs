@@ -1,12 +1,12 @@
 ﻿using SKladisteAppl.Data;
 using Microsoft.AspNetCore.Mvc;
 using SKladisteAppl.Models;
-using Microsoft.Data.SqlClient;
-using SKladisteAppl.Extensions;
-using System.Text;
-using SKladisteAppl.Controllers;
-using System.Data.Entity;
 using SKladisteAppl.Mappers;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
+
+
+
 
 namespace SKladisteAppl.Controllers
 {
@@ -19,6 +19,43 @@ namespace SKladisteAppl.Controllers
         {
             DbSet = _context.Proizvodi;
             _mapper = new MappingProizvod();
+        }
+
+     
+      
+        [HttpGet]
+        [Route("trazi/{uvjet}")]
+        public IActionResult TraziProizvod(string uvjet)
+        {
+            // ovdje će ići dohvaćanje u bazi
+
+            if (uvjet == null || uvjet.Length < 3)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // ivan se PROBLEM riješiti višestruke uvjete
+            uvjet = uvjet.ToLower();
+            try
+            {
+                IEnumerable<Proizvod> query = _context.Proizvodi;
+                var niz = uvjet.Split(" ");
+
+                foreach (var s in uvjet.Split(" "))
+                {
+                    query = query.Where(p => p.Naziv.ToLower().Contains(s)) ;
+                }
+
+
+                var proizvodi = query.ToList();
+
+                return new JsonResult(_mapper.MapReadList(proizvodi));
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
 
@@ -59,21 +96,50 @@ namespace SKladisteAppl.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("traziStranicenje/{stranica}")]
+        public IActionResult TraziProizvodStranicenje(int stranica, string uvjet = "")
+        {
+            var poStranici = 8;
+            uvjet = uvjet.ToLower();
+            try
+            {
+                var proizvodi = _context.Proizvodi
+                    .Where(p => EF.Functions.Like(p.Naziv.ToLower(), "%" + uvjet + "%"))
+                               
+                    .Skip((poStranici * stranica) - poStranici)
+                    .Take(poStranici)
+                    
+                    .ToList();
+
+
+                return new JsonResult(_mapper.MapReadList(proizvodi));
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
 
 
         protected override void KontrolaBrisanje(Proizvod entitet)
         {
-            var lista = _context.IzdatniceProizvodi.Include(x => x.Proizvod).Where(x => x.Proizvod.Sifra == entitet.Sifra).ToList();
+            var entitetIzbaze = _context.Proizvodi.Include(x => x.Izdatnice).FirstOrDefault(x => x.Sifra == entitet.Sifra);
 
+            if (entitetIzbaze == null)
+            {
+                throw new Exception("Ne postoji proizvod s šifrom " + entitet.Sifra + " u bazi");
+            }
 
-
-            if (lista != null && lista.Count() > 0)
+            if (entitetIzbaze.Izdatnice != null && entitetIzbaze.Izdatnice.Count() > 0)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Proizvod se ne može obrisati jer je postavljen na izdatnici: ");
-                foreach (var e in lista)
+                foreach (var e in entitetIzbaze.Izdatnice)
                 {
-                    sb.Append(e.Kolicina).Append(", ");
+                    sb.Append(e.BrojIzdatnice).Append(", ");
                 }
 
                 throw new Exception(sb.ToString().Substring(0, sb.ToString().Length - 2));

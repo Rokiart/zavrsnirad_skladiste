@@ -7,7 +7,7 @@ import {App, RoutesNames } from '../../constants';
 import useError from "../../hooks/useError";
 import InputText from '../../Components/InputText';
 import Akcije from '../../Components/Akcije';
-import { FaTrash } from "react-icons/fa";
+import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import nepoznato from '../../assets/nepoznato.png'; 
 import useLoading from '../../hooks/useLoading';
@@ -18,11 +18,11 @@ import useLoading from '../../hooks/useLoading';
 
 export default function ProizvodiPromjeni() {
   const [proizvod, setProizvod] = useState({});
-  const [kolicine, setKolicine] = useState([]);
-  const [pronadeneKolicine, setPronadeneKolicine] = useState([]);
+  // const [kolicine, setKolicine] = useState([]);
+  // const [pronadeneKolicine, setPronadeneKolicine] = useState([]);
   const cropperRef = useRef(null);
  
-  const [odabranaKolicina, setOdabranaKolicina] = useState(false);
+  //const [odabranaKolicina, setOdabranaKolicina] = useState(false);
   const routeParams = useParams();
   const navigate = useNavigate();
   const { prikaziError } = useError();
@@ -65,6 +65,9 @@ export default function ProizvodiPromjeni() {
       alert(dohvatiPorukeAlert(odgovor.podaci));
       hideLoading();
     }
+
+
+  
 
     function handleSubmit(e) {
       e.preventDefault();

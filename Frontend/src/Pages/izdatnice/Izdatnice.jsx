@@ -98,7 +98,7 @@ export default function Izdatnice() {
                              
                                
                               </td>
-                              <td>{entitet.proizvodNaziv}</td>
+                              {/* <td>{entitet.proizvodNaziv}</td> */}
                               <td>{entitet.izdatnicaProizvodKolicina}</td>
                               <td>{entitet.osobaImePrezime}</td>
                               <td>{entitet.skladistarImePrezime}</td> 

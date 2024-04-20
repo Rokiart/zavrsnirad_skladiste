@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SKladisteAppl.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Text.RegularExpressions;
+
 
 
 
@@ -118,8 +117,8 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
 
 
     [HttpDelete]
-    [Route("ObrisiProizvod/{sifra:int}")]
-    public IActionResult ObrisiProizvod(int sifra, int proizvodSifra)
+    [Route("ObrisiProizvod/{sifraIzdatnice:int}/{proizvodSifra:int}")]
+    public IActionResult ObrisiProizvod(int sifraIzdatnice, int proizvodSifra)
     {
 
         if (!ModelState.IsValid)
@@ -127,7 +126,7 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
             return BadRequest(ModelState);
         }
 
-        if (sifra <= 0  || proizvodSifra <= 0)
+        if (sifraIzdatnice <= 0  || proizvodSifra <= 0)
         {
             return BadRequest("Šifra izdatnice ili proizvoda nije dobra");
         }
@@ -138,11 +137,11 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
 
             var izdatnica = _context.Izdatnice
                 .Include(g => g.Proizvodi)
-                    .FirstOrDefault(g => g.Sifra == sifra);
+                    .FirstOrDefault(g => g.Sifra == sifraIzdatnice);
 
             if (izdatnica == null)
             {
-                return BadRequest("Ne postoji izdatnica  s šifrom " + sifra + " u bazi");
+                return BadRequest("Ne postoji izdatnica  s šifrom " + sifraIzdatnice + " u bazi");
             }
 
             var proizvod = _context.Proizvodi.Find(proizvodSifra);

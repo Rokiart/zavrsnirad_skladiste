@@ -15,6 +15,7 @@ export default function ProizvodiDodaj() {
   const navigate = useNavigate();
   const { prikaziError } = useError();
   const { showLoading, hideLoading } = useLoading();
+  
 
   async function dodajProizvod(Proizvod) {
     showLoading();
@@ -36,9 +37,11 @@ export default function ProizvodiDodaj() {
       sifraProizvoda: podaci.get('sifraProizvoda'),
       mjernaJedinica: podaci.get('mjernaJedinica'),
      
-      slika: ''
+      slika: slika ? slika : '' // Ako ne postoji slika, ostavljamo prazno polje
     });
   }
+
+  
 
   return (
     <Container className='mt-4'>
@@ -46,6 +49,11 @@ export default function ProizvodiDodaj() {
         <InputText atribut='naziv' vrijednost='' />
         <InputText atribut='sifraProizvoda' vrijednost='' />
         <InputText atribut='mjernaJedinica' vrijednost='' />
+         {/* Input polje za odabir slike */}
+         <Form.Group controlId="slika">
+          <Form.Label>Odaberi sliku</Form.Label>
+          <Form.Control type="file" name="slika" accept="image/*" />
+        </Form.Group>
         <Akcije odustani={RoutesNames.PROIZVODI_PREGLED} akcija='Dodaj prizvod' />  
       </Form>
     </Container>

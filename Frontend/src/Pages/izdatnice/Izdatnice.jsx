@@ -108,7 +108,7 @@ export default function Izdatnice() {
                   <tr>
                      <th>BrojIzdatnice</th>
                      <th>Datum</th>
-                     <th>Proizvod</th>
+                     <th>Naziv</th>
                      <th>Kolicina</th>
                      <th>Osoba</th>
                      <th>Skladistar</th> 

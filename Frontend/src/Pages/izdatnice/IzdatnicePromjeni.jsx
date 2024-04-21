@@ -48,7 +48,7 @@ export default function IzdatnicePromjeni(){
           prikaziError(odgovor.podaci);
           return;
         }
-        setIzdatnica(izdatnica);
+        setIzdatnica(odgovor.podaci);
         setSifraOsoba(izdatnica.OsobaSifra);
         if(izdatnica.skladistarSifra!=null){
           setSifraSkladistar(izdatnica.skladistarSifra);

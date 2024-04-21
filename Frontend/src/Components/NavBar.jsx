@@ -35,22 +35,26 @@ function NavBar() {
                 onClick={()=>navigate(RoutesNames.OSOBE_PREGLED)}
               >
                 Osobe
+
                 </NavDropdown.Item>
               <NavDropdown.Item 
               onClick={()=>navigate(RoutesNames.PROIZVODI_PREGLED)}
               >
                 Proizvodi
+
               </NavDropdown.Item>
               <NavDropdown.Item 
               onClick={()=>navigate(RoutesNames.SKLADISTARI_PREGLED)}
               >
                 Skladistari
+
                 </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                onClick={()=>navigate(RoutesNames.IZDATNICE_PREGLED)}
                >
                Izdatnice
+               
               </NavDropdown.Item>
             </NavDropdown>
 

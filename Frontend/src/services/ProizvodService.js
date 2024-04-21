@@ -19,7 +19,7 @@ export default{
   getBySifra,
   promjeni,
   traziProizvod,
-   postaviSliku,
+  postaviSliku,
   getStranicenje
 
 };

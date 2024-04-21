@@ -96,6 +96,8 @@ public class IzdatnicaController : SkladisteController<Izdatnica, IzdatnicaDTORe
                 return BadRequest("Ne postoji proizvod s šifrom " + proizvodSifra + " u bazi");
             }
 
+
+
             izdatnica.Proizvodi.Remove(proizvod);
 
             _context.Izdatnice.Update(izdatnica);

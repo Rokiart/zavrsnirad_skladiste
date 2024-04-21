@@ -18,6 +18,7 @@ export default function Proizvodi(){
     const [uvjet, setUvjet] = useState('');
     const { prikaziError } = useError(); 
     const { showLoading, hideLoading } = useLoading();
+    const brojProizvodaPoStranici = 8; // Promijenite vrijednost prema vašim potrebama
 
     async function dohvatiProizvode(){
         showLoading();
@@ -79,6 +80,21 @@ export default function Proizvodi(){
         setStranica(stranica - 1);
       }
 
+      function povecajStranicu() {
+        setStranica(stranica + 1);
+    }
+    
+    function smanjiStranicu() {
+        if(stranica == 1) {
+            return;
+        }
+        setStranica(stranica - 1);
+    }
+    
+    const pocetak = (stranica - 1) * brojProizvodaPoStranici;
+    const kraj = stranica * brojProizvodaPoStranici;
+
+
     return (
 
         <Container>
@@ -118,8 +134,8 @@ export default function Proizvodi(){
                 
             <Row>
                 
-            { proizvodi && proizvodi.map((p) => (
-           
+            { proizvodi && proizvodi.map((p,index) => (
+           index >= pocetak && index < kraj && ( // Provjeravamo da li je trenutni indeks unutar raspona trenutne stranice
            <Col key={p.sifra} sm={12} lg={3} md={3}>
               <Card style={{ marginTop: '1rem' }}>
               <Card.Img variant="top" src={slika(p)} className="slika"/>
@@ -139,8 +155,8 @@ export default function Proizvodi(){
                 </Card.Body>
               </Card>
             </Col>
-          ))
-      }
+           )
+        ))}
       </Row>
       <hr />
               {proizvodi && proizvodi.length > 0 && (

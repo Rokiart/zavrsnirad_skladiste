@@ -8,7 +8,7 @@ import Service from '../../services/IzdatnicaService';
 import useLoading from '../../hooks/useLoading';
 import { RoutesNames } from '../../constants';
 import Akcije from '../../Components/Akcije';
-import InputText from '../../Components/InputText';
+
 
 
 
@@ -62,22 +62,22 @@ setIzdatniceProizvodi(odgovor.podaci);
 setIzdatnicaProizvodSifra(odgovor.podaci[0].sifra);
 }
 
-async function dohvatiProizvode(){
-  const odgovor =await Service.getProizvodi();
-  if(!odgovor.ok){
-    alert(dohvatiPorukeAlert(odgovor.podaci));
-    return;
-}
+// async function dohvatiProizvode(){
+//   const odgovor =await Service.getProizvodi();
+//   if(!odgovor.ok){
+//     prikaziError(odgovor.podaci);
+//     return;
+// }
 // setProizvodi(odgovor.podaci);
 // setProizvodSifra(odgovor.podaci[0].sifra);
-}
+// }
 
 async function ucitaj(){
   showLoading();
 
   await dohvatiOsobe();
   await dohvatiSkladistare();
-  await dohvatiProizvode();
+  // await dohvatiProizvode();
   await dohvatiIzdatniceProizvode();
   hideLoading();
 }
@@ -122,7 +122,7 @@ async function dodaj(e) {
       dodaj({
         brojIzdatnice: podaci.get('brojIzdatnice'),
         datum: datum,
-        proizvodSifra: parseInt(proizvodSifra),
+        // proizvodSifra: parseInt(proizvodSifra),
         osobaSifra: parseInt(osobaSifra),
         skladistarSifra: parseInt(skladistarSifra),
         izdatnicaProizvodSifra: parseInt(izdatnicaProizvodSifra),
@@ -136,7 +136,7 @@ async function dodaj(e) {
     <Container className='mt-4'>
       <Form onSubmit={handleSubmit}>
  
-      <InputText atribut='naziv' vrijednost='' />
+      
 
         <Form.Group className='mb-3' controlId='brojIzdatnice'>
           <Form.Label>Broj Izdatnice</Form.Label>
@@ -178,7 +178,7 @@ async function dodaj(e) {
              </Form.Select>
           </Form.Group> */}
 
-          <Form.Group className='mb-3' controlId='izdatnicaProizvod'>
+          {/* <Form.Group className='mb-3' controlId='izdatnicaProizvod'>
           <Form.Label>Kolicina</Form.Label>
             <Form.Select
               onChange={(e)=>{setIzdatnicaProizvodSifra(e.target.value)}}
@@ -189,7 +189,7 @@ async function dodaj(e) {
                    </option>
               ))}
              </Form.Select>
-          </Form.Group>
+          </Form.Group> */}
 
          <Form.Group className='mb-3' controlId='osoba'>
           <Form.Label>Osoba</Form.Label>

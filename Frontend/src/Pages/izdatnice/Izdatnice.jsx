@@ -4,7 +4,7 @@ import { ImManWoman } from "react-icons/im";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import moment from "moment";
+import moment from "moment"; // Import moment
 
 import Service from "../../services/IzdatnicaService";
 
@@ -15,11 +15,13 @@ import useLoading from "../../hooks/useLoading";
 
 
 export default function Izdatnice() {
-
+     
     const [izdatnice,setIzdatnice] = useState();
+    const [izdatniceProizvodi,setIzdatniceProizvodi] = useState();
     let navigate = useNavigate(); 
     const { showLoading, hideLoading } = useLoading();
     const { prikaziError } = useError();
+
 
     async function dohvatiIzdatnice(){
         showLoading();
@@ -47,6 +49,32 @@ export default function Izdatnice() {
         
     }
 
+    async function dohvatiIzdatniceProizvodi(){
+        showLoading();
+        const odgovor = await ServiceIzdatniceProizvodi.get('IzdatnicaProizvod');
+        if(!odgovor.ok){
+            hideLoading();
+            prikaziError(odgovor.podaci);
+            return;
+        }
+        setIzdatniceProizvodi(odgovor.podaci);  
+        hideLoading();
+    }
+
+
+    async function ObrisiIzdatnicuProizvod(sifra){
+        showLoading();
+        const odgovor = await Service.obrisi('IzdatnicaProizvod',sifra);
+        hideLoading();
+        prikaziError(odgovor.podaci);
+        if (odgovor.ok){
+           
+            dohvatiIzdatniceProizvodi();
+         
+        }
+        
+    }
+
   
        useEffect(()=>{
         dohvatiIzdatnice();
@@ -54,15 +82,19 @@ export default function Izdatnice() {
 
     },[]);
 
-   
-   function formatirajDatum(datum){
-    let mdp = moment.utc(datum);
-    if(mdp.hour()==0 && mdp.minutes()==0){
-        return mdp.format('DD. MM. YYYY.');
+    function formatirajDatum(datum) {
+        if (!datum) return 'Nije definirano';
+        
+        return moment.utc(datum).format('YYYY-MM-DD');
     }
-    return mdp.format('DD. MM. YYYY. HH:mm');
+//    function formatirajDatum(datum){
+//     let mdp = moment.utc(datum);
+//     if(mdp.hour()==0 && mdp.minutes()==0){
+//         return mdp.format('DD. MM. YYYY.');
+//     }
+//     return mdp.format('DD. MM. YYYY. HH:mm');
     
-  }
+//   }
 
     return(
         <Container>
@@ -88,18 +120,11 @@ export default function Izdatnice() {
                     {izdatnice && izdatnice.map((entitet,index)=>(
                         <tr key={index}>
                             <td>{entitet.brojIzdatnice}</td>
-                            <td>  <p>
-                                {entitet.datum==null 
-                                ? 'Nije definirano'
-                                :   
-                                formatirajDatum(entitet.datum)
-                                }
-                                </p>
-                             
-                               
-                              </td>
-                              <td>{entitet.proizvodNaziv}</td>
-                              <td>{entitet.izdatnicaProizvodKolicina}</td>
+                            <td>
+                                {entitet.datum == null ? 'Nije definirano' : formatirajDatum(entitet.datum)}
+                             </td>
+                              <td>{entitet.izdatniceProizvodiNaziv}</td>
+                              <td>{entitet.izdatniceProizvodiKolicina}</td>
                               <td>{entitet.osobaImePrezime}</td>
                               <td>{entitet.skladistarImePrezime}</td> 
                               <td>{entitet.napomena}</td>
@@ -116,6 +141,17 @@ export default function Izdatnice() {
                                 <Button
                                     variant="danger"
                                     onClick={()=>ObrisiIzdatnicu(entitet.sifra)}
+                                >
+                                    <FaRegTrashAlt 
+                                    size={25}
+                                    />
+                                </Button>
+
+                                &nbsp;&nbsp;&nbsp;
+
+                                <Button
+                                    variant="danger"
+                                    onClick={()=>ObrisiIzdatnicuProizvod(entitet.sifra)}
                                 >
                                     <FaRegTrashAlt 
                                     size={25}

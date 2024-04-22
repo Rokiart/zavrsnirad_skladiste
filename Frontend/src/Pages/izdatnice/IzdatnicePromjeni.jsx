@@ -29,7 +29,7 @@ export default function IzdatnicePromjeni(){
     const [sifraSkladistar, setSifraSkladistar] = useState(0);
 
     const [proizvodi, setProizvodi] = useState([]);
-    const [pronadeniProizvodi, setPronadeniProizvodi] = useState(0);
+    const [pronadeniProizvodi, setPronadeniProizvodi] = useState([]);
 
     const [searchName, setSearchName] = useState('');
 
@@ -119,7 +119,7 @@ export default function IzdatnicePromjeni(){
       }
     
       async function obrisiProizvod(izdatnica, proizvod) {
-        const odgovor = await Service.obrisiProizvod('Izdatnica',izdatnica, proizvod);
+        const odgovor = await Service.obrisiProizvod(izdatnica, proizvod);
         if(odgovor.ok){
           await dohvatiProizvodi();
           return;
@@ -128,7 +128,7 @@ export default function IzdatnicePromjeni(){
       }
         async function dodajProizvod(e) {
             //console.log(e[0]);
-            const odgovor = await Service.dodajProizvod('Izdatnica',routeParams.sifra, e[0].sifra);
+            const odgovor = await Service.dodajProizvod(routeParams.sifra, e[0].sifra);
             if(odgovor.ok){
               await dohvatiProizvodi();
               hideLoading();

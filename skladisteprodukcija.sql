@@ -221,7 +221,7 @@ values
 SELECT * FROM izdatniceproizvodi;
 
 INSERT INTO izdatniceproizvodi (proizvod, izdatnica, kolicina)
-SELECT TOP 20 
+SELECT TOP 30 
     p.sifra AS proizvod,
     i.sifra AS izdatnica,
     (RAND() * 10 + 1) AS kolicina  -- Generira sluèajan broj izmeðu 1 i 10

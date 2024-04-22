@@ -1,12 +1,27 @@
-use master;
-go
-drop database if exists Skladiste;
-go
-create database Skladiste;
-go
-alter database Skladiste collate Croatian_CI_AS;
-go
-use Skladiste;
+SELECT name, collation_name FROM sys.databases;
+GO
+-- Doma primjeniti na ime svoje baze 3 puta
+ALTER DATABASE db_aa599c_romanzaric SET SINGLE_USER WITH
+ROLLBACK IMMEDIATE;
+GO
+ALTER DATABASE db_aa599c_romanzaric COLLATE Croatian_CI_AS;
+GO
+ALTER DATABASE db_aa599c_romanzaric SET MULTI_USER;
+GO
+SELECT name, collation_name FROM sys.databases;
+GO
+
+drop table proizvodi;
+drop table skladistari;
+drop table osobe;
+drop table izdatnice;
+drop table izdatniceproizvodi;
+drop table operateri;
+
+
+
+
+
 
 
 create table proizvodi(
@@ -14,8 +29,7 @@ create table proizvodi(
 sifra int not null primary key identity(1,1),
 naziv varchar(50) not null,
 sifraproizvoda varchar(50) ,
-mjernajedinica varchar(20) not null,
-kolicina int 
+mjernajedinica varchar(20) not null
  
 ); 
 
@@ -42,7 +56,6 @@ create table izdatnice(
 sifra int not null primary key identity(1,1),
 brojizdatnice varchar (50) not null,
 datum datetime,
-proizvod int not null references proizvodi,
 osoba int not null references osobe(sifra) ,
 skladistar int not null references skladistari(sifra) ,
 napomena varchar(250)
@@ -55,7 +68,13 @@ lozinka varchar(200) not null
 
 );
 
+create table izdatniceproizvodi (
 
+sifra int not null primary key identity(1,1),
+proizvod int not null references proizvodi(sifra),
+izdatnica int not null references izdatnice(sifra),
+kolicina int
+);
 
 -- Lozinka roman generirana pomoæu https://bcrypt-generator.com/
 insert into operateri values ('roman.zaric@gmail.com',
@@ -159,38 +178,59 @@ values
 ('Kneževiæ', 'Petra', '0999012345', 'petra.knezevic@gmail.com');
 
 
-insert into izdatnice(brojizdatnice,proizvod,osoba,skladistar) 
+insert into izdatnice(brojizdatnice,osoba,skladistar) 
 values
-(104,1,1,1),
-(105,3,12,2),
-(106,5,19,1),
-(107,8,24,2),
-(108,15,3,1),
-(109,6,8,2),
-(110,22,15,1),
-(111,13,20,2),
-(112,14,5,1),
-(113,2,14,2),
-(114,21,23,1),
-(115,12,11,2),
-(116,17,16,1),
-(117,18,21,2),
-(118,16,7,1),
-(119,24,18,2),
-(120,22,26,1),
-(122,9,29,1),
-(123,7,10,2),
-(124,16,27,1),
-(125,4,28,2),
-(126,25,25,1),
-(127,21,22,2),
-(128,20,9,1),
-(129,19,17,2),
-(130,1,6,1),
-(131,2,13,2),
-(132,3,4,1),
-(133,4,2,2),
-(134,5,1,1);
+(104,1,1),
+(105,12,2),
+(106,19,1),
+(107,24,2),
+(108,3,1),
+(109,8,2),
+(110,15,1),
+(111,20,2),
+(112,5,1),
+(113,14,2),
+(114,23,1),
+(115,11,2),
+(116,16,1),
+(117,21,2),
+(118,7,1),
+(119,18,2),
+(120,26,1),
+(122,29,1),
+(123,10,2),
+(124,27,1),
+(125,28,2),
+(126,25,1),
+(127,22,2),
+(128,9,1),
+(129,17,2),
+(130,6,1),
+(131,13,2),
+(132,4,1),
+(133,2,2),
+(134,1,1);
 
 
 
+
+
+
+
+
+SELECT * FROM izdatniceproizvodi;
+
+INSERT INTO izdatniceproizvodi (proizvod, izdatnica, kolicina)
+SELECT TOP 30 
+    p.sifra AS proizvod,
+    i.sifra AS izdatnica,
+    (RAND() * 20 + 1) AS kolicina  -- Generira sluèajan broj izmeðu 1 i 10
+FROM 
+    proizvodi p
+CROSS JOIN 
+    izdatnice i
+ORDER BY 
+    NEWID();
+
+-- Prikazivanje tablice izdatniceproizvodi nakon umetanja novih redaka
+SELECT * FROM izdatniceproizvodi;

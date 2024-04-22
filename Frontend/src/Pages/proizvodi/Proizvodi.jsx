@@ -22,7 +22,7 @@ export default function Proizvodi(){
 
     async function dohvatiProizvode(){
         showLoading();
-        const odgovor = await Service.get('Proizvod');
+        const odgovor = await Service.getStranicenje(stranica,uvjet);
         if(!odgovor.ok){
             prikaziError(odgovor.podaci);
             
@@ -39,6 +39,24 @@ export default function Proizvodi(){
     }
 
    
+
+    // async function dohvatiProizvode(tekst) {
+    //     showLoading();
+    //     const odgovor = await Service.dohvatiProizvode(tekst); // Pretpostavljeni API poziv za pretragu
+    //     if (!odgovor.ok) {
+    //       prikaziError(odgovor.podaci);
+    //       hideLoading();
+    //       return;
+    //     }
+    //     if(odgovor.podaci.length==0){
+    //         setStranica(stranica-1);
+    //         hideLoading();
+    //         return;
+    //     }
+    //     setPolaznici(odgovor.podaci);
+    //     hideLoading();
+    // }
+
 
 
     async function obrisiProizvod(sifra) {
@@ -60,7 +78,7 @@ export default function Proizvodi(){
             return App.URL + proizvod.slika `?${Date.now()}`;
         }
         return nepoznato;
-    }
+    } 
 
     function promjeniUvjet(e) {
         if(e.nativeEvent.key == "Enter"){
@@ -80,17 +98,8 @@ export default function Proizvodi(){
         setStranica(stranica - 1);
       }
 
-      function povecajStranicu() {
-        setStranica(stranica + 1);
-    }
     
-    function smanjiStranicu() {
-        if(stranica == 1) {
-            return;
-        }
-        setStranica(stranica - 1);
-    }
-    
+       
     const pocetak = (stranica - 1) * brojProizvodaPoStranici;
     const kraj = stranica * brojProizvodaPoStranici;
 

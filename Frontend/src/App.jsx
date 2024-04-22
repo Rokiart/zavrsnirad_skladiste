@@ -15,9 +15,9 @@ import Proizvodi from './Pages/proizvodi/Proizvodi'
 import ProizvodiDodaj from './Pages/proizvodi/ProizvodiDodaj'
 import ProizvodiPromjeni from './Pages/proizvodi/ProizvodiPromjeni'
 
-import Skladistari from './Pages/skladistari/Skladistari'
-import SkladistariDodaj from './Pages/skladistari/SkladistariDodaj'
-import SkladistariPromjeni from './Pages/skladistari/SkladistariPromjeni'
+import Skladistari from './Pages/Skladistari/Skladistari'
+import SkladistariDodaj from './Pages/Skladistari/SkladistariDodaj'
+import SkladistariPromjeni from './Pages/Skladistari/SkladistariPromjeni'
 
 
 import Izdatnice from './Pages/izdatnice/Izdatnice'

@@ -120,7 +120,7 @@ async function dodaj(e) {
     
 
       dodaj({
-        brojIzdatnice: podaci.get('brojIzdatnice'),
+        brojizdatnice: podaci.get('brojIzdatnice'),
         datum: datum,
         // proizvodSifra: parseInt(proizvodSifra),
         osobaSifra: parseInt(osobaSifra),
@@ -142,7 +142,7 @@ async function dodaj(e) {
           <Form.Label>Broj Izdatnice</Form.Label>
           <Form.Control
             type='text'
-            name='brojizdatnice'
+            name='brojIzdatnice'
             placeholder='brojIzdatnice'
             maxLength={50}
             required

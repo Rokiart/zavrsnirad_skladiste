@@ -56,7 +56,7 @@ export default function IzdatnicePromjeni(){
       }
 
     async function dohvatiProizvodi() {
-        const odgovor = await ProizvodService.getProizvodi('Izdatnica',routeParams.sifra);
+        const odgovor = await ProizvodService.get('Izdatnica',routeParams.sifra);
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
             return;
@@ -67,7 +67,7 @@ export default function IzdatnicePromjeni(){
 
 
       async function dohvatiOsobe() {
-        const odgovor =  await OsobaService.getOsobe('Osoba');
+        const odgovor =  await OsobaService.get('Osoba');
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
             return;
@@ -228,7 +228,7 @@ export default function IzdatnicePromjeni(){
            <Form onSubmit={handleSubmit}>
            <Row>
           <Col key='1' sm={12} lg={6} md={6}>
-            <InputText atribut='brojIzdatnice' vrijednost={izdatnica.brojIzdatnice} />
+            <InputText atribut='brojIzdatnice' vrijednost={izdatnica.brojizdatnice} />
             <Row>
               <Col key='1' sm={12} lg={6} md={6}>
                 <Form.Group className='mb-3' controlId='datum'>

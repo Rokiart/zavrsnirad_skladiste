@@ -63,7 +63,7 @@ export default function Proizvodi() {
 
     function slika(proizvod) {
         if (proizvod.slika !== null) {
-            return App.URL + proizvod.slika `?${Date.now()}`;
+            return App.URL + proizvod.slika + `?${Date.now()}`;
         }
         return nepoznato;
     } 

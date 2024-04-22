@@ -12,7 +12,6 @@ import useError from '../../hooks/useError';
 import Service from '../../services/IzdatnicaService';
 import SkladistarService from '../../services/SkladistarService';
 import OsobaService from '../../services/OsobaService';
-import IzdatnicaProizvodService from '../../services/IzdatnicaProizvodService';
 import ProizvodService from '../../services/ProizvodService';
 
 
@@ -30,10 +29,7 @@ export default function IzdatnicePromjeni(){
     const [sifraSkladistar, setSifraSkladistar] = useState(0);
 
     const [proizvodi, setProizvodi] = useState([]);
-    const [pronadeniProizvodi, setPronadeniProizvodi] = useState(0);
-
-    const [izdatniceProizvodi , setIzdatniceProizvodi] = useState([]);
-    const [sifraIzdatnicaProizvod , setSifraIzdatnicaProizvod ]= useState(0);
+    const [pronadeniProizvodi, setPronadeniProizvodi] = useState([]);
 
     const [searchName, setSearchName] = useState('');
 
@@ -56,7 +52,7 @@ export default function IzdatnicePromjeni(){
       }
 
     async function dohvatiProizvodi() {
-        const odgovor = await ProizvodService.getProizvodi('Izdatnica',routeParams.sifra);
+        const odgovor = await Service.getProizvodi(routeParams.sifra);
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
             return;
@@ -67,7 +63,7 @@ export default function IzdatnicePromjeni(){
 
 
       async function dohvatiOsobe() {
-        const odgovor =  await OsobaService.getOsobe('Osoba');
+        const odgovor =  await OsobaService.get('Osoba');
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
             return;
@@ -85,16 +81,6 @@ export default function IzdatnicePromjeni(){
         }
         setSkladistari(odgovor.podaci);
         setSifraSkladistar(odgovor.podaci[0].sifra);
-      }
-
-      async function dohvatiIzdatniceProizvodi() {
-        const odgovor =  await IzdatnicaProizvodService.get('IzdatnicaProizvod');
-        if(!odgovor.ok){
-          prikaziError(odgovor.podaci);
-          return;
-        }
-        setIzdatniceProizvodi(odgovor.podaci);
-        setSifraIzdatnicaProizvod(odgovor.podaci[0].sifra);
       }
 
 
@@ -116,7 +102,6 @@ export default function IzdatnicePromjeni(){
         await dohvatiSkladistare();
         await dohvatiIzdatnica();
         await dohvatiProizvodi();
-        await dohvatiIzdatniceProizvodi();
         hideLoading();
       }
     
@@ -134,7 +119,7 @@ export default function IzdatnicePromjeni(){
       }
     
       async function obrisiProizvod(izdatnica, proizvod) {
-        const odgovor = await Service.obrisiProizvod('Izdatnica',izdatnica, proizvod);
+        const odgovor = await Service.obrisiProizvod(izdatnica, proizvod);
         if(odgovor.ok){
           await dohvatiProizvodi();
           return;
@@ -143,7 +128,7 @@ export default function IzdatnicePromjeni(){
       }
         async function dodajProizvod(e) {
             //console.log(e[0]);
-            const odgovor = await Service.dodajProizvod('Izdatnica',routeParams.sifra, e[0].sifra);
+            const odgovor = await Service.dodajProizvod(routeParams.sifra, e[0].sifra);
             if(odgovor.ok){
               await dohvatiProizvodi();
               hideLoading();
@@ -228,7 +213,7 @@ export default function IzdatnicePromjeni(){
            <Form onSubmit={handleSubmit}>
            <Row>
           <Col key='1' sm={12} lg={6} md={6}>
-            <InputText atribut='brojIzdatnice' vrijednost={izdatnica.brojIzdatnice} />
+            <InputText atribut='brojIzdatnice' vrijednost={izdatnica.brojizdatnice} />
             <Row>
               <Col key='1' sm={12} lg={6} md={6}>
                 <Form.Group className='mb-3' controlId='datum'>

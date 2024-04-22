@@ -108,8 +108,7 @@ export default function Izdatnice() {
                   <tr>
                      <th>BrojIzdatnice</th>
                      <th>Datum</th>
-                     <th>Naziv</th>
-                     <th>Kolicina</th>
+                     <th>Proizvodi</th>
                      <th>Osoba</th>
                      <th>Skladistar</th> 
                      <th>Napomena</th>
@@ -123,15 +122,24 @@ export default function Izdatnice() {
                             <td>
                                 {entitet.datum == null ? 'Nije definirano' : formatirajDatum(entitet.datum)}
                              </td>
-                              <td>{entitet.izdatniceProizvodiNaziv}</td>
-                              <td>{entitet.izdatniceProizvodiKolicina}</td>
+                              <td>
+                                <li style={{listStyle: 'none'}}>
+
+                                
+                              {entitet.izdatniceProizvodi && entitet.izdatniceProizvodi.map((p,index)=>(
+                                <>
+                                    <li>{p.naziv} ({p.kolicina})</li>
+                                </>
+                              ))}
+                                </li>
+                              </td>
                               <td>{entitet.osobaImePrezime}</td>
                               <td>{entitet.skladistarImePrezime}</td> 
                               <td>{entitet.napomena}</td>
                               <td className="sredina">
                                 <Button 
                                 variant="primary"
-                                onClick={()=>{navigate(`/izdatnica/${entitet.sifra}`)}}>
+                                onClick={()=>{navigate(`/izdatnice/${entitet.sifra}`)}}>
                                     <FaRegEdit
                                     size={25}
                                     />

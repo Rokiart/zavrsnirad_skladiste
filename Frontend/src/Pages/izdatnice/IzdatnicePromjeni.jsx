@@ -12,7 +12,6 @@ import useError from '../../hooks/useError';
 import Service from '../../services/IzdatnicaService';
 import SkladistarService from '../../services/SkladistarService';
 import OsobaService from '../../services/OsobaService';
-import IzdatnicaProizvodService from '../../services/IzdatnicaProizvodService';
 import ProizvodService from '../../services/ProizvodService';
 
 
@@ -31,9 +30,6 @@ export default function IzdatnicePromjeni(){
 
     const [proizvodi, setProizvodi] = useState([]);
     const [pronadeniProizvodi, setPronadeniProizvodi] = useState(0);
-
-    const [izdatniceProizvodi , setIzdatniceProizvodi] = useState([]);
-    const [sifraIzdatnicaProizvod , setSifraIzdatnicaProizvod ]= useState(0);
 
     const [searchName, setSearchName] = useState('');
 
@@ -56,7 +52,7 @@ export default function IzdatnicePromjeni(){
       }
 
     async function dohvatiProizvodi() {
-        const odgovor = await ProizvodService.get('Izdatnica',routeParams.sifra);
+        const odgovor = await Service.getProizvodi(routeParams.sifra);
         if(!odgovor.ok){
           prikaziError(odgovor.podaci);
             return;
@@ -87,16 +83,6 @@ export default function IzdatnicePromjeni(){
         setSifraSkladistar(odgovor.podaci[0].sifra);
       }
 
-      async function dohvatiIzdatniceProizvodi() {
-        const odgovor =  await IzdatnicaProizvodService.get('IzdatnicaProizvod');
-        if(!odgovor.ok){
-          prikaziError(odgovor.podaci);
-          return;
-        }
-        setIzdatniceProizvodi(odgovor.podaci);
-        setSifraIzdatnicaProizvod(odgovor.podaci[0].sifra);
-      }
-
 
       async function traziProizvod(uvjet) {
         const odgovor =  await ProizvodService.traziProizvod('Proizvod',uvjet);
@@ -116,7 +102,6 @@ export default function IzdatnicePromjeni(){
         await dohvatiSkladistare();
         await dohvatiIzdatnica();
         await dohvatiProizvodi();
-        await dohvatiIzdatniceProizvodi();
         hideLoading();
       }
     

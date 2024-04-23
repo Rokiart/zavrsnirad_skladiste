@@ -62,7 +62,7 @@ kolicina int
 );
 
 -- Lozinka roman generirana pomoæu https://bcrypt-generator.com/
-insert into operateri values ('roman.zaric@gmail.com',
+insert into operateri values ('edunova',
 '$2a$12$KBZen7ZlWS3W9dLS/kZ9Nem2m5mqQE0cXttfY0yndTkUDhWgEW3N2');
 
 

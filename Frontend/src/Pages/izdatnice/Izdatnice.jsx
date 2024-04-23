@@ -145,7 +145,7 @@ export default function Izdatnice() {
                                     />
                                 </Button>
                                 
-                                    &nbsp;&nbsp;&nbsp;
+                                    {/* &nbsp;&nbsp;&nbsp;
                                 <Button
                                     variant="danger"
                                     onClick={()=>ObrisiIzdatnicu(entitet.sifra)}
@@ -153,7 +153,7 @@ export default function Izdatnice() {
                                     <FaRegTrashAlt 
                                     size={25}
                                     />
-                                </Button>
+                                </Button> */}
 
                                 &nbsp;&nbsp;&nbsp;
 

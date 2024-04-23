@@ -54,7 +54,7 @@ namespace SKladisteAppl.Controllers
 
 
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.UTF8.GetBytes("Klokan64pinup i dovoljno dugačak da se može koristiti");
+                var key = Encoding.UTF8.GetBytes("jedanjakodugacakpasword i dovoljno dugačak da se može koristiti");
 
 
                 var tokenDescriptor = new SecurityTokenDescriptor
